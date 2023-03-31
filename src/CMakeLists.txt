@@ -6,7 +6,7 @@ set(SOURCE_LIB credit.cpp debit.cpp
         deposit.cpp ibill.cpp
         imoney_operation.cpp person.cpp
         person_builder.cpp refil.cpp
-        transfer.cpp withdrawal.cpp big_int.cpp ../include/person_director.h)
+        transfer.cpp withdrawal.cpp big_int.cpp bill_factory.cpp)
 
 add_library(lib SHARED ${SOURCE_LIB})
 
