@@ -1,4 +1,5 @@
 #include "person_builder.h"
+/*
 
 person_builder *person_builder::set_first_name(const std::string &first_name) {
   first_name_ = first_name;
@@ -42,4 +43,4 @@ void person_builder::set_person_address() {
 
 void person_builder::set_person_passport_id() {
   pers->set_passport_id(passport_id_);
-}
+}*/

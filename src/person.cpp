@@ -1,4 +1,5 @@
 #include "person.h"
+/*
 
 std::string person::get_first_name() const {
   return first_name_;
@@ -36,3 +37,4 @@ void person::update() {
   is_doubtful_ = address_.empty() || passport_id_.empty();
   if (is_doubtful_) money_limit_ = money_limit;
 }
+*/
