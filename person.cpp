@@ -1,5 +1,7 @@
 #include "person.h"
 
+big_int person::id = 0;
+
 std::string person::get_first_name() const {
   return first_name_;
 }
@@ -14,6 +16,10 @@ std::string person::get_address() const {
 
 std::string person::get_passport_id() const {
   return passport_id_;
+}
+
+big_int person::get_id() const{
+  return id_;
 }
 
 void person::set_first_name(const std::string &first_name) {
@@ -34,5 +40,10 @@ void person::set_passport_id(const std::string &passport_id) {
 
 void person::update() {
   is_doubtful_ = address_.empty() || passport_id_.empty();
-  if (is_doubtful_) money_limit_ = money_limit;
+  money_limit_ = (is_doubtful_ ? money_limit_ : 0);
 }
+
+void person::assign_id() {
+  id_ = ++id;
+}
+

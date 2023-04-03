@@ -6,7 +6,6 @@
 #include <string>
 #include <cstdint>
 #include <vector>
-#include "big_int.h"
 #include "person.h"
 
 class person_builder {
@@ -21,6 +20,12 @@ public:
 
   person_builder *set_passport_id(const std::string &passprot_id);
 
+  person *get_person() const { return pers; }
+
+  void create_person();
+
+  bool check_args() const;
+
   void set_person_first_name();
 
   void set_person_second_name();
@@ -29,21 +34,13 @@ public:
 
   void set_person_address();
 
-  person *get_person() const { return pers; }
-
-  void create_person();
-
-  bool check_args() const;
-
-  std::string first_name_;
-
-  person *pers;
-
 private:
-
+  std::string first_name_;
   std::string second_name_;
   std::string address_;
   std::string passport_id_;
+
+  person *pers;
 };
 
 #endif //MIPT_BANK__PERSON_BUILDER_H_
