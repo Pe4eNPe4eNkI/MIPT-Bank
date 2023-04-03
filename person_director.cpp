@@ -1,6 +1,5 @@
 #include "person_director.h"
-
-/*person *person_director::create_person(person_builder &pb) {
+person *person_director::create_person(person_builder &pb) {
   pb.create_person();
 
   pb.set_person_first_name();
@@ -10,4 +9,4 @@
   pb.pers->update();
 
   return pb.pers;
-}*/
+}
