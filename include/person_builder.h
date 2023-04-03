@@ -11,7 +11,7 @@
 
 class person_builder {
 public:
-  friend class person;
+  friend person;
 
   person_builder *set_first_name(const std::string &first_name);
 
@@ -29,16 +29,18 @@ public:
 
   void set_person_address();
 
-  person *get_person() const { return person; }
+  person *get_person() const { return pers; }
 
   void create_person();
 
   bool check_args() const;
 
-  person *person;
+  std::string first_name_;
+
+  person *pers;
 
 private:
-  std::string first_name_;
+
   std::string second_name_;
   std::string address_;
   std::string passport_id_;

@@ -7,7 +7,7 @@ person *person_director::create_person(person_builder &pb) {
   pb.set_person_second_name();
   pb.set_person_address();
   pb.set_person_passport_id();
-  pb.person->update();
+  pb.pers->update();
 
-  pb.get_person();
+  return pb.pers;
 }
