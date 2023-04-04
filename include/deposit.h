@@ -21,7 +21,6 @@ public:
 
     big_int get_person_id() const;
 
-
     void set_cash_size(const big_int &cash_size);
 
     void set_income_potential_size(const big_int &income_potential_size);

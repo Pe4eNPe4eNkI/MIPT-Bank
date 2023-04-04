@@ -7,10 +7,25 @@
 
 #pragma once
 #include "bill_factory.h"
+#include "big_int.h"
+#include "deposit.h"
+#include "debit.h"
+#include "credit.h"
 
-/*class person_director {
+class bill_factory {
 public:
-    person *create_person(person_builder &pb);
-};*/
+    bill_factory(const int &bill_kind, const big_int &unique_id, const big_int &person_id);
+
+    deposit build_deposit() const;
+
+    credit build_credit() const;
+
+    debit build_debit() const;
+
+private:
+    int bill_kind_;
+    big_int unique_id_;
+    big_int person_id_;
+};
 
 #endif //MIPTBANK_BILL_FACTORY_H
