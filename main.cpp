@@ -2,6 +2,8 @@
 #include "sqlite-amalgamation-3410200/sqlite3.h"
 #include "src/include/person_director.h"
 
+//TODO перевести директора на интерфейс
+
 int main() {
   /*char * err;
   sqlite3* db;
@@ -40,7 +42,6 @@ int main() {
       std::cout << person->get_id() << std::endl;
     } catch (const std::string &s) {
       std::cout << s << std::endl;
-      return -1;
     }
 
     std::cout << std::endl;

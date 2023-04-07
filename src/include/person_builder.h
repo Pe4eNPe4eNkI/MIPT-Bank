@@ -9,7 +9,7 @@
 #include "person.h"
 #include "iperson_builder.h"
 
-class person_builder : iperson_builder {
+class person_builder : public iperson_builder {
 public:
   friend person;
 

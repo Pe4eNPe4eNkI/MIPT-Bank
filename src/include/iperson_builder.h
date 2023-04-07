@@ -7,6 +7,7 @@
 #include "iperson.h"
 
 class iperson_builder {
+public:
 
   virtual iperson_builder *set_first_name(const std::string &first_name) = 0;
 

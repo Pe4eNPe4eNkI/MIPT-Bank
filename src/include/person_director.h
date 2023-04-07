@@ -3,9 +3,10 @@
 
 #pragma once
 
+#include "iperson_director.h"
 #include "person_builder.h"
 
-class person_director {
+class person_director{
 public:
   person *create_person(person_builder& pb);
 };
