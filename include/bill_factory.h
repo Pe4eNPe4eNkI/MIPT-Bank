@@ -14,13 +14,13 @@
 
 class bill_factory {
 public:
-    bill_factory(const int &bill_kind, const big_int &unique_id, const big_int &person_id);
+    /*bill_factory();*/
 
-    deposit build_deposit() const;
+    deposit build_deposit(const int &bill_kind, const big_int &unique_id, const big_int &person_id) const;
 
-    credit build_credit() const;
+    credit build_credit(const int &bill_kind, const big_int &unique_id, const big_int &person_id) const;
 
-    debit build_debit() const;
+    debit build_debit(const int &bill_kind, const big_int &unique_id, const big_int &person_id) const;
 
 private:
     int bill_kind_;
