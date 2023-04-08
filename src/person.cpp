@@ -18,6 +18,14 @@ std::string person::get_passport_id() const {
   return passport_id_;
 }
 
+int person::get_money_limit() const {
+  return money_limit_;
+}
+
+bool person::is_doubtful() const {
+  return is_doubtful_;
+}
+
 big_int person::get_id() const{
   return id_;
 }
@@ -44,6 +52,6 @@ void person::update() {
 }
 
 void person::assign_id() {
-  id_ = ++id;
+  id_ = id++;
 }
 

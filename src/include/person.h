@@ -21,6 +21,10 @@ public:
 
   std::string get_passport_id() const override;
 
+  int get_money_limit () const override;
+
+  bool is_doubtful () const override;
+
   big_int get_id() const override;
 
 
