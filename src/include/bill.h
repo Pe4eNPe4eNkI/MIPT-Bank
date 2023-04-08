@@ -1,21 +1,29 @@
-#ifndef MIPT_BANK__IBILL_H_
-#define MIPT_BANK__IBILL_H_
+#ifndef MIPT_BANK__BILL_H_
+#define MIPT_BANK__BILL_H_
 
-class bill {
- private:
+#pragma once
 
-  std::string bill_kind_;
-  int bill_id_;
-  int person_id_;
+#include <string>
+#include <vector>
+#include "big_int.h"
+#include "ibill.h"
 
+class bill : public ibill {
  public:
 
-  std::string get_bill_kind() const;
+  static big_int bill_id;
 
-  int get_bill_id() const;
+  std::string get_bill_kind() const override;
 
-  int get_person_id() const;
+  big_int get_person_id() const override;
 
+  big_int get_bill_id() const override;
+
+  void set_person_id(const iperson person);
+
+  void set_bill_kind(const std::string& bill_kind);
+
+  void assign_bill_id();
 };
 
 #endif
