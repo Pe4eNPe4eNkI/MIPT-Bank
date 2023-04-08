@@ -5,6 +5,7 @@
 #ifndef MIPT_BANK__CREDIT_H_
 #define MIPT_BANK__CREDIT_H_
 
+#pragma once
 #include <string>
 #include "big_int.h"
 
@@ -50,6 +51,7 @@ private:
     big_int unique_id_;
     big_int person_id_;
     int bill_kind_;
+
 };
 
 #endif //MIPT_BANK__CREDIT_H_

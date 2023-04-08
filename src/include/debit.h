@@ -5,6 +5,7 @@
 #ifndef MIPT_BANK__DEBIT_H_
 #define MIPT_BANK__DEBIT_H_
 
+#pragma once
 #include <string>
 #include "big_int.h"
 

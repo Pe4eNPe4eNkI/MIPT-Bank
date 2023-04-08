@@ -7,19 +7,25 @@
 #include <cstdint>
 #include <vector>
 #include "big_int.h"
+#include "iperson.h"
 
-static const uint64_t money_limit = 1e4;  // if is_doubtful = false 0(no limits)
-
-class person {
+class person : public iperson {
 public:
+  static big_int id;
 
-  std::string get_first_name() const;
+  std::string get_first_name() const override;
 
-  std::string get_second_name() const;
+  std::string get_second_name() const override;
 
-  std::string get_address() const;
+  std::string get_address() const override;
 
-  std::string get_passport_id() const;
+  std::string get_passport_id() const override;
+
+  int get_money_limit () const override;
+
+  bool is_doubtful () const override;
+
+  big_int get_id() const override;
 
 
   void set_first_name(const std::string &first_name);
@@ -30,16 +36,9 @@ public:
 
   void set_passport_id(const std::string &passprot_id);
 
-  void update();
+  void assign_id();
 
-private:
-  std::string first_name_;
-  std::string second_name_;
-  std::string address_;
-  std::string passport_id_;
-  uint64_t money_limit_ = 0;
-  std::vector<big_int> bills_id_;
-  bool is_doubtful_;
+  void update();
 };
 
 #endif //MIPT_BANK__PERSON_H_

@@ -1,4 +1,4 @@
-#include "person_builder.h"
+#include "include/person_builder.h"
 
 person_builder *person_builder::set_first_name(const std::string &first_name) {
   first_name_ = first_name;
@@ -25,22 +25,21 @@ bool person_builder::check_args() const {
 }
 
 void person_builder::create_person() {
-  person = new class person;
+  pers = new class person;
 }
 
 void person_builder::set_person_first_name() {
-  person->set_first_name(first_name_);
+  pers->set_first_name(first_name_);
 }
 
 void person_builder::set_person_second_name() {
-  person->set_second_name(second_name_);
+  pers->set_second_name(second_name_);
 }
 
 void person_builder::set_person_address() {
-  person->set_address(address_);
+  pers->set_address(address_);
 }
 
 void person_builder::set_person_passport_id() {
-  person->set_passport_id(passport_id_);
+  pers->set_passport_id(passport_id_);
 }
-
