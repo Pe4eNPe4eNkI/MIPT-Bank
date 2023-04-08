@@ -1,11 +1,4 @@
-//
-// Created by belka on 30.03.2023.
-//
-
 #include "bill_factory.h"
-
-/*bill_factory::bill_factory() {
-}*/
 
 deposit bill_factory::build_deposit(const int& bill_kind, const big_int& unique_id, const big_int& person_id) const {
   deposit deposit_ = deposit();
