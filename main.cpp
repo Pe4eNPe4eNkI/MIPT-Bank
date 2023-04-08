@@ -21,22 +21,20 @@ namespace person_build {
 int main() {
   char *err;
   sqlite3 *db;
-  person *person;
+  person *person1;
+  person* per;
   try {
     person_db pdb(db, err);
-    for (int i = 0; i < 10; ++i) {
-      person = person_build::build_person("a", "b", "c", "d");  // тут ввод из fronted-а будет
-      pdb.save_person(person);
-    }
-
-
+      person1 = person_build::build_person("a", "b", "c", "d");  // тут ввод из fronted-а будет
+      pdb.save_person(person1);
+      per = dynamic_cast<person*>(pdb.find_person(0));
   } catch (const std::string &s) {
     std::cout << s << std::endl;
   }
 
-  std::cout << std::endl;
 
-  delete person;
+  std::cout << std::endl;
+  delete person1;
   delete err;
   delete db;
 

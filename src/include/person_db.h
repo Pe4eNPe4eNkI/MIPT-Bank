@@ -4,6 +4,7 @@
 #pragma once
 #include "iperson.h"
 #include "sqlite-amalgamation-3410200/sqlite3.h"
+#include "person_director.h"
 
 class person_db{
 public:
