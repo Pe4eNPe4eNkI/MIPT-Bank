@@ -48,7 +48,7 @@ void person::set_passport_id(const std::string &passport_id) {
 
 void person::update() {
   is_doubtful_ = address_.empty() || passport_id_.empty();
-  money_limit_ = (is_doubtful_ ? money_limit_ : 0);
+  money_limit_ = (is_doubtful_ ? money_limit : 0);
 }
 
 void person::assign_id() {

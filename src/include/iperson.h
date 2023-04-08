@@ -6,7 +6,7 @@
 #include <vector>
 #include "big_int.h"
 
-static const uint64_t money_limit = 1e4;  // if is_doubtful = false 0(no limits)
+static const int money_limit = 1e4;  // if is_doubtful = false 0(no limits)
 
 class iperson {
 public:
