@@ -4,13 +4,17 @@
 #pragma once
 #include <string>
 #include "big_int.h"
+#include "ibill.h"
 
-class credit : public ibill{
-public:
+const std::string BILL_KIND_CREDIT = "credit";
 
-  big_int get_cash_size() const override;
+class credit : public ibill {
+ public:
+  static big_int bill_id;
 
   std::string get_bill_kind() const override;
+
+  big_int get_cash_size() const override;
 
   big_int get_bill_id() const override;
 
@@ -22,27 +26,25 @@ public:
 
   big_int get_payment_on_this_month() const;
 
+  void set_cash_size(const big_int& cash_size);
 
-  void set_cash_size(const big_int &cash_size);
+  void set_accessible_cash_size(const big_int& accessible_cash_size);
 
-  void set_accessible_cash_size(const big_int &accessible_cash_size);
+  void set_debt_size(const big_int& debt_size);
 
-  void set_debt_size(const big_int &debt_size);
+  void set_payment_on_this_month(const big_int& payment_on_this_month);
 
-  void set_payment_on_this_month(const big_int &payment_on_this_month);
-
-  void set_bill_kind(const int &bill_kind);
-
-  void set_unique_id(const big_int &unique_id);
-
-  void set_person_id(const big_int &person_id);
+  void set_person_id(const big_int& person_id) override;
 
   void update();
 
-private:
+  void assign_id() override;
+
+ private:
+  std::string bill_kind_ = BILL_KIND_CREDIT;
   big_int accessible_cash_size_;
   big_int payment_on_this_month_;
   big_int debt_size_;
 };
 
-#endif //MIPT_BANK__CREDIT_H_
+#endif
