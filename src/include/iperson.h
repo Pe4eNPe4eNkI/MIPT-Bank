@@ -42,7 +42,6 @@ protected:
   std::string address_;
   std::string passport_id_;
   int money_limit_ = money_limit;
-  std::vector<big_int> bills_id_;
   bool is_doubtful_ = true;
   big_int id_;
 };
