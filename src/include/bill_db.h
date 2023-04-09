@@ -18,6 +18,8 @@ class bill_db {
   void create_bill_query(ibill* person_bill);
 
   ibill* bill_find(const big_int& bill_id);
+
+  ~bill_db();
 };
 
 #endif

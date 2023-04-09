@@ -13,6 +13,8 @@ add_executable(miptbank main.cpp
         src/person_director.cpp
         src/big_int.cpp
         src/credit.cpp
+        src/deposit.cpp
+        src/debit.cpp
         src/bill_factory.cpp
         src/bill_db.cpp
 
@@ -21,5 +23,6 @@ add_executable(miptbank main.cpp
         src/include/iperson_builder.h
         src/include/iperson.h
         src/include/iperson_director.h
+        src/include/bill_factory.h
 
         )
