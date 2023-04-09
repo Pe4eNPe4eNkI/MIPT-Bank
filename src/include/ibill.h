@@ -5,10 +5,13 @@
 
 #include <string>
 #include <vector>
+#include <fstream>
 #include "big_int.h"
 
 class ibill {
  public:
+
+  static big_int bill_id;
 
   virtual std::string get_bill_kind() const = 0;
 

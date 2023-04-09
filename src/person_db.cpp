@@ -97,12 +97,14 @@ void person_db::rewrite_max_id() const {
   std::string max_id = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 0));
 
   std::cout << "max_id: " << max_id << std::endl;
-  std::ifstream file;
-  std::string path = "max_id.txt";
-  file.open(path);
+  std::ofstream file("max_person_id.txt");
   if (file.is_open()) {
-    file >> max_id;
+    file << max_id;
   }
   file.close();
   sqlite3_finalize(stmt);
+}
+
+person_db::~person_db() {
+  sqlite3_close(db_);
 }

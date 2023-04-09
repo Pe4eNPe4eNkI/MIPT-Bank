@@ -13,7 +13,7 @@ public:
   bool save_person(iperson* person);
   iperson* find_person(const big_int& id);
   void rewrite_max_id () const;
-
+  ~person_db();
 private:
   sqlite3* db_;
   char* err_;

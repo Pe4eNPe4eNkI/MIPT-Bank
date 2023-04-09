@@ -1,6 +1,7 @@
 #include "include/credit.h"
 
-big_int credit::bill_id = 0;
+big_int ibill::bill_id = 0;
+
 
 big_int credit::get_accessible_cash_size() const {
   return accessible_cash_size_;
@@ -30,23 +31,23 @@ big_int credit::get_person_id() const {
   return person_id_;
 }
 
-void credit::set_cash_size(const big_int& cash_size) {
+void credit::set_cash_size(const big_int &cash_size) {
   cash_size_ = cash_size;
 }
 
-void credit::set_accessible_cash_size(const big_int& accessible_cash_size) {
+void credit::set_accessible_cash_size(const big_int &accessible_cash_size) {
   accessible_cash_size_ = accessible_cash_size;
 }
 
-void credit::set_debt_size(const big_int& debt_size) {
+void credit::set_debt_size(const big_int &debt_size) {
   debt_size_ = debt_size;
 }
 
-void credit::set_payment_on_this_month(const big_int& payment_on_this_month) {
+void credit::set_payment_on_this_month(const big_int &payment_on_this_month) {
   payment_on_this_month_ = payment_on_this_month;
 }
 
-void credit::set_person_id(const big_int& person_id) {
+void credit::set_person_id(const big_int &person_id) {
   person_id_ = person_id;
 }
 
@@ -56,4 +57,18 @@ void credit::update() {
 }
 
 void credit::assign_id() {
-  bill_id_ = bill_id++;
+  std::ifstream file("max_bill_id.txt");
+  std::string s;
+  file >> s;
+  bill_id = big_int(s);
+  if (bill_id == 0) {
+    bill_id++;
+    bill_id_ = 0;
+  }
+  else bill_id_ = bill_id++;
+
+  file.close();
+  std::ofstream file1("max_bill_id.txt");
+  file1 << bill_id.toString();
+  file1.close();
+}

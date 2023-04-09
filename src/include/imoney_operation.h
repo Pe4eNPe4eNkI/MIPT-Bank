@@ -3,21 +3,24 @@
 
 #include "big_int.h"
 
-class imoney_operation {
+class i_easy_money_operation {
  public:
 
-  virtual bool execute_operation(const big_int& receiver_bill_id, const big_int& money_size) = 0;
+  virtual void execute_operation(const big_int& receiver_bill_id, const big_int& money_size) = 0;
 
-  virtual bool cancel_operation(const big_int& receiver_bill_id, const big_int& money_size) = 0;
+  virtual void cancel_operation(const big_int& receiver_bill_id, const big_int& money_size) = 0;
 
-  virtual bool execute_transfer_operation(const big_int& send_bill_id,
+};
+
+class i_neasy_money_operation{
+public:
+  virtual void execute_transfer_operation(const big_int& send_bill_id,
                                           const big_int& receiver_bill_id,
                                           const big_int& money_size) = 0;
 
-  virtual bool cancel_transfer_operation(const big_int& send_bill_id,
+  virtual void cancel_transfer_operation(const big_int& send_bill_id,
                                          const big_int& receiver_bill_id,
                                          const big_int& money_size) = 0;
-
 };
 
 #endif

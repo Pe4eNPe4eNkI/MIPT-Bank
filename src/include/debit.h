@@ -11,8 +11,6 @@ const std::string BILL_KIND_DEBIT = "debit";
 class debit : public ibill {
  public:
 
-  static big_int bill_id;
-
   std::string get_bill_kind() const override;
 
   big_int get_cash_size() const override;

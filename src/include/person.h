@@ -8,10 +8,12 @@
 #include <vector>
 #include "big_int.h"
 #include "iperson.h"
-
+#include <fstream>
 class person : public iperson {
 public:
   static big_int id;
+
+  person();
 
   std::string get_first_name() const override;
 

@@ -10,7 +10,6 @@ const std::string BILL_KIND_CREDIT = "credit";
 
 class credit : public ibill {
  public:
-  static big_int bill_id;
 
   std::string get_bill_kind() const override;
 

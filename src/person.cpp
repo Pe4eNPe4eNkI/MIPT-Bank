@@ -2,6 +2,17 @@
 
 big_int person::id = 0;
 
+person::person() {
+  if (id == 0) {
+    std::ifstream file("max_person_id.txt");
+    std::string s;
+    file >> s;
+    id = big_int(s);
+    if (id != 0) ++id;
+    file.close();
+  }
+}
+
 std::string person::get_first_name() const {
   return first_name_;
 }
@@ -26,7 +37,7 @@ bool person::is_doubtful() const {
   return is_doubtful_;
 }
 
-big_int person::get_id() const{
+big_int person::get_id() const {
   return id_;
 }
 
