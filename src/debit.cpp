@@ -1,5 +1,6 @@
 #include "include/debit.h"
 
+
 big_int debit::bill_id = 0;
 
 big_int debit::get_cash_size() const {
@@ -40,4 +41,3 @@ void debit::update() {
 
 void debit::assign_id() {
   bill_id_ = bill_id++;
-}

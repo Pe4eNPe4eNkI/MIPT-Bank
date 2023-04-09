@@ -1,34 +1,43 @@
-#include<iostream>
+#include <iostream>
 #include "src/include/sqlite-amalgamation-3410200/sqlite3.h"
-#include "src/include/bill_db.h"
+#include "src/include/person_director.h"
+#include "src/include/person_db.h"
 
 //TODO перевести директора на интерфейс
-//TODO написать по правилу пяти конструкторы и деструкторы у person_db и bill_db
 
-ibill *build_bill(const big_int &person_id, const std::string &bill_kind) {
-  bill_factory factory;
-  if (bill_kind == "credit") {
-    return factory.build_credit(person_id);
+namespace person_build {
+
+  person *
+  build_person(const std::string &f_n, const std::string &s_n, const std::string &ad, const std::string &pas_id) {
+    person_director dire;
+    person_builder pb;
+    pb.set_first_name(f_n)->set_second_name(s_n)->set_passport_id(pas_id)->set_address(ad);
+    person *person = dire.create_person(pb);
+    return person;
   }
-}
+
+}  // END PERSON_DB NAMESPACE
 
 int main() {
   char *err;
   sqlite3 *db;
-  credit *credit1;
-  credit *cre;
+  person *person1;
+  person* per;
   try {
-    bill_db pdb(err, db);
-    credit1 = dynamic_cast<credit *>(build_bill(4, "credit"));  // тут ввод из fronted-а будет
-    pdb.create_bill_query(credit1);
-    cre = dynamic_cast<credit *>(pdb.bill_find(0));
+    person_db pdb(db, err);
+      person1 = person_build::build_person("a", "b", "c", "d");  // тут ввод из fronted-а будет
+      pdb.rewrite_max_id();
+      pdb.save_person(person1);
+      per = dynamic_cast<person*>(pdb.find_person(0));
   } catch (const std::string &s) {
     std::cout << s << std::endl;
   }
 
 
   std::cout << std::endl;
+  delete person1;
   delete err;
   delete db;
+
   return 0;
 }

@@ -36,6 +36,7 @@ class deposit : public ibill {
  private:
   std::string bill_kind_ = BILL_KIND_DEPOSIT;
   big_int income_potential_size_;
+
 };
 
 #endif

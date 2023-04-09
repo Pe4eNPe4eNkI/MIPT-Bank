@@ -6,7 +6,7 @@
 #include <vector>
 #include "big_int.h"
 
-static const uint64_t money_limit = 1e4;  // if is_doubtful = false 0(no limits)
+static const int money_limit = 1e4;  // if is_doubtful = false 0(no limits)
 
 class iperson {
 public:
@@ -17,6 +17,10 @@ public:
   virtual std::string get_address() const = 0;
 
   virtual std::string get_passport_id() const = 0;
+
+  virtual int get_money_limit() const = 0;
+
+  virtual bool is_doubtful() const = 0;
 
   virtual big_int get_id() const = 0;
 
@@ -37,8 +41,7 @@ protected:
   std::string second_name_;
   std::string address_;
   std::string passport_id_;
-  uint64_t money_limit_ = money_limit;
-  std::vector<big_int> bills_id_;
+  int money_limit_ = money_limit;
   bool is_doubtful_ = true;
   big_int id_;
 };
