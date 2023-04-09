@@ -64,12 +64,13 @@ int main() {  // вывод в консоль для того чтобы пок�
     cre = dynamic_cast<credit *>(bdb.bill_find(0));
 
     refill r(bdb);
-    r.execute_operation(1,100);
+    r.execute_operation(1, 100);
 
     withdrawal w(bdb);
-    w.execute_operation(1,200);
+    w.execute_operation(1, 200);
 
-
+    /*transfer t(bdb);
+    t.execute_transfer_operation(0, 1, 500);*/
 
 
   } catch (const std::string &s) {
@@ -78,11 +79,10 @@ int main() {  // вывод в консоль для того чтобы пок�
   catch (const std::logic_error &le) {
     std::cout << le.what() << std::endl;
   }
-
-
+  catch (...) {
+    std::cout << "Unknown error" << std::endl;
+  }
   std::cout << std::endl;
-
-
   delete err;
   delete db;
 
