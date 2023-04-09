@@ -1,4 +1,4 @@
-``#include <iostream>
+#include <iostream>
 #include "src/include/sqlite-amalgamation-3410200/sqlite3.h"
 #include "src/include/person_director.h"
 #include "src/include/person_db.h"
@@ -26,6 +26,7 @@ int main() {
   try {
     person_db pdb(db, err);
       person1 = person_build::build_person("a", "b", "c", "d");  // тут ввод из fronted-а будет
+      pdb.rewrite_max_id();
       pdb.save_person(person1);
       per = dynamic_cast<person*>(pdb.find_person(0));
   } catch (const std::string &s) {
@@ -39,4 +40,4 @@ int main() {
   delete db;
 
   return 0;
-}``
+}

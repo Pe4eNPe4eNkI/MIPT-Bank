@@ -22,7 +22,6 @@ person_db::person_db(sqlite3 *db, char *err) : db_(db), err_(err) {
                                "money_limit INT, is_doubtful INT, "
                                "id varchar(10));", NULL, NULL, &err_);
   if (check_db != SQLITE_OK) {
-    sqlite3_close(db_);
     throw std::string("Fuck u asshole " + std::string(err_));
   }
 }
@@ -49,7 +48,6 @@ iperson *person_db::find_person(const big_int &id) {
   int rc = sqlite3_prepare_v2(db_, query.c_str(), -1, &stmt, nullptr);
 
   if (rc != SQLITE_OK) {
-    sqlite3_close(db_);
     throw std::string("Fuck u asshole " + std::string(err_));
   }
 
@@ -76,4 +74,35 @@ iperson *person_db::find_person(const big_int &id) {
   }
   sqlite3_finalize(stmt);
   return persondb_build::build_person(first_name, second_name, address, passport_id);;
+}
+
+void person_db::rewrite_max_id() const {
+  std::string query = "SELECT MAX(id) FROM persons;";
+
+  sqlite3_stmt *stmt;
+
+  auto rc = sqlite3_prepare_v2(db_, query.c_str(), -1, &stmt, nullptr);
+
+  if (rc != SQLITE_OK) {
+    throw std::string("Fuck u asshole " + std::string(err_));
+  }
+
+  rc = sqlite3_step(stmt);
+
+  if (rc != SQLITE_ROW) {
+    sqlite3_finalize(stmt);
+    throw std::string("Can`t find anything");
+  }
+
+  std::string max_id = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 0));
+
+  std::cout << "max_id: " << max_id << std::endl;
+  std::ifstream file;
+  std::string path = "max_id.txt";
+  file.open(path);
+  if (file.is_open()) {
+    file >> max_id;
+  }
+  file.close();
+  sqlite3_finalize(stmt);
 }

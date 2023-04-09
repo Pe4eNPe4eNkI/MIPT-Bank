@@ -1,8 +1,4 @@
-//
-// Created by belka on 30.03.2023.
-//
-
-#include "bill_factory.h"
+#include "include/bill_factory.h"
 
 /*bill_factory::bill_factory() {
 }*/
