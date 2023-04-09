@@ -23,7 +23,7 @@ class debit : public ibill {
 
   big_int get_person_id() const override;
 
-  void set_cash_size(const big_int& cash_size);
+  void set_cash_size(const big_int& cash_size) override;
 
   void set_cashback_potential_size(const big_int& cashback_potential_size);
 

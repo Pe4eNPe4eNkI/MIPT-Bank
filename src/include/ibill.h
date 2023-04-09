@@ -20,6 +20,8 @@ class ibill {
 
   virtual void set_person_id(const big_int& id) = 0;
 
+  virtual void set_cash_size(const big_int& money_size) = 0;
+
   virtual void assign_id() = 0;
 
  protected:

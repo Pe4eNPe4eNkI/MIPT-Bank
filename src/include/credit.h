@@ -26,7 +26,7 @@ class credit : public ibill {
 
   big_int get_payment_on_this_month() const;
 
-  void set_cash_size(const big_int& cash_size);
+  void set_cash_size(const big_int& cash_size) override;
 
   void set_accessible_cash_size(const big_int& accessible_cash_size);
 

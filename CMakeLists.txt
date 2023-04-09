@@ -17,12 +17,15 @@ add_executable(miptbank main.cpp
         src/debit.cpp
         src/bill_factory.cpp
         src/bill_db.cpp
-
+        src/transfer.cpp
+        src/refill.cpp
+        src/withdrawal.cpp
 
         src/include/ibill.h
         src/include/iperson_builder.h
         src/include/iperson.h
         src/include/iperson_director.h
         src/include/bill_factory.h
-
+        src/include/transfer.h
+        src/include/imoney_operation.h
         )
