@@ -13,10 +13,10 @@ bill_db::bill_db(char* err, sqlite3* bill_db) : err_(err), bill_db_(bill_db) {
   }
 }
 
-void bill_db::create_bill_query(credit person_bill) {
-  std::string bill_query = "INSERT INTO bill VALUES('" + person_bill.get_person_id().toString() + "', '"
-      + person_bill.get_bill_id().toString() + "', '" + person_bill.get_bill_kind() + "', '"
-      + person_bill.get_cash_size().toString() + "');";
+void bill_db::create_bill_query(ibill* person_bill) {
+  std::string bill_query = "INSERT INTO bill VALUES('" + person_bill->get_person_id().toString() + "', '"
+      + person_bill->get_bill_id().toString() + "', '" + person_bill->get_bill_kind() + "', '"
+      + person_bill->get_cash_size().toString() + "');";
   std::cout << bill_query << "\n";
   auto bill = sqlite3_exec(bill_db_, bill_query.c_str(), NULL, NULL, &err_);
 
@@ -25,7 +25,7 @@ void bill_db::create_bill_query(credit person_bill) {
   }
 }
 
-credit bill_db::bill_find(const big_int& bill_id) {
+ibill* bill_db::bill_find(const big_int& bill_id) {
   std::string bill_query = "SELECT * FROM bill WHERE id = ? LIMIT 1;";
   sqlite3_stmt* stmt;
 
@@ -53,13 +53,13 @@ credit bill_db::bill_find(const big_int& bill_id) {
       return factory.build_credit(person_id);
     }
 
-    //if (bill_kind == BILL_KIND_DEBIT) {
-    //  return build_debit(bill_id, person_id);
-    //}
-//
-    //if (bill_kind == BILL_KIND_DEPOSIT) {
-    //  return build_deposit(bill_id, person_id);
-    //}
+    if (bill_kind == BILL_KIND_DEBIT) {
+      return factory.build_debit(person_id);
+    }
+
+    if (bill_kind == BILL_KIND_DEPOSIT) {
+      return factory.build_deposit(person_id);
+    }
 
   } else {
     throw std::string("Fuck u asshole " + std::string(err_));

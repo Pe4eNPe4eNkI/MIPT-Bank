@@ -15,9 +15,9 @@ class bill_db {
  public:
   bill_db(char* err, sqlite3* bill_db);
 
-  void create_bill_query(credit person_bill);
+  void create_bill_query(ibill* person_bill);
 
-  credit bill_find(const big_int& bill_id);
+  ibill* bill_find(const big_int& bill_id);
 };
 
 #endif

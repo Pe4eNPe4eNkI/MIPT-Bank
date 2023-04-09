@@ -15,10 +15,11 @@ add_executable(miptbank main.cpp
         src/credit.cpp
         src/bill_factory.cpp
         src/bill_db.cpp
+
+
         src/include/ibill.h
         src/include/iperson_builder.h
         src/include/iperson.h
         src/include/iperson_director.h
-        src/include/bill_db.h
-        src/include/bill_factory.h
+
         )

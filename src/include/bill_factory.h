@@ -11,11 +11,11 @@
 class bill_factory {
  public:
 
-  deposit build_deposit(const big_int& person_id) const;
+  deposit* build_deposit(const big_int& person_id) const;
 
-  credit build_credit(const big_int& person_id) const;
+  credit* build_credit(const big_int& person_id) const;
 
-  debit build_debit(const big_int& person_id) const;
+  debit* build_debit(const big_int& person_id) const;
 
 };
 
