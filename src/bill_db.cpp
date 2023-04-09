@@ -52,11 +52,20 @@ ibill *bill_db::bill_find(const big_int &bill_id) {
     bill_factory factory;
     rewrite_max_id();
     if (bill_kind == BILL_KIND_CREDIT) {
-      return factory.build_credit(person_id);
+      credit* cr = factory.build_credit(person_id);
+      cr->set_cash_size(cash_size);
+      cr->set_bill_id(bill_id);
+      return cr;
     } else if (bill_kind == BILL_KIND_DEBIT) {
-      return factory.build_debit(person_id);
+      debit* db = factory.build_debit(person_id);
+      db->set_cash_size(cash_size);
+      db->set_bill_id(bill_id);
+      return db;
     } else if (bill_kind == BILL_KIND_DEPOSIT) {
-      return factory.build_deposit(person_id);
+      deposit* de = factory.build_deposit(person_id);
+      de->set_cash_size(cash_size);
+      de->set_bill_id(bill_id);
+      return de;
     }
 
   } else {

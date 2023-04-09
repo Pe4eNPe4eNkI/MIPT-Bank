@@ -25,6 +25,10 @@ void deposit::set_cash_size(const big_int &cash_size) {
   cash_size_ = cash_size;
 }
 
+void deposit::set_bill_id(const big_int &id) {
+  bill_id_ = id;
+}
+
 void deposit::set_income_potential_size(const big_int &income_potential_size) {
   income_potential_size_ = income_potential_size;
 }

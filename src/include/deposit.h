@@ -23,6 +23,8 @@ class deposit : public ibill {
 
   void set_cash_size(const big_int& cash_size) override;
 
+  void set_bill_id(const big_int& id) override;
+
   void set_income_potential_size(const big_int& income_potential_size);
 
   void set_person_id(const big_int& person_id) override;

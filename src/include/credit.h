@@ -27,6 +27,8 @@ class credit : public ibill {
 
   void set_cash_size(const big_int& cash_size) override;
 
+  void set_bill_id(const big_int& id) override;
+
   void set_accessible_cash_size(const big_int& accessible_cash_size);
 
   void set_debt_size(const big_int& debt_size);

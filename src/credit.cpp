@@ -35,6 +35,10 @@ void credit::set_cash_size(const big_int &cash_size) {
   cash_size_ = cash_size;
 }
 
+void credit::set_bill_id(const big_int &id) {
+  bill_id_ = id;
+}
+
 void credit::set_accessible_cash_size(const big_int &accessible_cash_size) {
   accessible_cash_size_ = accessible_cash_size;
 }
@@ -64,8 +68,7 @@ void credit::assign_id() {
   if (bill_id == 0) {
     bill_id++;
     bill_id_ = 0;
-  }
-  else bill_id_ = bill_id++;
+  } else bill_id_ = bill_id++;
 
   file.close();
   std::ofstream file1("max_bill_id.txt");

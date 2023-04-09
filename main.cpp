@@ -69,8 +69,8 @@ int main() {  // вывод в консоль для того чтобы пок�
     withdrawal w(bdb);
     w.execute_operation(1, 200);
 
-    /*transfer t(bdb);
-    t.execute_transfer_operation(0, 1, 500);*/
+    transfer t(bdb);
+    t.execute_transfer_operation(0, 1, 500);
 
 
   } catch (const std::string &s) {
