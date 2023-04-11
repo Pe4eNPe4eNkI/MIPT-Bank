@@ -5,11 +5,10 @@ Back-end - C++
 
 Front_end - ???
 
-# UML Diagram
-![Image] ()
-
 # Запуск проекта
 ```shell script
+git clone https://github.com/Pe4eNPe4eNkI/MIPT-Bank
+
 mkdir build && cd build 
 cmake .. 
 make 

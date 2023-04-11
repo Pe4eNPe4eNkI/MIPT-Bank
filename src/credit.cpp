@@ -64,11 +64,12 @@ void credit::assign_id() {
   std::ifstream file("max_bill_id.txt");
   std::string s;
   file >> s;
+
+  if (s.empty()) {
+    s = "0";
+  }
   bill_id = big_int(s);
-  if (bill_id == 0) {
-    bill_id++;
-    bill_id_ = 0;
-  } else bill_id_ = bill_id++;
+  bill_id_ = bill_id++;
 
   file.close();
   std::ofstream file1("max_bill_id.txt");

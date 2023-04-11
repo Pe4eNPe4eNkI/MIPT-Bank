@@ -36,8 +36,8 @@ big_int::big_int(int n) {
   }
 
   do {
-    digit_arr_.push_back(static_cast<int>(n % base));
-    n /= base;
+    digit_arr_.push_back(static_cast<int>(n % k_base));
+    n /= k_base;
   } while (n);
 }
 
@@ -169,8 +169,8 @@ big_int operator+(const big_int &left, const big_int &right) {
     if (i == answer_subseq.size()) answer_subseq.push_back(0);
 
     answer_subseq[i] += carry + (i < right.digit_arr_.size() ? right.digit_arr_[i] : 0);
-    carry = answer_subseq[i] >= big_int::base;
-    if (carry) answer_subseq[i] -= big_int::base;
+    carry = answer_subseq[i] >= big_int::k_base;
+    if (carry) answer_subseq[i] -= big_int::k_base;
   }
 
   big_int temp(answer_subseq, left.is_negative_);
@@ -201,7 +201,7 @@ big_int operator-(const big_int &left, const big_int &right) {
   for (size_t i = 0; i < right.digit_arr_.size() || carry; ++i) {
     answer_subseq[i] -= carry + (i < right.digit_arr_.size() ? right.digit_arr_[i] : 0);
     carry = answer_subseq[i] < 0;
-    if (carry) answer_subseq[i] += big_int::base;
+    if (carry) answer_subseq[i] += big_int::k_base;
   }
 
   big_int temp(answer_subseq, left.is_negative_);
@@ -217,8 +217,8 @@ big_int operator*(const big_int &left, const big_int &right) {
               answer_subseq[i + j] +
               left.digit_arr_[i] * 1ll * (j < static_cast<int>( right.digit_arr_.size()) ? right.digit_arr_[j] : 0) +
               carry;
-      answer_subseq[i + j] = int(cur % big_int::base);
-      carry = int(cur / big_int::base);
+      answer_subseq[i + j] = int(cur % big_int::k_base);
+      carry = int(cur / big_int::k_base);
     }
 
   while (answer_subseq.size() > 1 && answer_subseq.back() == 0)
@@ -247,7 +247,7 @@ big_int operator/(const big_int &left, const big_int &right) {
     remainder.shift_right();
     remainder.digit_arr_[0] = left.digit_arr_[i];
     remove_start_zeroes(remainder);
-    int x = 0, l = 0, r = big_int::base;
+    int x = 0, l = 0, r = big_int::k_base;
     while (l <= r) {
       int m = (l + r) / 2;
       big_int t = abs_other * m;
