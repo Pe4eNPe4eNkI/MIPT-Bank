@@ -77,7 +77,7 @@ public:
 
   explicit operator bool() const;
 
-  static const int base = 1000000000;
+  static const int k_base = 1000000000;
 
 private:
   std::vector<int> digit_arr_;

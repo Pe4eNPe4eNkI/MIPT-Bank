@@ -46,7 +46,7 @@ int main() {  // вывод в консоль для того чтобы пок�
   credit *cre;
   try {
 
-    /*person_db pdb(db, err);  // подключение к бд
+    person_db pdb(db, err);  // подключение к бд
     //pdb.rewrite_max_id();  // если бд упала узнаем макс id , бд не должна быть пустой, раскоментить если упала
     person1 = person_build::build_person("a", "b", "c", "d");  // тут ввод из fronted-а будет  // создаем персона
     pdb.save_person(person1);  //сохраняем в бд
@@ -55,7 +55,7 @@ int main() {  // вывод в консоль для того чтобы пок�
 
     per = dynamic_cast<person *>(pdb.find_person(0));  // ищем в бд если нет то nullptr
 
-*/
+
     bill_db bdb(err, db);
     credit1 = dynamic_cast<credit *>(bill_build::build_bill(4, "credit"));  // тут ввод из fronted-а будет
     bdb.create_bill_query(credit1);
@@ -83,8 +83,6 @@ int main() {  // вывод в консоль для того чтобы пок�
     std::cout << "Unknown error" << std::endl;
   }
   std::cout << std::endl;
-  delete err;
-  delete db;
 
   return 0;
 }

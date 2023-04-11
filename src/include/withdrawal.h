@@ -6,9 +6,6 @@
 #include "bill_db.h"
 
 class withdrawal : public i_easy_money_operation {
-private:
-  bill_db trans_;
-
 public:
 
   explicit withdrawal(const bill_db& trans) : trans_(trans) {};
@@ -18,6 +15,10 @@ public:
 
   void cancel_operation(const big_int &receiver_bill_id,
                         const big_int &money_size) override;
+
+private:
+  bill_db trans_;
+
 };
 
 #endif

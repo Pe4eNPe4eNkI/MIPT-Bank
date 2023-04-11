@@ -77,9 +77,9 @@ std::string big_int::toString() const {
   return result;
 }
 
-std::ostream &operator<<(std::ostream &o, const big_int &num) {
+std::ostream &operator<<(std::ostream &ostream, const big_int &num) {
 
-  return o << num.toString();
+  return ostream << num.toString();
 }
 
 std::istream &operator>>(std::istream &in, big_int &num) {

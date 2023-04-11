@@ -1,6 +1,12 @@
-# mipt_bank
-UML - https://goo.su/nCeymnF
-miro - https://goo.su/22S47z
+#Description 
+Our project is aimed at the practice of software architecture design
+
+Back-end - C++
+
+Front_end - ???
+
+# UML Diagram
+![Image] ()
 
 # Запуск проекта
 ```shell script

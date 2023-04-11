@@ -11,10 +11,6 @@
 #include <fstream>
 
 class bill_db {
-private:
-  char *err_;
-  sqlite3 *bill_db_;
-
 public:
   bill_db(char *err, sqlite3 *bill_db);
 
@@ -27,6 +23,11 @@ public:
   void rewrite_max_id();
 
   ~bill_db();
+
+private:
+  char *err_;
+  sqlite3 *bill_db_;
+
 };
 
 #endif
