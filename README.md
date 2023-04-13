@@ -5,7 +5,7 @@ Back-end - C++
 
 Front_end - ???
 
-# Запуск проекта
+# Project launch
 ```shell script
 git clone https://github.com/Pe4eNPe4eNkI/MIPT-Bank
 
