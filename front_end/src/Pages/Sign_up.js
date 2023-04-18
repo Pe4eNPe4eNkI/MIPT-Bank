@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Form, FormControl} from "react-bootstrap";
-import '../Sign_in.css'
+import '../Sign_menu.css'
 
 class SignUp extends Component {
 
@@ -101,41 +101,5 @@ class SignUp extends Component {
         );
     }
 }
-
-
-
-/*
-function fun() {
-    if (document.getElementById('form1') === null) {
-        alert(null);
-    }
-    const form_element = document.getElementById('form1');
-    const form_data = new FormData(form_element);
-    if (form_data.get('name') !== null) {
-        const name = form_data.get('name');
-        console.log(name);
-    } else if (form_data.get('surname') !== null) {
-        const surname = form_data.get('surname');
-        console.log(surname);
-    } else if (form_data.get('login') !== null) {
-        const login = form_data.get('login');
-        console.log(login);
-    } else if (form_data.get('password') !== null) {
-        const password = form_data.get('password');
-        console.log(password);
-    } else {
-        alert("Enter important data")
-    }
-
-
-    if (form_data.get('address') !== null) {
-        const address = form_data.get('address');
-        console.log(address);
-    } else if (form_data.get('passport_id') !== null) {
-        const passport_id = form_data.get('passport_id');
-        console.log(passport_id);
-    }
-*/
-
 
 export default SignUp;
