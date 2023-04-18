@@ -1,0 +1,16 @@
+.Sign_in{
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    padding-left: 40%;
+    margin: 30px;
+    width: 50%;
+}
+
+.password{
+    margin-top: 10px;
+}
+
+.t1{
+margin-top: 10px;
+}

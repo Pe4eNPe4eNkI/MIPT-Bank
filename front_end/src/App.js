@@ -1,13 +1,13 @@
-import Sign__menu from './sign_in_classes/sign_in_menu';
 import './App.css';
-
+import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Header from "./Components/Header";
 
 function App() {
+
   return (
     <div className="App">
-      <header className="App-header">
-      <Sign__menu/>
-      </header>
+      <Header/>
     </div>
   );
 }
