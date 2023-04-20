@@ -8,7 +8,7 @@ class Home extends Component {
         return (
             <>
             <div class= 'quote'>
-                <View>
+                    <View>
                     <Text style = {{fontSize : '2.5rem' ,color : 'white' , marginLeft: '30px', fontWeight: '6   00'}}>
 
                        <br/>"GOLD IS OUR <br/>
@@ -30,27 +30,27 @@ class Home extends Component {
                 </tr>
                 <tr>
                     <td>
-                        <h4 class='text'>Gold resourse</h4>
-                        <h3 style={{textAlign: 'left'}}>270.000 t</h3>
-                        <h4 class='text'>Users</h4>
-                        <h3 style={{textAlign: 'left'}}>34.553</h3>
+                        <h4 class='text1'>Gold resourse</h4>
+                        <h3 class='text1' style={{color: "black"}}>270.000 t</h3>
+                        <h4 class='text1'>Users</h4>
+                        <h3 class='text1' style={{color: "black"}}>34.553</h3>
                     </td>
                     <td>
                         <table cellSpacing='3' width = '100%'>
                             <tr>
                                 <td>
                                     <div class = 'deposit'>
-                                        <img src='../Components/images/debit.jpg' alt=""></img>
+                                        <img src='../Components/images/deposit.svg' alt=""></img>
                                     </div>
                                 </td>
                                 <td>
                                     <div class = 'credit'>
-                                        <img src='../Components/images/credit.jpg' alt=""></img>
+                                        <img src='../Components/images/credit.svg' alt=""></img>
                                     </div>
                                 </td>
                                 <td>
                                     <div class = 'debit'>
-                                        <img src='../Components/images/deposit.jpg' alt=""></img>
+                                        <img src='../Components/images/deposit.svg' alt=""></img>
                                     </div>
                                 </td>
                             </tr>
