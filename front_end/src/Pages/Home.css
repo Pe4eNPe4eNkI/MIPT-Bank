@@ -1,0 +1,18 @@
+
+.quote{
+    background-image: url('../Components/images/fon_3.jpg');
+}
+
+@font-face { 
+    font-family: "FuturaBold";
+    src: url("../fonts/FuturaBold/FuturaBold.eot");
+    src: url("../fonts/FuturaBold/FuturaBold.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/FuturaBold/FuturaBold.woff") format("woff"),
+    url("../fonts/FuturaBold/FuturaBold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 900;
+}
+
+.table {
+    margin-top : 0.5%
+}
