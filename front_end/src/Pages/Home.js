@@ -9,70 +9,87 @@ class Home extends Component {
             <>
             <div class= 'quote'>
                     <View>
-                    <Text style = {{fontSize : '2.5rem' ,color : 'white' , marginLeft: '30px', fontWeight: '6   00'}}>
+                    <Text style = {{fontSize : '65px', color : 'white', marginLeft: '10%', fontWeight: '6   00'}}>
 
                        <br/>"GOLD IS OUR <br/>
                         FUTURE AND HOPE<br/>
                         IN A FICKLE WORLD”<br/>
                          — Voronin A. V.<br/>
-                    <br/>
+                        <br/>
                     </Text>                     
                 </View>
             </div>
-            <table class = 'table' cellSpacing='3' width = '100%'>
-                <tr>
+            <table class = 'table' width = '100%'>
+                <tr class='up_tabble'>
                     <td>
-                        <h2>Our statistic</h2>
+                        <br/>
+                        Our statistic
+                        <div style={{width: '70px', height: '1px', background: '#FAA634'}}></div>
+                        <br/>
                     </td>
                     <td>
-                        <h2>Our Products</h2>
+                        <br/>
+                        Our Products
+                        <div style={{width: '70px', height: '1px', background: '#FAA634'}}></div>
+                        <br/>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <h4 class='text1'>Gold resourse</h4>
-                        <h3 class='text1' style={{color: "black"}}>270.000 t</h3>
-                        <h4 class='text1'>Users</h4>
-                        <h3 class='text1' style={{color: "black"}}>34.553</h3>
+                        <tabble class="border_tabble">
+                            <tr style = {{color : '#9D9FA2'}}>
+                                Gold resourse
+                            </tr>
+                            <tr>
+                                270.000 t
+                            </tr>
+                            <tr style = {{color : '#9D9FA2'}}>  
+                                Users
+                            </tr>
+                            <tr>
+                                34.553
+                            </tr>
+                        </tabble>
                     </td>
                     <td>
-                        <table cellSpacing='3' width = '100%'>
+                        <table class='card_tabble' width = '100%'>
                             <tr>
                                 <td>
-                                    <div class = 'deposit'>
-                                        <img src='../Components/images/deposit.svg' alt=""></img>
+                                    <div class = 'debit'>
+                                        <img src='../Components/images/debit.png' alt=""></img>
+
                                     </div>
                                 </td>
                                 <td>
                                     <div class = 'credit'>
-                                        <img src='../Components/images/credit.svg' alt=""></img>
+                                        <img src='../Components/images/credit.png' alt=""></img>
                                     </div>
                                 </td>
                                 <td>
-                                    <div class = 'debit'>
-                                        <img src='../Components/images/deposit.svg' alt=""></img>
+                                    <div class = 'deposit'>
+                                        <img src='../Components/images/deposit.png' alt=""></img>
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr class="text">
                                 <td>
-                                    <h6 class = 'text'>Free service forever</h6>
-                                    <h6 class = 'text'>Cash-back 5% payment every month</h6>
-                                    <h6 class = 'text'>Govermant-free system</h6>
-                                    <h6 class = 'text'>Transfer up to 500.000$ per month</h6>
+                                    Free service forever<br/>
+                                    Cash-back 5% payment every month<br/>
+                                    Govermant-free system<br/>
+                                    Transfer up to 500.000$ per month<br/>
                                 </td>
                                 <td>
-                                    <h6 class = 'text'>Free service forever</h6>
-                                    <h6 class = 'text'>Cash-back 5% payment every month</h6>
-                                    <h6 class = 'text'>Govermant-free system</h6>
-                                    <h6 class = 'text'>Up to 100.000$ credit limit</h6>
+                                    Free service forever<br/>
+                                    Cash-back 5% payment every month<br/>
+                                    Govermant-free system<br/>
+                                    Up to 100.000$ credit limit<br/>
                                 </td>
                                 <td>
-                                    <h6 class = 'text'>Free service forever</h6>
-                                    <h6 class = 'text'>Up to 7.5% per annum</h6>
-                                    <h6 class = 'text'>Govermant-free system</h6>
-                                    <h6 class = 'text'>Payment like a card up to 5.000$ per month</h6>
-                                    <h6 class = 'text'>Use your deposit like a card with minor restrictions</h6>
+                                    Free service forever<br/>
+                                    Up to 7.5% per annum<br/>
+                                    Govermant-free system<br/>
+                                    Payment like a card up to 5.000$ per month<br/>
+                                    Use your deposit like a card with minor restrictions<br/>
 
                                 </td>
                             </tr>

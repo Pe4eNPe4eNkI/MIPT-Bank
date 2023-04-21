@@ -1,52 +1,69 @@
 
 .quote{
+    font-family: 'Futura';
     background-image: url('../Components/images/fon_3.jpg');
+    background-size: cover;
 }
 
-@font-face { 
-    font-family: "FuturaBold";
-    src: url("../fonts/FuturaBold/FuturaBold.eot");
-    src: url("../fonts/FuturaBold/FuturaBold.eot?#iefix")format("embedded-opentype"),
-    url("../fonts/FuturaBold/FuturaBold.woff") format("woff"),
-    url("../fonts/FuturaBold/FuturaBold.ttf") format("truetype");
-    font-style: normal;
-    font-weight: 900;
+.Text{
+    font-family: "Futura";
 }
 
 .table {
-    margin-top : 0.5%
+    font-family: 'Futura';
+    margin-top : 0.5%;
+    margin-left: 5%;
 }
 
 .deposit {
-    background-image: url('../Components/images/deposit.svg');
-    height: 169px;
-    width: 290px;
+    background-image: url('../Components/images/deposit.png');
+    width: 304px;
+    height: 191px;
     margin: left;
 }
 
 .credit {
-    background-image: url('../Components/images/credit.svg');
-    height: 169px;
-    width: 290px;
+    background-image: url('../Components/images/credit.png');
+    width: 304px;
+    height: 191px;
     margin: left;
 }
 
 .debit {
-    background-image: url('../Components/images/debit.svg');
-    height: 169px;
-    width: 290px;
+    background-image: url('../Components/images/debit.png');
+    width: 304px;
+    height: 191px;
     margin: left;
 }
 
 .text {
     text-align: left;
-    color: #777575;
+    color: #9D9FA2;
     line-height: 2.5;
 }
 
-.text1 {
+.border_tabble {
+    font-family: 'Futura';
     text-align: left;
-    color: #777575;
-    line-height: normal;
-    margin: 15%;
+    font-size: 30px;
+    margin-right: 50%;
+    line-height: 2em;
+
+}
+
+.up_tabble {
+    font-family: 'Futura';
+    text-align: left;
+    font-size: 45px;
+}
+
+.card_tabble {
+    
+}
+
+@font-face { 
+    font-family: "Futura";
+    src: url("../fonts/futurademic.ttf");
+    font-style: normal;
+    font-weight: normal;
 }
