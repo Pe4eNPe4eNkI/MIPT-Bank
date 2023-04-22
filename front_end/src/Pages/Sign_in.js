@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Button, Form,FormControl} from "react-bootstrap";
-import '../Sign_menu.css'
+import {Button, Form, FormControl, Stack} from "react-bootstrap";
+import './Sign_in.css'
+import Header from "../Components/Header";
 
 class SignIn extends Component {
     constructor(props) {
@@ -10,38 +11,42 @@ class SignIn extends Component {
         this.passwordChange = this.passwordChange.bind(this);
 
         this.handleSubmit = this.handleSubmit.bind(this);
-      }
-      loginChange(event) {    this.setState({login: event.target.value});  }
-      passwordChange(event) {    this.setState({password: event.target.value});  }
+    }
+    loginChange(event) {    this.setState({login: event.target.value});  }
+    passwordChange(event) {    this.setState({password: event.target.value});  }
 
-      handleSubmit(event) {
+    handleSubmit(event) {
         console.log(this.state.login)
         console.log(this.state.password)
         event.preventDefault();
-      }
+    }
 
     render() {
         return (
-            <div className="Sign_in">
-                <h2>Sign in
-                </h2>
-                <Form onSubmit={this.handleSubmit}>
-                    <FormControl
-                    value={this.state.value}
-                    onChange={this.loginChange}
-                    type = 'text'
-                    placeholder="Login "
-
-                    />
-                    <FormControl className = "password"
-                        value={this.state.value}
-                        onChange={this.passwordChange}
-                        type = 'password'
-                        placeholder="Password "
-                    />
-                    <Button type='submit' style={{background: "#44944A", margin: "5px", border: "none"}}>Sign in </Button>
-                </Form>
-            </div>
+            <>
+                <div className="Sign_in">
+                    <h2 className="Te_xt">Hello! Enter me <br/> please daddy
+                    </h2>
+                    <div className = "block_gray"></div>
+                    <Form onSubmit={this.handleSubmit}>
+                        <FormControl className = "login"
+                                     value={this.state.value}
+                                     onChange={this.loginChange}
+                                     type = 'text'
+                                     placeholder="Login "
+                                     id="IDlogin"
+                        />
+                        <FormControl className = "password"
+                                     value={this.state.value}
+                                     onChange={this.passwordChange}
+                                     type = 'password'
+                                     placeholder = "Password "
+                                     id="IDpassword"
+                        />
+                        <Button className = "button_local" type='submit' >Sign in </Button>
+                    </Form>
+                </div>
+            </>
         );
     }
 }

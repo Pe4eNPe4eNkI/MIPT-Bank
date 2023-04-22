@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Form, FormControl} from "react-bootstrap";
-import '../Sign_menu.css'
-
+import './Sign_in.css'
 class SignUp extends Component {
 
     constructor(props) {
