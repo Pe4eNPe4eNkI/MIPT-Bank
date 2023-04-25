@@ -39,7 +39,7 @@ class SignIn extends Component {
                         <FormControl className = "password"
                                      value={this.state.value}
                                      onChange={this.passwordChange}
-                                     type = 'password'
+                                     type = ''
                                      placeholder = "Password "
                                      id="IDpassword"
                         />

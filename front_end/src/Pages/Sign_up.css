@@ -1,0 +1,126 @@
+:root{
+    --clean-white: #FFFFFF;
+    --dirty-white: #EBEBEB;
+    --light-gray: #9D9FA2;
+    --dark-gray: #5E5E5E;
+    --poly-orange: #FAA634;
+    --clean-white-trans: #FFFFFF40;
+    --light-gray-trans: #9D9FA240;
+}
+
+@font-face {
+    font-family: "FuturaBold";
+    src: url("../fonts/FuturaBold/FuturaBold.eot");
+    src: url("../fonts/FuturaBold/FuturaBold.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/FuturaBold/FuturaBold.woff") format("woff"),
+    url("../fonts/FuturaBold/FuturaBold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 900;
+}
+
+::placeholder {
+    color: var(--poly-orange);
+}
+
+#IDpassword::placeholder {
+    color: var(--light-gray);
+}
+
+#IDlogin::placeholder {
+    color: var(--light-gray);
+}
+
+.Sign_up {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    padding-left: 35%;
+    margin-top: 8%;
+    width: 60%;
+    font-family: "Futura", sans-serif;
+}
+
+.name {
+    background: var(--dirty-white);
+    margin-top: 25px;
+    width: 600px;
+    height: 70px;
+    border-radius: 13px;
+    border: none;
+    font-size: 25px;
+}
+
+.surname {
+    background: var(--dirty-white);
+    margin-top: 25px;
+    width: 600px;
+    height: 70px;
+    border-radius: 13px;
+    border: none;
+    font-size: 25px;
+}
+.address {
+    background: var(--dirty-white);
+    margin-top: 25px;
+    width: 600px;
+    height: 70px;
+    border-radius: 13px;
+    border: none;
+    font-size: 25px;
+}
+
+.passport {
+    background: var(--dirty-white);
+    margin-top: 25px;
+    width: 600px;
+    height: 70px;
+    border-radius: 13px;
+    border: none;
+    font-size: 25px;
+}
+
+.login {
+    background: var(--dirty-white);
+    margin-top: 25px;
+    width: 600px;
+    height: 70px;
+    border-radius: 13px;
+    border: none;
+    font-size: 25px;
+}
+
+.password {
+    background: var(--dirty-white);
+    margin-top: 25px;
+    width: 600px;
+    height: 70px;
+    border-radius: 13px;
+    border: none;
+    font-size: 25px;
+}
+
+.t1 {
+    margin-top: 10px;
+}
+
+.button_local {
+    background: var(--light-gray);
+    border: none;
+    margin-top: 40px;
+    width: 600px;
+    height: 60px;
+    border-radius: 13px;
+    font-size: 25px;
+}
+
+.block_gray {
+    background: var(--dirty-white);
+    width: 600px;
+    height: 1.5px;
+}
+
+.Te_xt {
+    color: var(--dark-gray);
+    text-align: left;
+    font-size: 50px;
+}
