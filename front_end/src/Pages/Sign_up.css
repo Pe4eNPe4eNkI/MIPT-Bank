@@ -18,6 +18,26 @@
     font-weight: 900;
 }
 
+.logo {
+    position: relative;
+    top: 25px;
+    margin-left: 20px;
+    float: left;
+    /*left: -20px;*/
+}
+
+.fucking_header{
+    position: relative;
+    /*font-family: 'Futura', sans-serif;*/
+    background: var(--clean-white);
+    height: 90px;
+    width: 100%;
+    z-index: 10000;
+    /*align-content: start;
+    align-items: start;
+    align-self: start;*/
+}
+
 ::placeholder {
     color: var(--poly-orange);
 }
@@ -26,16 +46,30 @@
     color: var(--light-gray);
 }
 
-#IDlogin::placeholder {
+#IDname::placeholder {
+    color: var(--light-gray);
+}
+
+#IDsurname::placeholder {
+    color: var(--light-gray);
+}
+
+#IDpassport::placeholder {
+    color: var(--light-gray);
+}
+
+#IDaddress::placeholder {
     color: var(--light-gray);
 }
 
 .Sign_up {
+    position: relative;
     display: grid;
     justify-content: center;
     text-align: center;
-    padding-left: 35%;
-    margin-top: 8%;
+    padding-left: 45%;
+    margin-top: 3%;
+    margin-bottom: 30px;
     width: 60%;
     font-family: "Futura", sans-serif;
 }
@@ -123,4 +157,17 @@
     color: var(--dark-gray);
     text-align: left;
     font-size: 50px;
+}
+
+.form-control:focus {
+    /*box-shadow: 0 2px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--light-gray-trans);*/
+    /*box-shadow: var(--light-gray-trans);*/
+
+    border-color: var(--light-gray);
+    box-shadow: 0 0 0 0.2rem var(--light-gray-trans);
+}
+
+.button_local:hover {
+    background-color: var(--dark-gray);
+    transition: 0.7s;
 }

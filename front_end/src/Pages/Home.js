@@ -12,9 +12,10 @@ class Home extends Component {
                 {/*<img className = "logo" src = "../Components/images/logo_based.png"alt = " "/>*/}
                 <a href="http://localhost:3000/"><img className = "logo" src={companyLogo} alt=" " width="50" height="auto"/></a>
                 <a href="http://localhost:3000/"><text className = "name_logo" width="auto" height="auto">POLYBANK</text></a>
+                {/*<a href="http://localhost:3000/"><View> <Text style = {{fontSize : '65px', color : 'white', marginLeft: '10%', fontWeight: '6   00'}}>POLYBANK</Text></View></a>*/}
 
                 <a href="http://localhost:3000/sign_in"><text className = "sign_in_header" width="auto" height="auto">Sign in</text></a>
-                <a href="http://localhost:3000/sign_up"><text className = "sign_up_header" width="auto" height="auto">Sign up</text></a>
+                {/*<a href="http://localhost:3000/sign_up"><text className = "sign_up_header" width="auto" height="auto">Sign up</text></a>*/}
             </div>
             <div className= 'quote'>
                     <View>

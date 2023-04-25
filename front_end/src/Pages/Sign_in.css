@@ -18,6 +18,37 @@
     font-weight: 900;
 }
 
+.logo {
+    position: relative;
+    top: 25px;
+    margin-left: 20px;
+    float: left;
+    /*left: -20px;*/
+}
+
+.fucking_header{
+    position: relative;
+    /*font-family: 'Futura', sans-serif;*/
+    background: var(--clean-white);
+    height: 90px;
+    width: 100%;
+    z-index: 10000;
+    /*align-content: start;
+    align-items: start;
+    align-self: start;*/
+}
+
+.sign_up_header {
+    font-family: 'FuturaRegular', sans-serif;
+    color: var(--light-gray);
+    font-size: 25px;
+    float: right;
+    position: relative;
+    top: 25px;
+    margin-right: 10px;
+    /*font-weight: lighter;*/
+}
+
 ::placeholder {
     color: var(--poly-orange);
 }
@@ -31,11 +62,12 @@
 }
 
 .Sign_in {
+    position: relative;
     display: grid;
     justify-content: center;
     text-align: center;
     padding-left: 50%;
-    margin-top: 8%;
+    margin-top: 5%;
     width: 47%;
     font-family: "Futura", sans-serif;
 }
@@ -58,6 +90,19 @@
     border-radius: 13px;
     border: none;
     font-size: 25px;
+}
+
+.form-control:focus {
+    /*box-shadow: 0 2px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--light-gray-trans);*/
+    /*box-shadow: var(--light-gray-trans);*/
+
+    border-color: var(--light-gray);
+    box-shadow: 0 0 0 0.2rem var(--light-gray-trans);
+}
+
+.button_local:hover {
+    background-color: var(--dark-gray);
+    transition: 0.7s;
 }
 
 .t1 {
