@@ -25,7 +25,7 @@ class SignIn extends Component {
     render() {
         return (
             <>
-                <div className= 'fucking_header'>
+                <div className= 'fucking_header_invise'>
                     {/*<img className = "logo" src = "../Components/images/logo_based.png"alt = " "/>*/}
                     <a href="http://localhost:3000/"><img className = "logo" src={companyLogo} alt=" " width="50" height="auto"/></a>
                     {/*<a href="http://localhost:3000/"><text className = "name_logo" width="auto" height="auto">POLYBANK</text></a>*/}

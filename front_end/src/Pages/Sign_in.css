@@ -26,7 +26,7 @@
     /*left: -20px;*/
 }
 
-.fucking_header{
+.fucking_header_invise{
     position: relative;
     /*font-family: 'Futura', sans-serif;*/
     background: var(--clean-white);
@@ -45,7 +45,7 @@
     float: right;
     position: relative;
     top: 25px;
-    margin-right: 10px;
+    margin-right: 15px;
     /*font-weight: lighter;*/
 }
 

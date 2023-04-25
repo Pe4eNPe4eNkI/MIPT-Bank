@@ -7,11 +7,16 @@ import companyLogo from '../Components/images/logo_based.png';
 class Home extends Component {
     render() {
         return (
-            <>
+            <div className="big_div">
             <div className= 'fucking_header'>
                 {/*<img className = "logo" src = "../Components/images/logo_based.png"alt = " "/>*/}
                 <a href="http://localhost:3000/"><img className = "logo" src={companyLogo} alt=" " width="50" height="auto"/></a>
-                <a href="http://localhost:3000/"><text className = "name_logo" width="auto" height="auto">POLYBANK</text></a>
+                <a href="http://localhost:3000/" style={{textDecoration: 'none'}}>
+                <View style={{float: 'left', top: '19px', width: '300px'}}>
+                    <Text style = {{fontSize : '40px', color : '#9D9FA2', marginLeft: '5px', fontWeight: '6   00'}}>
+                        POLYBANK
+                    </Text>
+                </View></a>
                 {/*<a href="http://localhost:3000/"><View> <Text style = {{fontSize : '65px', color : 'white', marginLeft: '10%', fontWeight: '6   00'}}>POLYBANK</Text></View></a>*/}
 
                 <a href="http://localhost:3000/sign_in"><text className = "sign_in_header" width="auto" height="auto">Sign in</text></a>
@@ -107,7 +112,7 @@ class Home extends Component {
                     </td>
                 </tr>
             </table>
-            </>
+            </div>
             );
     }
 }

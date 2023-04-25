@@ -43,7 +43,7 @@
     font-size: 30px;
     float: right;
     position: relative;
-    top: 29px;
+    top: 28px;
     margin-right: 10px;
     /*font-weight: lighter;*/
 }
@@ -60,9 +60,10 @@
 }
 
 .name_logo {
-    font-family: 'Futura', sans-serif;
-    color: var(--light-gray);
+    font-family: 'FuturaRegular';
     font-size: 40px;
+    font-weight: normal;
+    color: var(--light-gray);
     float: left;
     position: relative;
     top: 17px;
@@ -151,7 +152,7 @@
 }
 
 .card_tabble {
-    
+
 }
 
 @font-face { 
@@ -159,4 +160,8 @@
     src: url("../fonts/futurademic.ttf");
     font-style: normal;
     font-weight: normal;
+}
+
+.big_div {
+    overflow: hidden;
 }
