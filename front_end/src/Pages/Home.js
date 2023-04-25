@@ -2,12 +2,21 @@ import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 import CarouselBox from '../Components/Carousel';
 import './Home.css';
+import companyLogo from '../Components/images/logo_based.png';
 
 class Home extends Component {
     render() {
         return (
             <>
-            <div class= 'quote'>
+            <div className= 'fucking_header'>
+                {/*<img className = "logo" src = "../Components/images/logo_based.png"alt = " "/>*/}
+                <a href="http://localhost:3000/"><img className = "logo" src={companyLogo} alt=" " width="50" height="auto"/></a>
+                <a href="http://localhost:3000/"><text className = "name_logo" width="auto" height="auto">POLYBANK</text></a>
+
+                <a href="http://localhost:3000/sign_in"><text className = "sign_in_header" width="auto" height="auto">Sign in</text></a>
+                <a href="http://localhost:3000/sign_up"><text className = "sign_up_header" width="auto" height="auto">Sign up</text></a>
+            </div>
+            <div className= 'quote'>
                     <View>
                     <Text style = {{fontSize : '65px', color : 'white', marginLeft: '10%', fontWeight: '6   00'}}>
 
@@ -19,7 +28,7 @@ class Home extends Component {
                     </Text>                     
                 </View>
             </div>
-            <table class = 'table' width = '100%'>
+            <table className= 'table' width = '100%'>
                 <tr class='up_tabble'>
                     <td>
                         <br/>
