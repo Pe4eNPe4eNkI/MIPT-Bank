@@ -109,6 +109,7 @@
     background-image: url('../Components/images/deposit.png');
     width: 304px;
     height: 191px;
+    background-size: cover;
     margin: left;
 }
 
@@ -116,6 +117,7 @@
     background-image: url('../Components/images/credit.png');
     width: 304px;
     height: 191px;
+    background-size: cover;
     margin: left;
 }
 
@@ -123,6 +125,7 @@
     background-image: url('../Components/images/debit.png');
     width: 304px;
     height: 191px;
+    background-size: cover;
     margin: left;
 }
 

@@ -28,7 +28,6 @@ class SignIn extends Component {
                     <h2 className="Te_xt">Hello! Enter me <br/> please daddy
                     </h2>
                     <div className = "block_gray"></div>
-
                     <Form onSubmit={this.handleSubmit}>
                         <FormControl className = "login"
                                      value={this.state.value}
@@ -40,7 +39,7 @@ class SignIn extends Component {
                         <FormControl className = "password"
                                      value={this.state.value}
                                      onChange={this.passwordChange}
-                                     type = 'password'
+                                     type = ''
                                      placeholder = "Password "
                                      id="IDpassword"
                         />
@@ -48,7 +47,7 @@ class SignIn extends Component {
                     </Form>
                 </div>
             </>
-        )
+        );
     }
 }
 

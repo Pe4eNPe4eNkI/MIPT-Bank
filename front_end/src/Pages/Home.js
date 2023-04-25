@@ -33,7 +33,7 @@ class Home extends Component {
                     <td>
                         <br/>
                         Our statistic
-                        <div style={{width: '70px', height: '1px', background: '#FAA634'}}></div>
+                        <div style={{width: '70px', height: '10px', background: '#FAA634'}}></div>
                         <br/>
                     </td>
                     <td>

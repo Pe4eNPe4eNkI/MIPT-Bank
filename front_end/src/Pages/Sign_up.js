@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Form, FormControl} from "react-bootstrap";
-import './Sign_in.css'
-
+import './Sign_up.css'
 class SignUp extends Component {
 
     constructor(props) {
@@ -36,64 +35,52 @@ class SignUp extends Component {
     render() {
         return (
             <>
-                <div className="Sign_in">
+                <div className="Sign_up">
                     <h2>Sign up </h2>
                     <Form onSubmit={this.handleSubmit}>
-                    
-                        <FormControl
-                            class='name'
-                            value={this.state.value}
-                            onChange={this.nameChange}
-                            type='text'
-                            placeholder="Name "
-                            className="t1"
+                        <FormControl className = "name"
+                                     value={this.state.value}
+                                     onChange={this.nameChange}
+                                     type = 'name'
+                                     placeholder="Name "
+                                     id="IDname"
+                        />       
+                        <FormControl className = "surname"
+                                     value={this.state.value}
+                                     onChange={this.surnameChange}
+                                     type = 'surname'
+                                     placeholder="Surname "
+                                     id="IDsurname"
                         />
-                        <FormControl
-                            class='surname'
-                            value={this.state.value}
-                            onChange={this.surnameChange}
-                            type='text'
-                            placeholder="Surname "
-                            className="t1"
+                        <FormControl className = "address"
+                                     value={this.state.value}
+                                     onChange={this.addressChange}
+                                     type = 'address'
+                                     placeholder="Address "
+                                     id="IDaddress"
                         />
-                        <FormControl
-                            class='address'
-                            value={this.state.value}
-                            onChange={this.addressChange}
-                            type='text'
-                            placeholder="Address "
-                            className="t1"
-
+                        <FormControl className = "passport"
+                                     value={this.state.value}
+                                     onChange={this.passportIdChange}
+                                     type = 'passrort'
+                                     placeholder="Passport id "
+                                     id="IDpassword"
                         />
-                        <FormControl
-                            class='passport_id'
-                            value={this.state.value}
-                            onChange={this.passportIdChange}
-                            type='text'
-                            placeholder="Passport id "
-                            className="t1"
-
+                        <FormControl className = "login"
+                                     value={this.state.value}
+                                     onChange={this.loginChange}
+                                     type = 'Login'
+                                     placeholder="Login "
+                                     id="IDlogin"
                         />
-                        <FormControl
-                            class='login'
-                            value={this.state.value}
-                            onChange={this.loginChange}
-                            type='text'
-                            placeholder="Login "
-                            className="t1"
-
+                        <FormControl className = "password"
+                                     value={this.state.value}
+                                     onChange={this.passwordChange}
+                                     type = ''
+                                     placeholder = "Password "
+                                     id="IDpassword"
                         />
-                        <FormControl
-                            class='password'
-                            value={this.state.value}
-                            onChange={this.passwordChange}
-                            type='password'
-                            placeholder="Password "
-                            className="t1"
-                        />
-                        <Button name='sign_in_b' type='submit'
-                            style={{background: "#44944A", margin: "5px", border: "none"}}>Sign
-                        up </Button>
+                        <Button className = "button_local" type='submit' >Sign up </Button>
 
                         </Form>
                 </div>
