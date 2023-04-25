@@ -1,6 +1,96 @@
+:root{
+    --clean-white: #FFFFFF;
+    --dirty-white: #EBEBEB;
+    --light-gray: #9D9FA2;
+    --dark-gray: #5E5E5E;
+    --poly-orange: #FAA634;
+    --clean-white-trans: #FFFFFF40;
+    --light-gray-trans: #9D9FA240;
+}
+
+@font-face {
+    font-family: "FuturaBold";
+    src: url("../fonts/FuturaBold/FuturaBold.eot");
+    src: url("../fonts/FuturaBold/FuturaBold.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/FuturaBold/FuturaBold.woff") format("woff"),
+    url("../fonts/FuturaBold/FuturaBold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: "FuturaLight";
+    src: url("../fonts/FuturaBold/FuturaBold.eot");
+    src: url("../fonts/FuturaBold/FuturaBold.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/FuturaLT-Light.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: "FuturaRegular";
+    src: url("../fonts/FuturaRegular/FuturaRegular.eot");
+    src: url("../fonts/FuturaRegular/FuturaRegular.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/FuturaRegular/FuturaRegular.woff") format("woff"),
+    url("../fonts/FuturaRegular/FuturaRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 100;
+}
+
+.sign_in_header {
+    font-family: 'FuturaRegular', sans-serif;
+    color: var(--light-gray);
+    font-size: 30px;
+    float: right;
+    position: relative;
+    top: 29px;
+    margin-right: 10px;
+    /*font-weight: lighter;*/
+}
+
+.sign_up_header {
+    font-family: 'FuturaRegular', sans-serif;
+    color: var(--light-gray);
+    font-size: 30px;
+    float: right;
+    position: relative;
+    top: 29px;
+    margin-right: 10px;
+    /*font-weight: lighter;*/
+}
+
+.name_logo {
+    font-family: 'Futura', sans-serif;
+    color: var(--light-gray);
+    font-size: 40px;
+    float: left;
+    position: relative;
+    top: 17px;
+    /*font-weight: lighter;*/
+}
+
+.logo {
+    position: relative;
+    top: 25px;
+    margin-left: 10px;
+    float: left;
+    /*left: -20px;*/
+}
+
+.fucking_header{
+    /*font-family: 'Futura', sans-serif;*/
+    background: var(--clean-white);
+    height: 90px;
+    position: fixed;
+    width: 100%;
+    z-index: 10000;
+    /*align-content: start;
+    align-items: start;
+    align-self: start;*/
+}
 
 .quote{
-    font-family: 'Futura';
+    font-family: 'Futura', sans-serif;
     background-image: url('../Components/images/fon_3.jpg');
     background-size: cover;
 }
