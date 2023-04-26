@@ -24,7 +24,7 @@ class Home extends Component {
             </div>
             <div className= 'quote'>
                     <View>
-                    <Text style = {{fontSize : '65px', color : 'white', marginLeft: '30px', fontWeight: '6   00', marginTop: '135px', marginBottom: '100px'}}>
+                    <Text style = {{fontSize : '65px', color : 'white', marginLeft: '30px', fontWeight: '6   00', marginTop: '8.5%'}}>
 
                         "GOLD IS OUR <br/>
                         FUTURE AND HOPE<br/>
@@ -38,91 +38,66 @@ class Home extends Component {
                 <div className="statistic">
                     <text style = {{fontSize : '65px', marginLeft: '30px'}}>Our statistic</text>
                     <div className="orange_brick"></div>
+                    <div className="statistic_description">
+                        <text style = {{fontSize : '40px', marginLeft: '32px', marginTop: '30px', position: 'relative', float: 'left', textAlign: 'left', color: '#9D9FA2'}}>Gold resource</text>
+                        <text style = {{fontSize : '40px', marginLeft: '32px', marginTop: '10px', position: 'relative', float: 'left', textAlign: 'left', color: '#5E5E5E'}}>270.000t</text>
+                        <text style = {{fontSize : '40px', marginLeft: '32px', marginTop: '10px', position: 'relative', float: 'left', textAlign: 'left', color: '#9D9FA2'}}>Users</text>
+                        <text style = {{fontSize : '40px', marginLeft: '32px', marginTop: '10px', position: 'relative', float: 'left', textAlign: 'left', color: '#5E5E5E'}}>34.553</text>
+                    </div>
                 </div>
 
                 <div className="products">
-                    <text  style = {{fontSize : '65px', marginLeft: '30px'}}>Our products</text>
+                    <text style = {{fontSize : '65px', marginLeft: '30px', textAlign: 'left'}}>Our products</text>
+                    <div className="orange_brick"></div>
+                    <div className="products_description">
+                        <div className="div">
+                            <div className="card_home">
+                                <img className = "logo_card_home" src={companyLogo} alt=" " width="25" height="auto"/>
+                                <text className = "type_card_home" width="auto" height="auto">Debit</text>
+                                <text className = "numbers_card_home" width="auto" height="auto">1234 5678 9456 7362</text>
+                                <text className = "name_card_home" width="auto" height="auto">Mr. Voronin Arseniy</text>
+                            </div>
+
+                            <text className = "characteristics_card_home_first" width="auto" height="auto">Free service forever</text>
+                            <text className = "characteristics_card_home" width="auto" height="auto">Cash-back 5% for every purchase</text>
+                            <text className = "characteristics_card_home" width="auto" height="auto">Government-free system</text>
+                            <text className = "characteristics_card_home" width="auto" height="auto">Transfer up to 500.000$ per month</text>
+                        </div>
+
+                        <div className="div" style={{marginLeft: '100px'}}>
+                            <div className="card_home">
+                                <img className = "logo_card_home" src={companyLogo} alt=" " width="25" height="auto"/>
+                                <text className = "type_card_home" width="auto" height="auto">Credit</text>
+                                <text className = "numbers_card_home" width="auto" height="auto">1234 5678 9456 7362</text>
+                                <text className = "name_card_home" width="auto" height="auto">Mr. Voronin Arseniy</text>
+                            </div>
+
+                            <text className = "characteristics_card_home_first" width="auto" height="auto">Free service forever</text>
+                            <text className = "characteristics_card_home" width="auto" height="auto">Only 5% payment every month</text>
+                            <text className = "characteristics_card_home" width="auto" height="auto">Government-free system</text>
+                            <text className = "characteristics_card_home" width="auto" height="auto">Up to 100.000$ credit limit</text>
+                        </div>
+
+                        <div className="div" style={{marginLeft: '100px'}}>
+                            <div className="card_home">
+                                <img className = "logo_card_home" src={companyLogo} alt=" " width="25" height="auto"/>
+                                <text className = "type_card_home" width="auto" height="auto">Deposit</text>
+                                <text className = "numbers_card_home" width="auto" height="auto">1234 5678 9456 7362</text>
+                                <text className = "name_card_home" width="auto" height="auto">Mr. Voronin Arseniy</text>
+                            </div>
+
+                            <text className = "characteristics_card_home_first" width="auto" height="auto">Free service forever</text>
+                            <text className = "characteristics_card_home" width="auto" height="auto">Upt to 7.5% per annum</text>
+                            <text className = "characteristics_card_home" width="auto" height="auto">Government-free system</text>
+                            <text className = "characteristics_card_home" width="auto" height="auto">Payment like a card up to<br/> 5.000$ per month</text>
+                        </div>
+                        <div className="credit_div"></div>
+                        <div className="deposit_div"></div>
+                    </div>
                 </div>
             </div>
-
-            {/*<table className= 'table' width = '100%'>*/}
-            {/*    <tr class='up_tabble'>*/}
-            {/*        <td>*/}
-            {/*            <br/>*/}
-            {/*            Our statistic*/}
-            {/*            <div style={{width: '70px', height: '10px', background: '#FAA634'}}></div>*/}
-            {/*            <br/>*/}
-            {/*        </td>*/}
-            {/*        <td>*/}
-            {/*            <br/>*/}
-            {/*            Our Products*/}
-            {/*            <div style={{width: '70px', height: '1px', background: '#FAA634'}}></div>*/}
-            {/*            <br/>*/}
-            {/*        </td>*/}
-            {/*    </tr>*/}
-            {/*    <tr>*/}
-            {/*        <td>*/}
-            {/*            <tabble class="border_tabble">*/}
-            {/*                <tr style = {{color : '#9D9FA2'}}>*/}
-            {/*                    Gold resourse*/}
-            {/*                </tr>*/}
-            {/*                <tr>*/}
-            {/*                    270.000 t*/}
-            {/*                </tr>*/}
-            {/*                <tr style = {{color : '#9D9FA2'}}>*/}
-            {/*                    Users*/}
-            {/*                </tr>*/}
-            {/*                <tr>*/}
-            {/*                    34.553*/}
-            {/*                </tr>*/}
-            {/*            </tabble>*/}
-            {/*        </td>*/}
-            {/*        <td>*/}
-            {/*            <table class='card_tabble' width = '100%'>*/}
-            {/*                <tr>*/}
-            {/*                    <td>*/}
-            {/*                        <div class = 'debit'>*/}
-            {/*                            <img src='../Components/images/debit.png' alt=""></img>*/}
-
-            {/*                        </div>*/}
-            {/*                    </td>*/}
-            {/*                    <td>*/}
-            {/*                        <div class = 'credit'>*/}
-            {/*                            <img src='../Components/images/credit.png' alt=""></img>*/}
-            {/*                        </div>*/}
-            {/*                    </td>*/}
-            {/*                    <td>*/}
-            {/*                        <div class = 'deposit'>*/}
-            {/*                            <img src='../Components/images/deposit.png' alt=""></img>*/}
-            {/*                        </div>*/}
-            {/*                    </td>*/}
-            {/*                </tr>*/}
-            {/*                <tr class="text">*/}
-            {/*                    <td>*/}
-            {/*                        Free service forever<br/>*/}
-            {/*                        Cash-back 5% payment every month<br/>*/}
-            {/*                        Govermant-free system<br/>*/}
-            {/*                        Transfer up to 500.000$ per month<br/>*/}
-            {/*                    </td>*/}
-            {/*                    <td>*/}
-            {/*                        Free service forever<br/>*/}
-            {/*                        Cash-back 5% payment every month<br/>*/}
-            {/*                        Govermant-free system<br/>*/}
-            {/*                        Up to 100.000$ credit limit<br/>*/}
-            {/*                    </td>*/}
-            {/*                    <td>*/}
-            {/*                        Free service forever<br/>*/}
-            {/*                        Up to 7.5% per annum<br/>*/}
-            {/*                        Govermant-free system<br/>*/}
-            {/*                        Payment like a card up to 5.000$ per month<br/>*/}
-            {/*                        Use your deposit like a card with minor restrictions<br/>*/}
-
-            {/*                    </td>*/}
-            {/*                </tr>*/}
-            {/*            </table>*/}
-            {/*        </td>*/}
-            {/*    </tr>*/}
-            {/*</table>*/}
+                <div className="fucking_footer">
+                </div>
             </div>
             );
     }

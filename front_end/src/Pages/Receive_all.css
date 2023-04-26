@@ -71,6 +71,17 @@
     /*font-weight: lighter;*/
 }
 
+.type_card {
+    font-family: 'FuturaRegular', sans-serif;
+    color: var(--dark-gray);
+    font-size: 18px;
+    text-align: right;
+    margin-right: 15px;
+    margin-top: -23px;
+    position: relative;
+    /*font-weight: lighter;*/
+}
+
 .characteristics_card_1 {
     font-family: 'FuturaRegular', sans-serif;
     color: var(--light-gray);
@@ -116,17 +127,6 @@
     position: relative;
     margin-left: 20px;
     float: left;
-    /*font-weight: lighter;*/
-}
-
-.type_card {
-    font-family: 'FuturaRegular', sans-serif;
-    color: var(--dark-gray);
-    font-size: 18px;
-    text-align: right;
-    margin-right: 15px;
-    margin-top: -23px;
-    position: relative;
     /*font-weight: lighter;*/
 }
 
