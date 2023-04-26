@@ -1,22 +1,33 @@
 import React, {Component} from 'react';
-import {Button, Form, FormControl, Stack} from "react-bootstrap";
-import './Sign_in.css'
-import Header from "../Components/Header";
+import {Button, Form, FormControl} from "react-bootstrap";
+import './Operations.css'
 import companyLogo from "../Components/images/logo_based.png";
+class Replenishment extends Component {
 
-class SignIn extends Component {
     constructor(props) {
         super(props);
-        this.state = {login: '', password: ''};
+        this.state = {name: '', surname: '', address: '', passport_id: '', login: '', password: ''};
+        this.nameChange = this.nameChange.bind(this);
+        this.surnameChange = this.surnameChange.bind(this);
+        this.addressChange = this.addressChange.bind(this);
+        this.passportIdChange = this.passportIdChange.bind(this);
         this.loginChange = this.loginChange.bind(this);
         this.passwordChange = this.passwordChange.bind(this);
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    nameChange(event) {    this.setState({name: event.target.value});  }
+    surnameChange(event) {    this.setState({surname: event.target.value});  }
+    addressChange(event) {    this.setState({address: event.target.value});  }
+    passportIdChange(event) {    this.setState({passport_id: event.target.value});  }
     loginChange(event) {    this.setState({login: event.target.value});  }
     passwordChange(event) {    this.setState({password: event.target.value});  }
-
     handleSubmit(event) {
+        console.log(this.state.name)
+        console.log(this.state.surname)
+        console.log(this.state.address)
+        console.log(this.state.passport_id)
         console.log(this.state.login)
         console.log(this.state.password)
         event.preventDefault();
@@ -32,29 +43,22 @@ class SignIn extends Component {
                     {/*<a href="http://localhost:3000/"><View> <Text style = {{fontSize : '65px', color : 'white', marginLeft: '10%', fontWeight: '6   00'}}>POLYBANK</Text></View></a>*/}
 
                     {/*<a href="http://localhost:3000/sign_in"><text className = "sign_in_header" width="auto" height="auto">Sign in</text></a>*/}
-                    <a href="http://localhost:3000/sign_up"><text className = "sign_up_header" width="auto" height="auto">BECOME A CLIENT</text></a>
+                    {/*<a href="http://localhost:3000/sign_up"><text className = "sign_up_header" width="auto" height="auto">BECOME A CLIENT</text></a>*/}
                 </div>
-                <div className="Sign_in">
-                    <h2 className="Te_xt">Hello! Enter me <br/> please daddy
-                    </h2>
+                <div className="operations_div">
+                    <h2 className = "Te_xt">Please confirm operation</h2>
                     <div className = "block_gray"></div>
                     <Form onSubmit={this.handleSubmit}>
-                        <FormControl className = "login"
+                        <FormControl className = "sum_operations"
                                      value={this.state.value}
-                                     onChange={this.loginChange}
-                                     type = 'text'
-                                     placeholder="Login "
-                                     id="IDlogin"
+                                     onChange={this.nameChange}
+                                     type = 'sum_operations'
+                                     placeholder="Sum "
+                                     id="IDsum_operations"
                         />
-                        <FormControl className = "password"
-                                     value={this.state.value}
-                                     onChange={this.passwordChange}
-                                     type = ''
-                                     placeholder = "Password "
-                                     id="IDpassword"
-                        />
-                        <button className = "button_local" type='submit' >Sign in </button>
-                        {/*<button type="submit">Sign in</button>*/}
+
+                        <button className = "button_local_operations" type='submit' >Confirm</button>
+
                     </Form>
                 </div>
             </>
@@ -62,4 +66,4 @@ class SignIn extends Component {
     }
 }
 
-export default SignIn;
+export default Replenishment;

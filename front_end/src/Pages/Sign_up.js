@@ -91,7 +91,7 @@ class SignUp extends Component {
                                      placeholder = "Password "
                                      id="IDpassword"
                         />
-                        <Button className = "button_local" type='submit' >Sign up </Button>
+                        <button className = "button_local" type='submit' >Sign up </button>
 
                         </Form>
                 </div>

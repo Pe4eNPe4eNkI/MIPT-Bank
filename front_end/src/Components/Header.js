@@ -8,6 +8,12 @@ import About from '../Pages/About'
 import Home from '../Pages/Home'
 import Sign_in from "../Pages/Sign_in";
 import Sign_up from "../Pages/Sign_up";
+import Receive_debit from "../Pages/Recieve_debit";
+import Receive_credit from "../Pages/Receive_credit";
+import Receive_deposit from "../Pages/Receive_deposit";
+import Withdraw from "../Pages/Withdraw";
+import Replenish from "../Pages/Replenish";
+import Account from "../Pages/Account";
 
 
 export default class Header extends Component {
@@ -54,6 +60,12 @@ export default class Header extends Component {
                         <Route exact path="/blog" element={<Blog/>}/>
                         <Route exact path="/sign_in" element={<Sign_in/>}/>
                         <Route exact path="/sign_up" element={<Sign_up/>}/>
+                        <Route exact path="/receive_debit" element={<Receive_debit/>}/>
+                        <Route exact path="/receive_credit" element={<Receive_credit/>}/>
+                        <Route exact path="/receive_deposit" element={<Receive_deposit/>}/>
+                        <Route exact path="/withdraw" element={<Withdraw/>}/>
+                        <Route exact path="/replenish" element={<Replenish/>}/>
+                        <Route exact path="/account" element={<Account/>}/>
                     </Routes>
                 </Router>
 

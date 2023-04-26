@@ -42,39 +42,31 @@
     color: var(--poly-orange);
 }
 
-#IDpassword::placeholder {
+#IDsum_operations::placeholder {
     color: var(--light-gray);
 }
 
-#IDname::placeholder {
+#IDaccnum_operations::placeholder {
     color: var(--light-gray);
 }
 
-#IDsurname::placeholder {
+#IDpassword_operation::placeholder {
     color: var(--light-gray);
 }
 
-#IDpassport::placeholder {
-    color: var(--light-gray);
-}
-
-#IDaddress::placeholder {
-    color: var(--light-gray);
-}
-
-.Sign_up {
+.operations_div {
     position: relative;
     display: grid;
     justify-content: center;
     text-align: center;
-    padding-left: 45%;
-    margin-top: 3%;
+    padding-left: 40%;
+    margin-top: 10%;
     margin-bottom: 30px;
     width: 60%;
     font-family: "Futura", sans-serif;
 }
 
-.name {
+.sum_operations {
     background: var(--dirty-white);
     margin-top: 25px;
     width: 600px;
@@ -84,16 +76,7 @@
     font-size: 25px;
 }
 
-.surname {
-    background: var(--dirty-white);
-    margin-top: 25px;
-    width: 600px;
-    height: 70px;
-    border-radius: 13px;
-    border: none;
-    font-size: 25px;
-}
-.address {
+.accnum_operations {
     background: var(--dirty-white);
     margin-top: 25px;
     width: 600px;
@@ -103,7 +86,7 @@
     font-size: 25px;
 }
 
-.passport {
+.password_operation {
     background: var(--dirty-white);
     margin-top: 25px;
     width: 600px;
@@ -113,31 +96,7 @@
     font-size: 25px;
 }
 
-.login {
-    background: var(--dirty-white);
-    margin-top: 25px;
-    width: 600px;
-    height: 70px;
-    border-radius: 13px;
-    border: none;
-    font-size: 25px;
-}
-
-.password {
-    background: var(--dirty-white);
-    margin-top: 25px;
-    width: 600px;
-    height: 70px;
-    border-radius: 13px;
-    border: none;
-    font-size: 25px;
-}
-
-.t1 {
-    margin-top: 10px;
-}
-
-.button_local {
+.button_local_operations {
     background: var(--light-gray);
     border: none;
     margin-top: 40px;
@@ -168,7 +127,7 @@
     box-shadow: 0 0 0 0.2rem var(--light-gray-trans);
 }
 
-.button_local:hover {
+.button_local_operations:hover {
     background-color: var(--dark-gray);
     transition: 0.7s;
 }

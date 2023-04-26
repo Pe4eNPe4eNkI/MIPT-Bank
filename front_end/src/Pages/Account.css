@@ -37,18 +37,7 @@
     font-weight: 100;
 }
 
-.sign_in_header {
-    font-family: 'FuturaRegular', sans-serif;
-    color: var(--light-gray);
-    font-size: 30px;
-    float: right;
-    position: relative;
-    top: 28px;
-    margin-right: 10px;
-    /*font-weight: lighter;*/
-}
-
-.test {
+.exit_acc {
     font-family: 'FuturaRegular', sans-serif;
     color: var(--light-gray);
     font-size: 30px;
@@ -90,7 +79,7 @@
     align-self: start;*/
 }
 
-.quote {
+.quote_acc{
     font-family: 'Futura', sans-serif;
     background-image: url('../Components/images/fon_3.jpg');
     background-size: cover;
@@ -98,35 +87,8 @@
     /*margin-top: 68px;*/
 }
 
-.statistic {
-    position: relative;
-    float: left;
-    margin-left: 10px;
-    margin-top: 60px;
-    font-family: 'FuturaRegular';
-    color: var(--dark-gray);
-}
-
-.products {
-    position: relative;
-    float: left;
-    margin-left: 40px;
-    margin-top: 60px;
-    font-family: 'FuturaRegular';
-    color: var(--dark-gray);
-}
-
-.orange_brick {
-    background-color: var(--poly-orange);
-    width: 80px;
-    height: 10px;
-    position: relative;
-    margin-left: 30px;
-}
-
 .Text{
     font-family: "Futura";
-
 }
 
 .table {
@@ -184,7 +146,7 @@
 
 }
 
-@font-face { 
+@font-face {
     font-family: "Futura";
     src: url("../fonts/futurademic.ttf");
     font-style: normal;
