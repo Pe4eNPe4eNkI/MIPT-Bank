@@ -217,7 +217,7 @@
 .products_description_account_inside {
     display: flex;
     flex-direction: column;
-    height: 500px;
+    height: 535px;
     width: 470px;
     overflow-y: scroll;
     margin-top: -35px;
