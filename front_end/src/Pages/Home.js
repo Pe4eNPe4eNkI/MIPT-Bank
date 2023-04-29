@@ -7,7 +7,7 @@ import companyLogo from '../Components/images/logo_based.png';
 class Home extends Component {
     render() {
         return (
-            <div className="big_div">
+            <div className="big_div_home">
             <div className= 'fucking_header'>
                 {/*<img className = "logo" src = "../Components/images/logo_based.png"alt = " "/>*/}
                 <a href="http://localhost:3000/"><img className = "logo" src={companyLogo} alt=" " width="50" height="auto"/></a>
@@ -24,7 +24,7 @@ class Home extends Component {
             </div>
             <div className= 'quote'>
                     <View>
-                    <Text style = {{fontSize : '65px', color : 'white', marginLeft: '30px', fontWeight: '6   00', marginTop: '8.5%'}}>
+                    <Text style = {{fontSize : '65px', color : 'white', marginLeft: '30px', fontWeight: '6   00', marginTop: '55px'}}>
 
                         "GOLD IS OUR <br/>
                         FUTURE AND HOPE<br/>
@@ -96,8 +96,7 @@ class Home extends Component {
                     </div>
                 </div>
             </div>
-                <div className="fucking_footer">
-                </div>
+                <div className="fucking_footer"></div>
             </div>
             );
     }

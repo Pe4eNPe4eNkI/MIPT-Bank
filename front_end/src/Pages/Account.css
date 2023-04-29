@@ -4,7 +4,7 @@
     --light-gray: #9D9FA2;
     --dark-gray: #5E5E5E;
     --poly-orange: #FAA634;
-    --clean-white-trans: #FFFFFF40;
+    --clean-white-trans: #FFFFFFE0;
     --light-gray-trans: #9D9FA240;
 }
 
@@ -37,7 +37,7 @@
     font-weight: 100;
 }
 
-.exit_acc {
+.exit_account {
     font-family: 'FuturaRegular', sans-serif;
     color: var(--light-gray);
     font-size: 30px;
@@ -48,7 +48,18 @@
     /*font-weight: lighter;*/
 }
 
-.name_logo {
+.test_account {
+    font-family: 'FuturaRegular', sans-serif;
+    color: var(--light-gray);
+    font-size: 30px;
+    float: right;
+    position: relative;
+    top: 28px;
+    margin-right: 10px;
+    /*font-weight: lighter;*/
+}
+
+.name_logo_account {
     font-family: 'FuturaRegular';
     font-size: 40px;
     font-weight: normal;
@@ -59,7 +70,7 @@
     /*font-weight: lighter;*/
 }
 
-.logo {
+.logo_account {
     position: relative;
     top: 25px;
     margin-left: 10px;
@@ -67,83 +78,353 @@
     /*left: -20px;*/
 }
 
-.fucking_header{
+.fucking_header_account{
     /*font-family: 'Futura', sans-serif;*/
     background: var(--clean-white);
     height: 90px;
     position: fixed;
     width: 100%;
     z-index: 10000;
+    float: top;
     /*align-content: start;
     align-items: start;
     align-self: start;*/
 }
 
-.quote_acc{
-    font-family: 'Futura', sans-serif;
+.fucking_footer_account{
+    /*font-family: 'Futura', sans-serif;*/
+    background: var(--dirty-white);
+    height: 90px;
+    /*left: 0;*/
+    /*bottom: 0;*/
+    float: bottom;
+    width: 100%;
+    position: relative;
+    /*align-content: start;
+    align-items: start;
+    align-self: start;*/
+}
+
+.quote_account {
+    font-family: 'FuturaRegular';
     background-image: url('../Components/images/fon_3.jpg');
     background-size: cover;
-    height: 530px;
-    /*margin-top: 68px;*/
+    height: 382px;
+    margin-top: 90px;
 }
 
-.Text{
+.Cashblock {
+    background-color: var(--clean-white-trans);
+    float: left;
+    position: relative;
+    height: 320px;
+    width: 590px;
+    margin-top: 30px;
+    border-radius: 10px;
+    margin-left: 30px;
+}
+
+.Cashblock_info {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    float: left;
+    margin-left: 5px;
+}
+
+.Available {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.Debt {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+.Income {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+.history {
+    position: relative;
+    float: left;
+    margin-left: 10px;
+    margin-top: 50px;
+    font-family: 'FuturaRegular';
+    color: var(--dark-gray);
+}
+
+.products_account {
+    position: relative;
+    float: left;
+    margin-left: 10px;
+    margin-top: 50px;
+    font-family: 'FuturaRegular';
+    color: var(--dark-gray);
+    display: flex;
+    flex-direction: column;
+
+}
+
+.orange_brick_account {
+    background-color: var(--poly-orange);
+    width: 50px;
+    height: 10px;
+    position: relative;
+    margin-left: 35px;
+    margin-top: -10px;
+}
+
+.statistic_description_account {
+    position: relative;
+    float: left;
+    /*margin-left: 120px;
+    margin-top: 50px;*/
+    font-family: 'FuturaRegular';
+    width: 420px;
+    overflow: hidden;
+}
+
+.statistic_description_account_inside {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 440px;
+    overflow-y: scroll;
+}
+
+.products_description_account {
+    position: relative;
+    float: left;
+    /*margin-left: 120px;
+    margin-top: 50px;*/
+    font-family: 'FuturaRegular';
+    float: left;
+    /*margin-left: 120px;
+    margin-top: 50px;*/
+    font-family: 'FuturaRegular';
+    width: 450px;
+    overflow: hidden;
+}
+
+.products_description_account_inside {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 470px;
+    overflow-y: scroll;
+    margin-top: -35px;
+}
+
+.gray_line {
+    height: 1.5px;
+    background-color: var(--dirty-white);
+    margin-left: 32px;
+    margin-top: 20px;
+
+}
+
+.block_of_history {
+    margin-top: 8px;
+}
+
+.block_of_products {
+    margin-top: 45px;
+}
+
+.card_account {
+    position: relative;
+    top: 10px;
+    border: none;
+    background-color: var(--dirty-white);
+    float: left;
+    width: 150px;
+    height: 87px;
+    border-radius: 10px;
+    margin-left: 30px;
+    /*left: -20px;*/
+}
+
+.my_products {
+    position: relative;
+    float: left;
+    margin-left: 50px;
+    margin-top: 50px;
+    font-family: 'FuturaRegular';
+    color: var(--dark-gray);
+}
+
+.gray_line_products {
+    height: 1.5px;
+    background-color: var(--dirty-white);
+    margin-left: 32px;
+    margin-top: 20px;
+}
+
+.gray_line_products_block {
+    height: 1.5px;
+    background-color: var(--dirty-white);
+    position: relative;
+    margin-left: 32px;
+    /*margin-top: 30px;*/
+    bottom: -120px;
+}
+
+.showcase {
+    position: relative;
+    float: left;
+    margin-left: 50px;
+    margin-top: 50px;
+    font-family: 'FuturaRegular';
+    color: var(--dark-gray);
+    display: flex;
+    flex-direction: column;
+}
+
+.gray_line_showcase {
+    height: 1.5px;
+    background-color: var(--dirty-white);
+    margin-left: 32px;
+    margin-top: 20px;
+}
+
+.card_showcase {
+    margin-top: 32px;
+}
+
+.card_showcase_top {
+    margin-top: 12px;
+}
+
+all_products {
+    height: 500px;
+}
+
+.numbers_card_account {
+    font-family: 'FuturaRegular', sans-serif;
+    color: var(--dark-gray);
+    font-size: 18px;
+    text-align: right;
+    margin-top: 60px;
+    position: relative;
+    float: right;
+    margin-right: -40px;
+    /*font-weight: lighter;*/
+}
+
+.numbers_card_account_showcase_deb {
+    font-family: 'FuturaRegular', sans-serif;
+    color: var(--dark-gray);
+    font-size: 18px;
+    text-align: right;
+    margin-top: 60px;
+    position: relative;
+    float: right;
+    margin-right: -40px;
+    /*font-weight: lighter;*/
+}
+
+.numbers_card_account_showcase_cred {
+    font-family: 'FuturaRegular', sans-serif;
+    color: var(--dark-gray);
+    font-size: 18px;
+    text-align: right;
+    margin-top: 60px;
+    position: relative;
+    float: right;
+    margin-right: -45px;
+    /*font-weight: lighter;*/
+}
+
+.numbers_card_account_showcase_dep {
+    font-family: 'FuturaRegular', sans-serif;
+    color: var(--dark-gray);
+    font-size: 18px;
+    text-align: right;
+    margin-top: 60px;
+    position: relative;
+    float: right;
+    margin-right: -50px;
+    /*font-weight: lighter;*/
+}
+
+.name_card_account {
+    font-family: 'FuturaRegular', sans-serif;
+    color: var(--dark-gray);
+    font-size: 11.5px;
+    text-align: left;
+    margin-left: 14px;
+    margin-top: 0px;
+    position: relative;
+    float: left;
+    /*font-weight: lighter;*/
+}
+
+.type_card_account {
+    font-family: 'FuturaRegular', sans-serif;
+    color: var(--dark-gray);
+    font-size: 18px;
+    text-align: right;
+    float: right;
+    margin-right: 8px;
+    margin-top: 8px;
+    position: relative;
+    /*font-weight: lighter;*/
+}
+
+.logo_card_account {
+    position: relative;
+    margin-top: 12px;
+    margin-left: 10px;
+    float: left;
+    /*left: -20px;*/
+}
+
+.div_account {
+    display: flex;
+    flex-direction: column;
+}
+
+.characteristics_card_account_first {
+    font-family: 'FuturaRegular', sans-serif;
+    color: var(--light-gray);
+    font-size: 18px;
+    text-align: left;
+    margin-top: 60px;
+    position: relative;
+    margin-left: 34px;
+    float: left;
+    /*font-weight: lighter;*/
+}
+
+.characteristics_card_account {
+    font-family: 'FuturaRegular', sans-serif;
+    color: var(--light-gray);
+    font-size: 18px;
+    text-align: left;
+    margin-top: 25px;
+    position: relative;
+    margin-left: 34px;
+    float: left;
+    /*font-weight: lighter;*/
+}
+
+.Text_account{
     font-family: "Futura";
-}
 
-.table {
-    font-family: 'Futura';
-    margin-top : 0.5%;
-    margin-left: 5%;
-}
-
-.deposit {
-    background-image: url('../Components/images/deposit.png');
-    width: 304px;
-    height: 191px;
-    background-size: cover;
-    margin: left;
-}
-
-.credit {
-    background-image: url('../Components/images/credit.png');
-    width: 304px;
-    height: 191px;
-    background-size: cover;
-    margin: left;
-}
-
-.debit {
-    background-image: url('../Components/images/debit.png');
-    width: 304px;
-    height: 191px;
-    background-size: cover;
-    margin: left;
 }
 
 .text {
     text-align: left;
     color: #9D9FA2;
     line-height: 2.5;
-}
-
-.border_tabble {
-    font-family: 'Futura';
-    text-align: left;
-    font-size: 30px;
-    margin-right: 50%;
-    line-height: 2em;
-
-}
-
-.up_tabble {
-    font-family: 'Futura';
-    text-align: left;
-    font-size: 45px;
-}
-
-.card_tabble {
-
 }
 
 @font-face {
@@ -153,6 +434,16 @@
     font-weight: normal;
 }
 
-.big_div {
-    overflow: hidden;
+.big_div_account {
+    position: absolute;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    width: 100%;
+    height: 100%;
+}
+
+.menu_block_account {
+    float: top;
+    width: 100%;
+    height: 700px;
 }
