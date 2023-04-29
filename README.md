@@ -3,7 +3,7 @@ Our project is aimed at the practice of software architecture design
 
 Back-end - C++
 
-Front_end - ???
+Front-end - ???
 
 # Project launch
 ```shell script
