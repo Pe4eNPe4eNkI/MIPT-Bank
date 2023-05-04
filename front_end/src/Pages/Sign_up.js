@@ -46,7 +46,7 @@ class SignUp extends Component {
                     {/*<a href="http://localhost:3000/sign_up"><text className = "sign_up_header" width="auto" height="auto">BECOME A CLIENT</text></a>*/}
                 </div>
                 <div className="Sign_up">
-                    <h2 className = "Te_xt">Enter information <br/> about you to use <br/> me daddy </h2>
+                    <h2 className = "Te_xt">Enter information <br/> about you to use <br/> products </h2>
                     <div className = "block_gray"></div>
                     <Form onSubmit={this.handleSubmit}>
                         <FormControl className = "name"

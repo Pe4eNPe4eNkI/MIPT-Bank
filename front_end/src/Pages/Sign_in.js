@@ -35,7 +35,7 @@ class SignIn extends Component {
                     <a href="http://localhost:3000/sign_up"><text className = "sign_up_header" width="auto" height="auto">BECOME A CLIENT</text></a>
                 </div>
                 <div className="Sign_in">
-                    <h2 className="Te_xt">Hello! Enter me <br/> please daddy
+                    <h2 className="Te_xt">Hello! Enter please
                     </h2>
                     <div className = "block_gray"></div>
                     <Form onSubmit={this.handleSubmit}>

@@ -51,12 +51,14 @@ class Home extends Component {
                     <div className="orange_brick"></div>
                     <div className="products_description">
                         <div className="div">
+                            <a href="http://localhost:3000/receive_debit">
                             <div className="card_home">
                                 <img className = "logo_card_home" src={companyLogo} alt=" " width="25" height="auto"/>
                                 <text className = "type_card_home" width="auto" height="auto">Debit</text>
                                 <text className = "numbers_card_home" width="auto" height="auto">1234 5678 9456 7362</text>
                                 <text className = "name_card_home" width="auto" height="auto">Mr. Voronin Arseniy</text>
                             </div>
+                            </a>
 
                             <text className = "characteristics_card_home_first" width="auto" height="auto">Free service forever</text>
                             <text className = "characteristics_card_home" width="auto" height="auto">Cash-back 5% for every purchase</text>
@@ -65,12 +67,14 @@ class Home extends Component {
                         </div>
 
                         <div className="div" style={{marginLeft: '100px'}}>
+                            <a href="http://localhost:3000/receive_credit">
                             <div className="card_home">
                                 <img className = "logo_card_home" src={companyLogo} alt=" " width="25" height="auto"/>
                                 <text className = "type_card_home" width="auto" height="auto">Credit</text>
                                 <text className = "numbers_card_home" width="auto" height="auto">1234 5678 9456 7362</text>
                                 <text className = "name_card_home" width="auto" height="auto">Mr. Voronin Arseniy</text>
                             </div>
+                            </a>
 
                             <text className = "characteristics_card_home_first" width="auto" height="auto">Free service forever</text>
                             <text className = "characteristics_card_home" width="auto" height="auto">Only 5% payment every month</text>
@@ -79,12 +83,14 @@ class Home extends Component {
                         </div>
 
                         <div className="div" style={{marginLeft: '100px'}}>
+                            <a href="http://localhost:3000/receive_deposit">
                             <div className="card_home">
                                 <img className = "logo_card_home" src={companyLogo} alt=" " width="25" height="auto"/>
                                 <text className = "type_card_home" width="auto" height="auto">Deposit</text>
                                 <text className = "numbers_card_home" width="auto" height="auto">1234 5678 9456 7362</text>
                                 <text className = "name_card_home" width="auto" height="auto">Mr. Voronin Arseniy</text>
                             </div>
+                            </a>
 
                             <text className = "characteristics_card_home_first" width="auto" height="auto">Free service forever</text>
                             <text className = "characteristics_card_home" width="auto" height="auto">Upt to 7.5% per annum</text>
@@ -96,7 +102,32 @@ class Home extends Component {
                     </div>
                 </div>
             </div>
-                <div className="fucking_footer"></div>
+                <div className="fucking_footer">
+                    <div className="Useful_links">
+                        <text className = "text_foot_head" width="auto" height="auto">Useful links</text>
+                        <text className = "text_foot" width="auto" height="auto">Partners</text>
+                        <text className = "text_foot" width="auto" height="auto">Working with us</text>
+                        <text className = "text_foot" width="auto" height="auto">For investors</text>
+                    </div>
+                    <div className="Stay_in_touch">
+                        <text className = "text_foot_head" width="auto" height="auto">Stay in touch</text>
+                        <text className = "text_foot" width="auto" height="auto">Emergency free call</text>
+                        <text className = "text_foot" width="auto" height="auto">Hotline</text>
+                        <text className = "text_foot" width="auto" height="auto">polybank@gmail.com</text>
+                        <text className = "text_foot" width="auto" height="auto">+7-902-632-0145</text>
+                    </div>
+                    <div className="Documents">
+                        <text className = "text_foot_head" width="auto" height="auto">Documents</text>
+                        <text className = "text_foot" width="auto" height="auto">Consumer rights</text>
+                        <text className = "text_foot" width="auto" height="auto">Codex</text>
+                        <text className = "text_foot" width="auto" height="auto">Trademark documents</text>
+                    </div>
+                    <div className="Contacts">
+                        <text className = "text_foot_head" width="auto" height="auto">Info</text>
+                        <text className = "text_foot" width="auto" height="auto">Management</text>
+                        <text className = "text_foot" width="auto" height="auto">Website of company</text>
+                    </div>
+                </div>
             </div>
             );
     }
