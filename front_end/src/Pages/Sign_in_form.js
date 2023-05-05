@@ -42,7 +42,10 @@ class Sign_in_form extends React.Component{
                          placeholder = "Password "
                          id="IDpassword"
             />
-            <button className = "button_local" type='submit' >Sign in </button>
+            <button className = "button_local" type='submit' onClick={(e) => {
+                e.preventDefault();
+                window.location.href='http://localhost:3000/account';
+            }}>Sign in </button>
         </Form>)
     }
 }

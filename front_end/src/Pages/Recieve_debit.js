@@ -50,7 +50,10 @@ class ReceiveDebit extends Component {
                         <text className = "characteristics_card_4" width="auto" height="auto">Transfer up to 500.000$</text>
                         {/*<br/>Cash-back 5% for every purchase<br/>Government-free system<br/>Transfer up to 500.00$ per month*/}
                     </div>
-                    <button className = "button_local_card" type='submit' >Get it </button>
+                    <button className = "button_local_card" type='submit' onClick={(e) => {
+                        e.preventDefault();
+                        window.location.href='http://localhost:3000/account';
+                    }}>Get it </button>
                 </div>
             </>
         );

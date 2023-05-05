@@ -56,9 +56,20 @@ class Home extends Component {
                             </div>
                         </div>
 
-                        <Text style = {{fontSize : '27px', color : '#9D9FA2', marginLeft: '30px', fontWeight: '6   00', textAlign: 'left', float: 'left', marginTop: '3px'}}>
+                        {/*<Text style = {{fontSize : '27px', color : '#9D9FA2', marginLeft: '30px', fontWeight: '6   00', textAlign: 'left', float: 'left', marginTop: '3px'}}>
                             You have: 3 products
-                        </Text>
+                        </Text>*/}
+
+                        <div className="buttons_operations">
+                            <button className = "button_local_operation_first" type='submit' onClick={(e) => {
+                                e.preventDefault();
+                                window.location.href='http://localhost:3000/replenish';
+                            }}>Withdraw</button>
+                            <button className = "button_local_operation" type='submit' onClick={(e) => {
+                                e.preventDefault();
+                                window.location.href='http://localhost:3000/withdraw';
+                            }}>Replenish</button>
+                        </div>
 
                         <Text style = {{fontSize : '18px', color : '#9D9FA2', marginRight: '25px', fontWeight: '6   00', textAlign: 'right', float: 'right', marginTop: '65px', textDecorationLine: 'underline'}}>
                             Requisites

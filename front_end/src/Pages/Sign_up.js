@@ -91,8 +91,10 @@ class SignUp extends Component {
                                      placeholder = "Password "
                                      id="IDpassword"
                         />
-                        <button className = "button_local" type='submit' >Sign up </button>
-
+                        <button className = "button_local" type='submit' onClick={(e) => {
+                            e.preventDefault();
+                            window.location.href='http://localhost:3000/account';
+                        }}>Sign up </button>
                         </Form>
                 </div>
             </>

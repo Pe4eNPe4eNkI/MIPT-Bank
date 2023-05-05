@@ -57,7 +57,11 @@ class Replenishment extends Component {
                                      id="IDsum_operations"
                         />
 
-                        <button className = "button_local_operations" type='submit' >Confirm</button>
+                        <button className = "button_local_operations" type='submit' onClick={(e) => {
+                            e.preventDefault();
+                            window.location.href='http://localhost:3000/account';
+                        }}>Sign in </button>
+
 
                     </Form>
                 </div>

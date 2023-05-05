@@ -152,6 +152,47 @@
     margin-left: 15px;
 }
 
+.buttons_operations {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    float: left;
+    margin-left: 29px;
+}
+
+.button_local_operation_first {
+    background: var(--light-gray);
+    border: none;
+    margin-top: 10px;
+    width: 150px;
+    height: 60px;
+    border-radius: 13px;
+    font-size: 25px;
+    color: var(--dirty-white);
+}
+
+.button_local_operation {
+    background: var(--light-gray);
+    border: none;
+    margin-top: 10px;
+    width: 150px;
+    height: 60px;
+    border-radius: 13px;
+    font-size: 25px;
+    margin-left: 40px;
+    color: var(--dirty-white);
+}
+
+.button_local_operation:hover {
+    background-color: var(--dark-gray);
+    transition: 0.7s;
+}
+
+.button_local_operation_first:hover {
+    background-color: var(--dark-gray);
+    transition: 0.7s;
+}
+
 .history {
     position: relative;
     float: left;
