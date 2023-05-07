@@ -1,10 +1,13 @@
 package com.example.mipt_bank_app;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import android.content.Context;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,7 +90,7 @@ public class Account extends Fragment {
         EditText address_re = (EditText) getView().findViewById(R.id.rewrite_address);
         EditText passport_re = (EditText) getView().findViewById(R.id.rewrite_passport);
 
-        DB_Person = new PersonDB(this);
+        DB_Person = new PersonDB(getContext());
         rewrite_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,7 +103,8 @@ public class Account extends Fragment {
                 String passport_idTXT = passport_re.getText().toString();
 
                 if (!password1TXT.equals(password2TXT)) {
-                    Toast.makeText(MainActivity.this, "Invalid password", Toast.LENGTH_SHORT).show();
+                    password1_re.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+                    password2_re.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
                 }
 
                 Boolean check_insert_data = DB_Person.updateUserData(loginTXT,
@@ -109,9 +114,9 @@ public class Account extends Fragment {
                                                                      addressTXT,
                                                                      passport_idTXT);
 
-                if (!check_insert_data) {
+                /*if (!check_insert_data) {
                     Toast.makeText(MainActivity.this, "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
 

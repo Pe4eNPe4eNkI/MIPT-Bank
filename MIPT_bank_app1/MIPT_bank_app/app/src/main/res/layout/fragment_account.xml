@@ -9,6 +9,9 @@
 
     <EditText
         android:id="@+id/sign_up_surname"
+        android:focusable="false"
+        android:longClickable="false"
+        android:cursorVisible="false"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="80dp"
@@ -19,6 +22,7 @@
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
         android:textSize="20sp"
+        android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/sign_up_namereal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -26,6 +30,9 @@
 
     <EditText
         android:id="@+id/sign_up_namereal"
+        android:focusable="false"
+        android:longClickable="false"
+        android:cursorVisible="false"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="80dp"
@@ -33,6 +40,7 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/no_angles_text_view"
         android:hint="Name"
+        android:maxLines="1"
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
         android:textSize="20sp"
@@ -53,6 +61,7 @@
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
         android:textSize="20sp"
+        android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/rewrite_passport"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -62,6 +71,7 @@
         android:id="@+id/rewrite_passport"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:maxLines="1"
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"
         android:layout_marginBottom="10dp"
@@ -77,6 +87,10 @@
 
     <EditText
         android:id="@+id/sign_up_login"
+        android:focusable="false"
+        android:maxLines="1"
+        android:longClickable="false"
+        android:cursorVisible="false"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="80dp"
@@ -100,6 +114,7 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/no_angles_text_view"
         android:hint="Password"
+        android:maxLines="1"
         android:inputType="textPassword"
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
@@ -121,6 +136,7 @@
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
         android:textSize="20sp"
+        android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/rewrite_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

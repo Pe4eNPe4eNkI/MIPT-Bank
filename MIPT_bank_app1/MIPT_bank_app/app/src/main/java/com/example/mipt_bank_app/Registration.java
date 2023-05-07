@@ -1,5 +1,7 @@
 package com.example.mipt_bank_app;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Context;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,7 +87,7 @@ public class Registration extends Fragment {
         EditText address_sign_up = (EditText) getView().findViewById(R.id.sign_up_address);
         EditText passport_sign_up = (EditText) getView().findViewById(R.id.sign_up_passport);
 
-        DB_Person = new PersonDB(this);
+        DB_Person = new PersonDB(getContext());
 
 
         reg.setOnClickListener(new View.OnClickListener() {
@@ -108,9 +111,19 @@ public class Registration extends Fragment {
                 String passport_idTXT = passport_sign_up.getText().toString();
 
                 if (!password1TXT.equals(password2TXT)) {
-                    Toast.makeText(MainActivity.this, "Invalid password", Toast.LENGTH_SHORT).show();
-                } else if (loginTXT.isEmpty() && first_nameTXT.isEmpty() && second_nameTXT.isEmpty() && password1TXT.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "fill in all required fields", Toast.LENGTH_SHORT).show();
+                    password1_sign_up.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+                    password2_sign_up.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+                } else if (loginTXT.isEmpty()) {
+                    login_sign_up.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+                } else if (first_nameTXT.isEmpty()) {
+                    surname_sign_up.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+
+                } else if (second_nameTXT.isEmpty()) {
+                    name_sign_up.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+                }
+                else if (password1TXT.isEmpty()) {
+                    password1_sign_up.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+                    password2_sign_up.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
                 }
 
                 Boolean check_insert_data = DB_Person.insertUserData(loginTXT,
@@ -120,9 +133,6 @@ public class Registration extends Fragment {
                                                                      addressTXT,
                                                                      passport_idTXT);
 
-                if (!check_insert_data) {
-                    Toast.makeText(MainActivity.this, "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
-                }
 
                 Constants.entered = 1;
                 Navigation.findNavController(view).navigate(R.id.account);

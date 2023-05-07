@@ -6,11 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.mipt_bank_app.ui.notifications.NotificationsFragment;
+
 public class PersonDB extends SQLiteOpenHelper {
     public PersonDB(Context context) {
         super(context, "MyDB.db", null, 1);
     }
-
     @Override
     public void onCreate(SQLiteDatabase DB) {
         DB.execSQL("create Table PersonTable(" +
@@ -111,14 +112,5 @@ public class PersonDB extends SQLiteOpenHelper {
             return false;
         }
         return true;
-    }
-
-    public Boolean find(String login, String password) {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ?", new String[]{login});
-        if (cursor.getString(1).equals(password)) {
-            return true;
-        }
-        return false;
     }
 }
