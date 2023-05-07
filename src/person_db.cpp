@@ -73,7 +73,7 @@ iperson *person_db::find_person(const big_int &id) {
     throw std::string("Can`t find person");
   }
   sqlite3_finalize(stmt);
-  return persondb_build::build_person(first_name, second_name, address, passport_id);;
+  return persondb_build::build_person(first_name, second_name, address, passport_id);
 }
 
 void person_db::rewrite_max_id() const {

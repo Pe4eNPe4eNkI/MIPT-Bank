@@ -110,7 +110,7 @@ ibill *bill_db::bill_delete_and_find(const big_int &bill_id) {
   auto rc = sqlite3_exec(bill_db_, query.c_str(), nullptr, nullptr, &err_);
 
   if (rc != SQLITE_OK) {
-    throw std::string("Fuck u asshole " + std::string(err_));
+    throw std::string("aaa u asshole " + std::string(err_));
   }
   return p;
 }
