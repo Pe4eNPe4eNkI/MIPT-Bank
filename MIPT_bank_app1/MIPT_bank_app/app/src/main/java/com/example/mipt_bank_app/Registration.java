@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +33,8 @@ public class Registration extends Fragment {
     public Registration() {
         // Required empty public constructor
     }
+
+    PersonDB DB_Person;
 
     /**
      * Use this factory method to create a new instance of
@@ -72,6 +76,17 @@ public class Registration extends Fragment {
         cl.setText("HUIHUI");*/
         TextView reg = (TextView) getView().findViewById(R.id.want_sign_in);
 
+        EditText login_sign_up = (EditText) getView().findViewById(R.id.sign_up_login);
+        EditText password1_sign_up = (EditText) getView().findViewById(R.id.sign_up_password1);
+        EditText password2_sign_up = (EditText) getView().findViewById(R.id.sign_up_password2);
+        EditText surname_sign_up = (EditText) getView().findViewById(R.id.sign_up_surname);
+        EditText name_sign_up = (EditText) getView().findViewById(R.id.sign_up_namereal);
+        EditText address_sign_up = (EditText) getView().findViewById(R.id.sign_up_address);
+        EditText passport_sign_up = (EditText) getView().findViewById(R.id.sign_up_passport);
+
+        DB_Person = new PersonDB(this);
+
+
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,6 +99,31 @@ public class Registration extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String loginTXT = login_sign_up.getText().toString();
+                String password1TXT = password1_sign_up.getText().toString();
+                String password2TXT = password2_sign_up.getText().toString();
+                String first_nameTXT = surname_sign_up.getText().toString();
+                String second_nameTXT = name_sign_up.getText().toString();
+                String addressTXT = address_sign_up.getText().toString();
+                String passport_idTXT = passport_sign_up.getText().toString();
+
+                if (!password1TXT.equals(password2TXT)) {
+                    Toast.makeText(MainActivity.this, "Invalid password", Toast.LENGTH_SHORT).show();
+                } else if (loginTXT.isEmpty() && first_nameTXT.isEmpty() && second_nameTXT.isEmpty() && password1TXT.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "fill in all required fields", Toast.LENGTH_SHORT).show();
+                }
+
+                Boolean check_insert_data = DB_Person.insertUserData(loginTXT,
+                                                                     password1TXT,
+                                                                     first_nameTXT,
+                                                                     second_nameTXT,
+                                                                     addressTXT,
+                                                                     passport_idTXT);
+
+                if (!check_insert_data) {
+                    Toast.makeText(MainActivity.this, "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
+                }
+
                 Constants.entered = 1;
                 Navigation.findNavController(view).navigate(R.id.account);
             }

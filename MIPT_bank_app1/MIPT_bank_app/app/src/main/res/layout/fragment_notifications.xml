@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />-->
 
     <EditText
-        android:id="@+id/sign_in_name"
+        android:id="@+id/sign_in_login"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="80dp"
@@ -45,6 +45,7 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/no_angles_text_view"
         android:hint="Password"
+        android:inputType="textPassword"
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
         android:textSize="20sp"

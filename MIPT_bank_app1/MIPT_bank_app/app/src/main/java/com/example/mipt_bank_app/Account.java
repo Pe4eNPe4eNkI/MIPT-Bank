@@ -9,7 +9,10 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +29,8 @@ public class Account extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    PersonDB DB_Person;
 
     public Account() {
         // Required empty public constructor
@@ -69,7 +74,47 @@ public class Account extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         /*TextView cl = (TextView) getView().findViewById(R.id.block);
         cl.setText("HUIHUI");*/
+
+        Button rewrite_btn = (Button) getView().findViewById(R.id.rewrite_button);
         TextView reg = (TextView) getView().findViewById(R.id.want_sign_in);
+
+        EditText login_re = (EditText) getView().findViewById(R.id.sign_up_login);
+        EditText password1_re = (EditText) getView().findViewById(R.id.rewrite_password1);
+        EditText password2_re = (EditText) getView().findViewById(R.id.rewrite_password2);
+        EditText surname_re = (EditText) getView().findViewById(R.id.sign_up_surname);
+        EditText name_re = (EditText) getView().findViewById(R.id.sign_up_namereal);
+        EditText address_re = (EditText) getView().findViewById(R.id.rewrite_address);
+        EditText passport_re = (EditText) getView().findViewById(R.id.rewrite_passport);
+
+        DB_Person = new PersonDB(this);
+        rewrite_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String loginTXT = login_re.getText().toString();
+                String password1TXT = password1_re.getText().toString();
+                String password2TXT = password2_re.getText().toString();
+                String first_nameTXT = surname_re.getText().toString();
+                String second_nameTXT = name_re.getText().toString();
+                String addressTXT = address_re.getText().toString();
+                String passport_idTXT = passport_re.getText().toString();
+
+                if (!password1TXT.equals(password2TXT)) {
+                    Toast.makeText(MainActivity.this, "Invalid password", Toast.LENGTH_SHORT).show();
+                }
+
+                Boolean check_insert_data = DB_Person.updateUserData(loginTXT,
+                                                                     password1TXT,
+                                                                     first_nameTXT,
+                                                                     second_nameTXT,
+                                                                     addressTXT,
+                                                                     passport_idTXT);
+
+                if (!check_insert_data) {
+                    Toast.makeText(MainActivity.this, "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
