@@ -6,23 +6,22 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.mipt_bank_app.ui.notifications.NotificationsFragment;
-
 public class PersonDB extends SQLiteOpenHelper {
     public PersonDB(Context context) {
         super(context, "MyDB.db", null, 1);
     }
+
     @Override
     public void onCreate(SQLiteDatabase DB) {
         DB.execSQL("create Table PersonTable(" +
-                    "login TEXT primary key, " +
-                    "password TEXT, " +
-                    "first_name TEXT, " +
-                    "second_name TEXT, " +
-                    "address TEXT, " +
-                    "passport_id TEXT, " +
-                    "money_limit TEXT, " +
-                    "is_doubtful TEXT)");
+                "login TEXT primary key, " +
+                "password TEXT, " +
+                "first_name TEXT, " +
+                "second_name TEXT, " +
+                "address TEXT, " +
+                "passport_id TEXT, " +
+                "money_limit TEXT, " +
+                "is_doubtful TEXT)");
     }
 
     @Override
@@ -37,8 +36,8 @@ public class PersonDB extends SQLiteOpenHelper {
                                   String address,
                                   String passport_id) {
 
-        String money_limit = "10000$";
-        String is_doubtful = "Norm";
+        String is_doubtful = address.isEmpty() && passport_id.isEmpty() ? "bad" : "good";
+        String money_limit = is_doubtful.equals("bad") ? "1000" : "10000000000000000";
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("login", login);
@@ -50,11 +49,13 @@ public class PersonDB extends SQLiteOpenHelper {
         contentValues.put("money_limit", money_limit);
         contentValues.put("is_doubtful", is_doubtful);
         long result = DB.insert("PersonTable", null, contentValues);
-        if(result == -1) {
+        if (result == -1) {
             return false;
         }
         return true;
     }
+
+    //TODO апдейт не по логинам а по id
     public Boolean updateUserData(String login,
                                   String password,
                                   String first_name,
@@ -64,12 +65,21 @@ public class PersonDB extends SQLiteOpenHelper {
 
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("password", password);
-        contentValues.put("first_name", first_name);
-        contentValues.put("second_name", second_name);
-        contentValues.put("address", address);
-        contentValues.put("passport_id", passport_id);
-
+        if (!password.isEmpty()) {
+            contentValues.put("password", password);
+        }
+        if (!first_name.isEmpty()) {
+            contentValues.put("first_name", first_name);
+        }
+        if (!second_name.isEmpty()) {
+            contentValues.put("second_name", second_name);
+        }
+        if (!address.isEmpty()) {
+            contentValues.put("address", address);
+        }
+        if (!passport_id.isEmpty()) {
+            contentValues.put("passport_id", passport_id);
+        }
         Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ?", new String[]{login});
         if (cursor.getCount() > 0) {
             long result = DB.update("PersonTable", contentValues, "login=?", new String[]{login});
@@ -80,7 +90,8 @@ public class PersonDB extends SQLiteOpenHelper {
         }
         return false;
     }
-    public Boolean deleteData (String login) {
+
+    public Boolean deleteData(String login) {
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ?", new String[]{login});
         if (cursor.getCount() > 0) {
@@ -99,18 +110,20 @@ public class PersonDB extends SQLiteOpenHelper {
         Cursor cursor = DB.rawQuery("Select * from PersonTable", null);
         return cursor;
     }
-    public Cursor getPerson(String login) {
+
+    public Cursor getPerson(String login, String password) {
         SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ?", new String[]{login});
-        return cursor;
+        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ? and password = ? ", new String[]{login, password});
+        return (cursor.getCount() == 0 ? null : cursor);
     }
 
-    public Boolean personFind(String login) {
+    public Boolean personFind(String login, String password) {
         SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ?", new String[]{login});
+        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ? and password = ? ", new String[]{login, password});
         if (cursor.getCount() == 0) {
             return false;
         }
         return true;
     }
+
 }

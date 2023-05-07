@@ -70,7 +70,6 @@ public class Withdraw extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         /*TextView cl = (TextView) getView().findViewById(R.id.block);
         cl.setText("HUIHUI");*/
-
         TextView withdraw = (TextView) getView().findViewById(R.id.want_sign_in);
 
         withdraw.setOnClickListener(new View.OnClickListener() {

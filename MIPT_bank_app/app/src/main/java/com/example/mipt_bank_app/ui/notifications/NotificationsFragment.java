@@ -1,7 +1,7 @@
 package com.example.mipt_bank_app.ui.notifications;
 
-import android.graphics.Color;
-import android.graphics.PorterDuff;
+import android.app.AlertDialog;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import android.database.Cursor;
 import android.widget.Toast;
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,11 +22,11 @@ import com.example.mipt_bank_app.PersonDB;
 import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.databinding.FragmentNotificationsBinding;
 
+import org.w3c.dom.Text;
+
 public class NotificationsFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
-
-    public PersonDB DB_Person;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -50,15 +43,6 @@ public class NotificationsFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
-        EditText login_sign_in = (EditText) getView().findViewById(R.id.sign_up_login);
-        EditText password_sign_in = (EditText) getView().findViewById(R.id.sign_in_password);
-
-        DB_Person = new PersonDB(getContext());
-
-        /*TextView cl = (TextView) getView().findViewById(R.id.block);
-        cl.setText("HUIHUI");*/
-
         if (Constants.entered == 0) {
             TextView reg = (TextView) getView().findViewById(R.id.want_sign_in);
 
@@ -69,22 +53,29 @@ public class NotificationsFragment extends Fragment {
                 }
             });
 
-            Button btn = (Button) getView().findViewById(R.id.sign_in_button);
+            Button btn_in = (Button) getView().findViewById(R.id.sign_in_button);
 
-            btn.setOnClickListener(new View.OnClickListener() {
+
+            btn_in.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String login_sign_inTXT = login_sign_in.getText().toString();
-                    String password_sign_inTXT = password_sign_in.getText().toString();
+                    PersonDB pdb = new PersonDB(getContext());
+                    EditText login_text = (EditText) getView().findViewById(R.id.sign_in_login);
+                    EditText password_text = (EditText) getView().findViewById(R.id.sign_in_password);
 
-                    if (!DB_Person.personFind(login_sign_inTXT)) {
-                        login_sign_in.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-                    } else if (!password_sign_inTXT.equals(DB_Person.getPerson(login_sign_inTXT).getString(1))) {
-                        password_sign_in.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+                    String login = login_text.getText().toString();
+                    String password = password_text.getText().toString();
+                    if (pdb.personFind(login, password) && !login.isEmpty() && !password.isEmpty()) {
+                        Constants.entered = 1;
+                        Toast.makeText(getActivity(), "Great!", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(view).navigate(R.id.account);
+                    } else if (login.isEmpty()) {
+                        Toast.makeText(getActivity(), "Empty login", Toast.LENGTH_SHORT).show();
+                    } else if (password.isEmpty()) {
+                        Toast.makeText(getActivity(), "Empty password", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "Incorrect login or password", Toast.LENGTH_SHORT).show();
                     }
-
-                    Constants.entered = 1;
-                    Navigation.findNavController(view).navigate(R.id.account);
                 }
             });
         }
