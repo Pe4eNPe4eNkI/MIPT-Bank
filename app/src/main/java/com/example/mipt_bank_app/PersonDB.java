@@ -1,10 +1,14 @@
 package com.example.mipt_bank_app;
 
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 public class PersonDB extends SQLiteOpenHelper {
     public PersonDB(Context context) {
@@ -13,9 +17,9 @@ public class PersonDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase DB) {
-        DB.execSQL("create Table PersonTable (" +
-                "id TEXT, " +
+        DB.execSQL("create Table PersonTable(" +
                 "login TEXT primary key, " +
+                "id TEXT, " +
                 "password TEXT, " +
                 "first_name TEXT, " +
                 "second_name TEXT, " +
@@ -23,6 +27,32 @@ public class PersonDB extends SQLiteOpenHelper {
                 "passport_id TEXT, " +
                 "money_limit TEXT, " +
                 "is_doubtful TEXT)");
+    }
+
+    public String getMaxId_pp() {
+        Cursor res = this.getData();
+        if (res.getCount() == 0) {
+            return "1";
+        }
+        String id = new String();
+        while (res.moveToNext()) {
+            id = res.getString(1);
+        }
+        big_int temp = new big_int(id);
+        return temp.operator_pp_prefix().toString();
+    }
+
+    public String getMaxId() {
+        Cursor res = this.getData();
+        if (res.getCount() == 0) {
+            return "0";
+        }
+        String id = new String();
+        while (res.moveToNext()) {
+            id = ("Id: " + res.getString(1) + "\n");
+
+        }
+        return id;
     }
 
     @Override
@@ -37,11 +67,14 @@ public class PersonDB extends SQLiteOpenHelper {
                                   String address,
                                   String passport_id) {
 
-        String money_limit = "10000$";
-        String is_doubtful = "Norm";
+        String is_doubtful = address.isEmpty() && passport_id.isEmpty() ? "bad" : "good";
+        String money_limit = is_doubtful.equals("bad") ? "1000" : "10000000000000000";
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+
+
         contentValues.put("login", login);
+        contentValues.put("id", this.getMaxId_pp());
         contentValues.put("password", password);
         contentValues.put("first_name", first_name);
         contentValues.put("second_name", second_name);
@@ -50,10 +83,7 @@ public class PersonDB extends SQLiteOpenHelper {
         contentValues.put("money_limit", money_limit);
         contentValues.put("is_doubtful", is_doubtful);
         long result = DB.insert("PersonTable", null, contentValues);
-        if (result == -1) {
-            return false;
-        }
-        return true;
+        return result != -1;
     }
 
     public Boolean updateUserData(String login,

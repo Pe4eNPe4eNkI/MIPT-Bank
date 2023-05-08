@@ -79,40 +79,60 @@ public class Account extends Fragment {
         /*TextView cl = (TextView) getView().findViewById(R.id.block);
         cl.setText("HUIHUI");*/
 
-        Button rewrite_btn = (Button) getView().findViewById(R.id.sign_in_button);
-        TextView reg = (TextView) getView().findViewById(R.id.want_sign_in);
+        Button rewrite_btn = (Button) getView().findViewById(R.id.rewrite_button);
+        TextView reg = (TextView) getView().findViewById(R.id.exit);
 
-        EditText login_re = (EditText) getView().findViewById(R.id.sign_in_name);
-        EditText password1_re = (EditText) getView().findViewById(R.id.sign_in_password);
-        /*EditText password2_re = (EditText) getView().findViewById(R.id.rewrite_password2);*/
-        EditText surname_re = (EditText) getView().findViewById(R.id.sign_in_surname);
-        EditText name_re = (EditText) getView().findViewById(R.id.sign_in_namereal);
-        EditText address_re = (EditText) getView().findViewById(R.id.sign_in_address);
-        EditText passport_re = (EditText) getView().findViewById(R.id.sign_in_passport);
+        EditText login_re = (EditText) getView().findViewById(R.id.rewrite_login);
+        EditText password1_re = (EditText) getView().findViewById(R.id.rewrite_password);
+        EditText password2_re = (EditText) getView().findViewById(R.id.rewrite_password2);
+        EditText surname_re = (EditText) getView().findViewById(R.id.rewrite_surname);
+        EditText name_re = (EditText) getView().findViewById(R.id.rewrite_name);
+        EditText address_re = (EditText) getView().findViewById(R.id.rewrite_address);
+        EditText passport_re = (EditText) getView().findViewById(R.id.rewrite_passport);
 
         DB_Person = new PersonDB(getContext());
         rewrite_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                login_re.getBackground().setColorFilter(Color.parseColor("#EBEBEB"), PorterDuff.Mode.SRC_ATOP);
+                surname_re.getBackground().setColorFilter(Color.parseColor("#EBEBEB"), PorterDuff.Mode.SRC_ATOP);
+                name_re.getBackground().setColorFilter(Color.parseColor("#EBEBEB"), PorterDuff.Mode.SRC_ATOP);
+                surname_re.getBackground().setColorFilter(Color.parseColor("#EBEBEB"), PorterDuff.Mode.SRC_ATOP);
+                address_re.getBackground().setColorFilter(Color.parseColor("#EBEBEB"), PorterDuff.Mode.SRC_ATOP);
+                passport_re.getBackground().setColorFilter(Color.parseColor("#EBEBEB"), PorterDuff.Mode.SRC_ATOP);
+
                 String loginTXT = login_re.getText().toString();
                 String password1TXT = password1_re.getText().toString();
-               /* String password2TXT = password2_re.getText().toString();*/
-                String first_nameTXT = surname_re.getText().toString();
-                String second_nameTXT = name_re.getText().toString();
+                String password2TXT = password2_re.getText().toString();
+                String surnameTXT = surname_re.getText().toString();
+                String nameTXT = name_re.getText().toString();
                 String addressTXT = address_re.getText().toString();
                 String passport_idTXT = passport_re.getText().toString();
 
-                /*if (!password1TXT.equals(password2TXT)) {
-                    password1_re.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-                    password2_re.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-                }*/
+                if (surnameTXT.isEmpty()) {
+                    surname_re.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
+                    Toast.makeText(getActivity(), "Empty surname", Toast.LENGTH_SHORT).show();
+                } else if (nameTXT.isEmpty()) {
+                    name_re.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
+                    Toast.makeText(getActivity(), "Empty name", Toast.LENGTH_SHORT).show();
+                } else if (password1TXT.isEmpty()) {
+                    password1_re.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
+                    password2_re.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
+                    Toast.makeText(getActivity(), "Empty password", Toast.LENGTH_SHORT).show();
+                } else if (!password1TXT.equals(password2TXT)) {
+                    password1_re.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
+                    password2_re.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
+                    Toast.makeText(getActivity(), "Invalid password", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Great!", Toast.LENGTH_SHORT).show();
+                }
 
                 Boolean check_insert_data = DB_Person.updateUserData(loginTXT,
-                        password1TXT,
-                        first_nameTXT,
-                        second_nameTXT,
-                        addressTXT,
-                        passport_idTXT);
+                                                                     password1TXT,
+                                                                     surnameTXT,
+                                                                     nameTXT,
+                                                                     addressTXT,
+                                                                     passport_idTXT);
 
                 if (!check_insert_data) {
                     Toast.makeText(getActivity(), "New Entry Not Inserted", Toast.LENGTH_SHORT).show();

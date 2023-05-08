@@ -60,21 +60,24 @@ public class NotificationsFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     PersonDB pdb = new PersonDB(getContext());
-                    EditText login_text = (EditText) getView().findViewById(R.id.sign_in_name);
+                    EditText login_text = (EditText) getView().findViewById(R.id.sign_in_login);
                     EditText password_text = (EditText) getView().findViewById(R.id.sign_in_password);
 
                     String login = login_text.getText().toString();
                     String password = password_text.getText().toString();
-                    Toast.makeText(getActivity(), login + "  " + password, Toast.LENGTH_SHORT).show();
                     if (pdb.personFind(login, password) && !login.isEmpty() && !password.isEmpty()) {
                         Constants.entered = 1;
+                        Toast.makeText(getActivity(), "Great!", Toast.LENGTH_SHORT).show();
                         Navigation.findNavController(view).navigate(R.id.account);
+                    } else if (login.isEmpty()) {
+                        Toast.makeText(getActivity(), "Empty login", Toast.LENGTH_SHORT).show();
+                    } else if (password.isEmpty()) {
+                        Toast.makeText(getActivity(), "Empty password", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getActivity(), "Incorect login or password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Incorrect login or password", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
-        } else {
         }
     }
 

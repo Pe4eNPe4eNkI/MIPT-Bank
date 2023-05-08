@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />-->
 
     <EditText
-        android:id="@+id/sign_in_name"
+        android:id="@+id/sign_in_login"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="80dp"
@@ -32,6 +32,7 @@
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
         android:textSize="20sp"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/sign_in_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -48,12 +49,13 @@
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
         android:textSize="20sp"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/sign_in_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/line_button"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginStart="80dp"
@@ -62,7 +64,7 @@
         android:background="@color/light_gray"
         android:backgroundTint="@color/light_gray"
         android:clickable="false"
-        app:layout_constraintBottom_toTopOf="@+id/sign_in_name"
+        app:layout_constraintBottom_toTopOf="@+id/sign_in_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -95,7 +97,7 @@
         android:text="Hello! Enter please"
         android:textColor="@color/dark_gray"
         android:textSize="26sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/line_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
