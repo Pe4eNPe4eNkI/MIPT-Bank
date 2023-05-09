@@ -34,17 +34,16 @@ public class withdrawal extends Fragment {
             }
         });
 
-        Button withdrawal_button = (Button) getView().findViewById(R.id.withdrawal_confirm_button);
+        Button withdraw_b = (Button) getView().findViewById(R.id.withdrawal_confirm_button);
 
-        withdrawal_button.setOnClickListener(new View.OnClickListener() {
+        withdraw_b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                withdrawal_operation refill = new withdrawal_operation(new bills_db(getContext()), new person_db(getContext()));
+                withdrawal_operation withdrawal = new withdrawal_operation(new bills_db(getContext()), new person_db(getContext()));
                 EditText money = (EditText) getView().findViewById(R.id.sum);
                 if (money != null) {
                     String temp = money.getText().toString();
-                    refill.executeOperation(constants.person.get_id(), temp, constants.operation);
+                    withdrawal.executeOperation(constants.person.get_id(), temp, constants.operation);
                     Navigation.findNavController(view).navigate(R.id.navigation_home);
                 } else {
                     Toast.makeText(getActivity(), "Enter sum! ", Toast.LENGTH_SHORT).show();

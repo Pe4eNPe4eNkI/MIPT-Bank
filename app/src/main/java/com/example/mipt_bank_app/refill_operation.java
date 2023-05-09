@@ -10,42 +10,46 @@ public class refill_operation extends i_easy_money_operation {
     }
 
     @Override
-    public void executeOperation(String receiver_id, String money_size, String type) {
+    public void executeOperation(String receiver_id, String refill_sum, String type) {
         Cursor cursor_bill = trans_.get_bill(receiver_id, type);
         cursor_bill.moveToFirst();
-        String bill_id = cursor_bill.getString(1);
-        String money = cursor_bill.getString(3);
-        String field_for_bill = cursor_bill.getString(4);
+        String bill_id_from_db = cursor_bill.getString(1);
+        String money_from_db = cursor_bill.getString(3);
+        String field_for_bill_from_db = cursor_bill.getString(4);
 
-        /*Cursor cursor_person = person_db_.getPerson(receiver_id);
+        Cursor cursor_person = person_db_.getPerson(receiver_id);
         cursor_person.moveToFirst();
         String is_doubtful = cursor_person.getString(8);
-        boolean flag = Boolean.parseBoolean(is_doubtful);*/
+        boolean flag = (is_doubtful.equals("1") ? true : false);
 
-        bill_factory bf = new bill_factory();
+        big_int refill_sum_big = new big_int(refill_sum);
+        big_int money_limit = new big_int(constants.money_limit);
+        big_int user_balance = new big_int(money_from_db);
+        big_int nul = new big_int(0);
 
-        big_int temp1 = new big_int(money);
-        big_int temp2 = new big_int(money_size);
+        if ((flag && refill_sum_big.operator_less_or_equal(money_limit) || !flag) && refill_sum_big.operator_more_or_equal(nul)) {
+            bill_factory bf = new bill_factory();
 
-        temp1.operator_plus_equal(temp2);
+            user_balance.operator_plus_equal(refill_sum_big);
 
-        String itogo_deneg = temp1.toString();
+            if (type == constants.BILL_KIND_CREDIT) {
 
-        if (type == constants.BILL_KIND_CREDIT) {
-            big_int temp3 = new big_int(field_for_bill);
-            big_int temp4 = new big_int(money_size);
-            if (temp3.operator_more(temp4)) {
-                temp3.operator_minus_equal(temp4);
-                field_for_bill = temp1.toString();
-                credit cr = bf.build_credit(bill_id, receiver_id, money, field_for_bill);
+                big_int updeted_field = new big_int(field_for_bill_from_db);
+                updeted_field.operator_minus_equal(refill_sum_big);
+                credit cr = bf.build_credit(bill_id_from_db, receiver_id, money_from_db.toString(), updeted_field.toString());
                 trans_.updateUserData(cr);
+
+            } else if (type == constants.BILL_KIND_DEBIT) {
+
+                debit db = bf.build_debit(bill_id_from_db, receiver_id, user_balance.toString());
+                trans_.updateUserData(db);
+
+            } else if (type == constants.BILL_KIND_DEPOSIT) {
+
+                deposit dp = bf.build_deposit(bill_id_from_db, receiver_id, user_balance.toString());
+                trans_.updateUserData(dp);
+
             }
-        } else if (type == constants.BILL_KIND_DEBIT) {
-            debit db = bf.build_debit(bill_id, receiver_id, itogo_deneg);
-            trans_.updateUserData(db);
-        } else if (type == constants.BILL_KIND_DEPOSIT) {
-            deposit dp = bf.build_deposit(bill_id, receiver_id, itogo_deneg);
-            trans_.updateUserData(dp);
         }
     }
 

@@ -24,9 +24,9 @@ public class refill extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        TextView withdraw = (TextView) getView().findViewById(R.id.back_to_bill_lobby);
+        TextView refill = (TextView) getView().findViewById(R.id.back_to_bill_lobby);
 
-        withdraw.setOnClickListener(new View.OnClickListener() {
+        refill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.navigation_home);
@@ -38,11 +38,12 @@ public class refill extends Fragment {
         refill_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                refill_operation withdrawal = new refill_operation(new bills_db(getContext()), new person_db(getContext()));
+
+                refill_operation refill = new refill_operation(new bills_db(getContext()), new person_db(getContext()));
                 EditText money = (EditText) getView().findViewById(R.id.sum);
                 if (money != null) {
                     String temp = money.getText().toString();
-                    withdrawal.executeOperation(constants.person.get_id(), temp, constants.operation);
+                    refill.executeOperation(constants.person.get_id(), temp, constants.operation);
                     Navigation.findNavController(view).navigate(R.id.navigation_home);
                 } else {
                     Toast.makeText(getActivity(), "Enter sum! ", Toast.LENGTH_SHORT).show();

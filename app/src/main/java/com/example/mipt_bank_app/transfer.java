@@ -41,14 +41,19 @@ public class transfer extends Fragment {
                 transfer_operation transfer = new transfer_operation(new bills_db(getContext()), new person_db(getContext()));
                 EditText money = (EditText) getView().findViewById(R.id.sum);
                 EditText reciver_bill_id = (EditText) getView().findViewById(R.id.receiver_bill_id);
-                EditText password = (EditText) getView().findViewById(R.id.sum);
-                if (money != null) {
+                EditText password = (EditText) getView().findViewById(R.id.password);
+                if (money != null && reciver_bill_id != null && password != null) {
                     String temp = money.getText().toString();
                     String reciver_bill = reciver_bill_id.getText().toString();
-                    transfer.executeTransferOperation(constants.person.get_id(), reciver_bill, temp, constants.operation);
-                    Navigation.findNavController(view).navigate(R.id.navigation_home);
+                    if (constants.person.get_password().equals(password.getText().toString())) {
+                        transfer.executeTransferOperation(constants.person.get_id(), reciver_bill, temp, constants.operation);
+                        Navigation.findNavController(view).navigate(R.id.navigation_home);
+                    } else {
+                        Toast.makeText(getActivity(), "Incorrect Password! ", Toast.LENGTH_SHORT).show();
+                    }
+
                 } else {
-                    Toast.makeText(getActivity(), "Enter sum! ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Enter all fields! ", Toast.LENGTH_SHORT).show();
                 }
             }
         });

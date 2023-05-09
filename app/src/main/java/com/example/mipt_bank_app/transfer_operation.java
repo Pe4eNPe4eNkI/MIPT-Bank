@@ -14,52 +14,81 @@ public class transfer_operation extends i_ne_easy_money_operation {
 
         Cursor cursor_bill1 = trans_.get_bill(sender_id, type);
         cursor_bill1.moveToFirst();
-        String bill_id1 = cursor_bill1.getString(1);
-        String person_id1 = cursor_bill1.getString(2);
-        String money1 = cursor_bill1.getString(3);
-        String field_for_bill1 = cursor_bill1.getString(4);
+        String sender_bill_id = cursor_bill1.getString(1);
+        String sender_money = cursor_bill1.getString(3);
+        String sender_field_for_bill = cursor_bill1.getString(4);
 
         Cursor cursor_bill = trans_.get_bill(receiver_bill_id);
         cursor_bill.moveToFirst();
-        String bill_id = cursor_bill.getString(1);
-        String person_id = cursor_bill.getString(2);
-        String money = cursor_bill.getString(3);
-        String field_for_bill = cursor_bill.getString(4);
+        String receiver_bill_kind = cursor_bill.getString(0);
+        String receiver_person_id = cursor_bill.getString(2);
+        String receiver_money = cursor_bill.getString(3);
+        String receiver_field_for_bill = cursor_bill.getString(4);
 
-        /*Cursor cursor_person = pdb_.getPerson(receiver_id);
+        Cursor cursor_person = pdb_.getPerson(sender_id);
         cursor_person.moveToFirst();
         String is_doubtful = cursor_person.getString(8);
-        boolean flag = Boolean.parseBoolean(is_doubtful);*/
+        boolean flag = (is_doubtful.equals("1") ? true : false);
 
-        big_int temp = new big_int(money1);
-        big_int temp1 = new big_int(money_size);
-        big_int temp2 = new big_int(money);
-        if (!temp.operator_less(temp1)) {
+        big_int sender_balance_big = new big_int(sender_money);
+        big_int receiver_balance_big = new big_int(receiver_money);
+        big_int transfer_size = new big_int(money_size);
+        big_int money_limit = new big_int(constants.money_limit);
 
-            temp.operator_minus_equal(temp1);
-            temp2.operator_plus_equal(temp1);
+        if (receiver_bill_id != sender_bill_id) {
+            if (sender_balance_big.operator_more_or_equal(transfer_size) && (flag && transfer_size.operator_less_or_equal(money_limit) || !flag)) {
 
-            bill_factory bf = new bill_factory();
+                sender_balance_big.operator_minus_equal(transfer_size);
+                receiver_balance_big.operator_plus_equal(transfer_size);
+                bill_factory bf = new bill_factory();
 
-            if (type == constants.BILL_KIND_CREDIT) {
-                big_int temp3 = new big_int(field_for_bill);
-                big_int temp4 = new big_int(money_size);
-                if (temp3.operator_more(temp4)) {
-                    temp3.operator_minus_equal(temp4);
-                    field_for_bill = temp1.toString();
-                    credit cr = bf.build_credit(bill_id, person_id, money, field_for_bill);
-                    trans_.updateUserData(cr);
+                if (type == constants.BILL_KIND_CREDIT) {
+                    big_int sender_field_for_bill_big = new big_int(sender_field_for_bill);
+                    big_int receiver_field_for_bill_big = new big_int(receiver_field_for_bill);
+                    sender_field_for_bill_big.operator_minus_equal(transfer_size);
+                    credit sender = bf.build_credit(sender_bill_id, sender_id, sender_balance_big.toString(), sender_field_for_bill_big.toString());
+                    trans_.updateUserData(sender);
+                    i_bill receiver = null;
+                    if (receiver_bill_kind.equals("debit")) {
+                        receiver = bf.build_debit(receiver_bill_id, receiver_person_id, receiver_balance_big.toString());
+                    } else if (receiver_bill_kind.equals("deposit")) {
+                        receiver = bf.build_deposit(receiver_bill_id, receiver_person_id, receiver_balance_big.toString());
+                    } else if (receiver_bill_kind.equals("credit")) {
+                        receiver_field_for_bill_big.operator_minus_equal(transfer_size);
+                        receiver = bf.build_credit(receiver_bill_id, receiver_person_id, receiver_balance_big.toString(), receiver_field_for_bill_big.toString());
+                    }
+                    trans_.updateUserData(receiver);
+                } else if (type == constants.BILL_KIND_DEBIT) {
+                    debit sender = bf.build_debit(sender_bill_id, sender_id, sender_balance_big.toString());
+                    trans_.updateUserData(sender);
+                    i_bill receiver = null;
+                    if (receiver_bill_kind.equals("debit")) {
+                        receiver = bf.build_debit(receiver_bill_id, receiver_person_id, receiver_balance_big.toString());
+                    } else if (receiver_bill_kind.equals("deposit")) {
+                        receiver = bf.build_deposit(receiver_bill_id, receiver_person_id, receiver_balance_big.toString());
+                    } else if (receiver_bill_kind.equals("credit")) {
+                        big_int receiver_field_for_bill_big = new big_int(receiver_field_for_bill);
+                        receiver_field_for_bill_big.operator_minus_equal(transfer_size);
+                        receiver = bf.build_credit(receiver_bill_id, receiver_person_id, receiver_balance_big.toString(), receiver_field_for_bill_big.toString());
+                    }
+                    trans_.updateUserData(receiver);
+                } else if (type == constants.BILL_KIND_DEPOSIT) {
+                    deposit sender = bf.build_deposit(sender_bill_id, sender_id, sender_balance_big.toString());
+                    trans_.updateUserData(sender);
+
+                    i_bill receiver = null;
+
+                    if (receiver_bill_kind.equals("debit")) {
+                        receiver = bf.build_debit(receiver_bill_id, receiver_person_id, receiver_balance_big.toString());
+                    } else if (receiver_bill_kind.equals("deposit")) {
+                        receiver = bf.build_deposit(receiver_bill_id, receiver_person_id, receiver_balance_big.toString());
+                    } else if (receiver_bill_kind.equals("credit")) {
+                        big_int receiver_field_for_bill_big = new big_int(receiver_field_for_bill);
+                        receiver_field_for_bill_big.operator_minus_equal(transfer_size);
+                        receiver = bf.build_credit(receiver_bill_id, receiver_person_id, receiver_balance_big.toString(), receiver_field_for_bill_big.toString());
+                    }
+                    trans_.updateUserData(receiver);
                 }
-            } else if (type == constants.BILL_KIND_DEBIT) {
-                debit db1 = bf.build_debit(bill_id1, person_id1, temp.toString());
-                debit db2 = bf.build_debit(bill_id, person_id, temp2.toString());
-                trans_.updateUserData(db1);
-                trans_.updateUserData(db2);
-            } else if (type == constants.BILL_KIND_DEPOSIT) {
-                deposit db1 = bf.build_deposit(bill_id, person_id1, temp.toString());
-                deposit db2 = bf.build_deposit(bill_id, person_id, temp2.toString());
-                trans_.updateUserData(db1);
-                trans_.updateUserData(db2);
             }
         }
     }
