@@ -130,7 +130,7 @@ public class person_db extends SQLiteOpenHelper {
 
     public Cursor getPerson(String login) {
         SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ? ", new String[]{login,});
+        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ? ", new String[]{login});
         return (cursor.getCount() == 0 ? null : cursor);
     }
 
@@ -144,6 +144,12 @@ public class person_db extends SQLiteOpenHelper {
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ? and password = ? ", new String[]{login, password});
         return cursor.getCount() != 0;
+    }
+
+    public Cursor get_person_by_id(String id) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("Select * from PersonTable where id = ? ", new String[]{id});
+        return (cursor.getCount() == 0 ? null : cursor);
     }
 
 }

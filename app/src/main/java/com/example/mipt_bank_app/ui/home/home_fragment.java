@@ -17,6 +17,8 @@ import androidx.navigation.Navigation;
 
 import com.example.mipt_bank_app.constants;
 import com.example.mipt_bank_app.R;
+import com.example.mipt_bank_app.constants;
+import com.example.mipt_bank_app.big_int;
 import com.example.mipt_bank_app.bills_db;
 import com.example.mipt_bank_app.databinding.FragmentHomeBinding;
 
@@ -32,6 +34,8 @@ public class home_fragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        /*final TextView textView = binding.textHome;
+        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);*/
         return root;
     }
 
@@ -137,6 +141,47 @@ public class home_fragment extends Fragment {
             debit.setClickable(true);
             credit.setClickable(true);
             deposit.setClickable(true);
+
+            big_int global_available = new big_int(0);
+            big_int global_debt = new big_int(0);
+            big_int global_income = new big_int(0);
+
+            if (constants.have_debit == 1) {
+                Cursor cursor_debit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEBIT);
+                cursor_debit.moveToFirst();
+
+                big_int avalible1 = new big_int(cursor_debit.getString(3));
+                big_int cashback = new big_int(cursor_debit.getString(4));
+
+                global_available.operator_plus_equal(avalible1);
+                global_income.operator_plus_equal(cashback);
+            }
+
+            if (constants.have_credit == 1) {
+                Cursor cursor_credit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_CREDIT);
+                cursor_credit.moveToFirst();
+
+                big_int avalible2 = new big_int(cursor_credit.getString(3));
+                big_int debt = new big_int(cursor_credit.getString(4));
+
+                global_available.operator_plus_equal(avalible2);
+                global_debt.operator_plus_equal(debt);
+            }
+
+            if (constants.have_deposit == 1) {
+                Cursor cursor_deposit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEPOSIT);
+                cursor_deposit.moveToFirst();
+
+                big_int avalible3 = new big_int(cursor_deposit.getString(3));
+                big_int income = new big_int(cursor_deposit.getString(4));
+
+                global_available.operator_plus_equal(avalible3);
+                global_income.operator_plus_equal(income);
+            }
+
+            selected_num_1.setText(global_available.toString() + "$");
+            selected_num_2.setText(global_debt.toString() + "$");
+            selected_num_3.setText(global_income.toString() + "$");
         } else {
             selected_descriprion.setVisibility(View.VISIBLE);
             debit_description.setVisibility(View.VISIBLE);
@@ -274,9 +319,47 @@ public class home_fragment extends Fragment {
                     transfer.setEnabled(false);
                     refill.setEnabled(false);
                     withdrawal.setEnabled(false);
-                    selected_num_1.setText("0$");
-                    selected_num_2.setText("0$");
-                    selected_num_3.setText("0$");
+
+                    big_int global_available = new big_int(0);
+                    big_int global_debt = new big_int(0);
+                    big_int global_income = new big_int(0);
+
+                    if (constants.have_debit == 1) {
+                        Cursor cursor_debit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEBIT);
+                        cursor_debit.moveToFirst();
+
+                        big_int avalible1 = new big_int(cursor_debit.getString(3));
+                        big_int cashback = new big_int(cursor_debit.getString(4));
+
+                        global_available.operator_plus_equal(avalible1);
+                        global_income.operator_plus_equal(cashback);
+                    }
+
+                    if (constants.have_credit == 1) {
+                        Cursor cursor_credit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_CREDIT);
+                        cursor_credit.moveToFirst();
+
+                        big_int avalible2 = new big_int(cursor_credit.getString(3));
+                        big_int debt = new big_int(cursor_credit.getString(4));
+
+                        global_available.operator_plus_equal(avalible2);
+                        global_debt.operator_plus_equal(debt);
+                    }
+
+                    if (constants.have_deposit == 1) {
+                        Cursor cursor_deposit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEPOSIT);
+                        cursor_deposit.moveToFirst();
+
+                        big_int avalible3 = new big_int(cursor_deposit.getString(3));
+                        big_int income = new big_int(cursor_deposit.getString(4));
+
+                        global_available.operator_plus_equal(avalible3);
+                        global_income.operator_plus_equal(income);
+                    }
+
+                    selected_num_1.setText(global_available.toString() + "$");
+                    selected_num_2.setText(global_debt.toString() + "$");
+                    selected_num_3.setText(global_income.toString() + "$");
                 }
             }
         });
@@ -332,9 +415,46 @@ public class home_fragment extends Fragment {
                     transfer.setEnabled(false);
                     refill.setEnabled(false);
                     withdrawal.setEnabled(false);
-                    selected_num_1.setText("0$");
-                    selected_num_2.setText("0$");
-                    selected_num_3.setText("0$");
+                    big_int global_available = new big_int(0);
+                    big_int global_debt = new big_int(0);
+                    big_int global_income = new big_int(0);
+
+                    if (constants.have_debit == 1) {
+                        Cursor cursor_debit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEBIT);
+                        cursor_debit.moveToFirst();
+
+                        big_int avalible1 = new big_int(cursor_debit.getString(3));
+                        big_int cashback = new big_int(cursor_debit.getString(4));
+
+                        global_available.operator_plus_equal(avalible1);
+                        global_income.operator_plus_equal(cashback);
+                    }
+
+                    if (constants.have_credit == 1) {
+                        Cursor cursor_credit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_CREDIT);
+                        cursor_credit.moveToFirst();
+
+                        big_int avalible2 = new big_int(cursor_credit.getString(3));
+                        big_int debt = new big_int(cursor_credit.getString(4));
+
+                        global_available.operator_plus_equal(avalible2);
+                        global_debt.operator_plus_equal(debt);
+                    }
+
+                    if (constants.have_deposit == 1) {
+                        Cursor cursor_deposit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEPOSIT);
+                        cursor_deposit.moveToFirst();
+
+                        big_int avalible3 = new big_int(cursor_deposit.getString(3));
+                        big_int income = new big_int(cursor_deposit.getString(4));
+
+                        global_available.operator_plus_equal(avalible3);
+                        global_income.operator_plus_equal(income);
+                    }
+
+                    selected_num_1.setText(global_available.toString() + "$");
+                    selected_num_2.setText(global_debt.toString() + "$");
+                    selected_num_3.setText(global_income.toString() + "$");
                 }
             }
         });
@@ -390,9 +510,46 @@ public class home_fragment extends Fragment {
                     transfer.setEnabled(false);
                     refill.setEnabled(false);
                     withdrawal.setEnabled(false);
-                    selected_num_1.setText("0$");
-                    selected_num_2.setText("0$");
-                    selected_num_3.setText("0$");
+                    big_int global_available = new big_int(0);
+                    big_int global_debt = new big_int(0);
+                    big_int global_income = new big_int(0);
+
+                    if (constants.have_debit == 1) {
+                        Cursor cursor_debit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEBIT);
+                        cursor_debit.moveToFirst();
+
+                        big_int avalible1 = new big_int(cursor_debit.getString(3));
+                        big_int cashback = new big_int(cursor_debit.getString(4));
+
+                        global_available.operator_plus_equal(avalible1);
+                        global_income.operator_plus_equal(cashback);
+                    }
+
+                    if (constants.have_credit == 1) {
+                        Cursor cursor_credit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_CREDIT);
+                        cursor_credit.moveToFirst();
+
+                        big_int avalible2 = new big_int(cursor_credit.getString(3));
+                        big_int debt = new big_int(cursor_credit.getString(4));
+
+                        global_available.operator_plus_equal(avalible2);
+                        global_debt.operator_plus_equal(debt);
+                    }
+
+                    if (constants.have_deposit == 1) {
+                        Cursor cursor_deposit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEPOSIT);
+                        cursor_deposit.moveToFirst();
+
+                        big_int avalible3 = new big_int(cursor_deposit.getString(3));
+                        big_int income = new big_int(cursor_deposit.getString(4));
+
+                        global_available.operator_plus_equal(avalible3);
+                        global_income.operator_plus_equal(income);
+                    }
+
+                    selected_num_1.setText(global_available.toString() + "$");
+                    selected_num_2.setText(global_debt.toString() + "$");
+                    selected_num_3.setText(global_income.toString() + "$");
                 }
             }
         });

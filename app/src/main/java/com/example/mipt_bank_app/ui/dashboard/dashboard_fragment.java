@@ -3,6 +3,8 @@ package com.example.mipt_bank_app.ui.dashboard;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.media.VolumeShaper;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -18,10 +20,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mipt_bank_app.R;
+import com.example.mipt_bank_app.bills_db;
 import com.example.mipt_bank_app.databinding.FragmentDashboardBinding;
 import com.example.mipt_bank_app.constants;
+import com.example.mipt_bank_app.i_easy_money_operation;
+import com.example.mipt_bank_app.i_ne_easy_money_operation;
+import com.example.mipt_bank_app.operation_db;
+import com.example.mipt_bank_app.person_db;
+import com.example.mipt_bank_app.refill_operation;
+import com.example.mipt_bank_app.transfer_operation;
+import com.example.mipt_bank_app.withdrawal_operation;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class dashboard_fragment extends Fragment {
 
@@ -35,8 +46,6 @@ public class dashboard_fragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        /*final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);*/
         return root;
     }
 
@@ -45,92 +54,87 @@ public class dashboard_fragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         ListView history_list = (ListView) getView().findViewById(R.id.history);
         TextView text_hist = (TextView) getView().findViewById(R.id.textView_his);
-        constants.oper_counter = 1;
 
         if (constants.entered == 1) {
             history_list.setVisibility(View.VISIBLE);
             text_hist.setText("History of your operations");
-        }
-
-        else {
+        } else {
             history_list.setVisibility(View.INVISIBLE);
             text_hist.setText("Please, enter account");
         }
 
-        ArrayList<history_item> historyItems_list;
+        ArrayList<history_item> historyItems = new ArrayList<history_item>();
 
-        historyItems_list = new ArrayList<>();
-
-        /*historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));
-        historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: 001"));*/
+        if (find_operations(constants.person.get_id()) != null) {
+            historyItems = find_operations(constants.person.get_id());
+        }
 
 
+        history_adapter adapter_h = new history_adapter(getActivity(), R.layout.list_item, historyItems);
 
-        //ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, catNames);
-
-        /*ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item, catNames);*/
-
-        history_adapter adapter_h = new history_adapter(getActivity(), R.layout.list_item, historyItems_list);
-
-        int a = adapter_h.getCount();
-
+        if (!historyItems.isEmpty()) {
+            adapter_h.notifyDataSetChanged();
+        }
         history_list.setAdapter(adapter_h);
 
-        for (int k = 0; k <= 20; k++) {
-            historyItems_list.add(new history_item("Withdraw" + "\n", "1000$", "id: " + Integer.toString(constants.oper_counter)));
-            constants.oper_counter += 1;
+
+        if (!historyItems.isEmpty()) {
             adapter_h.notifyDataSetChanged();
         }
 
-        /*Button bt = (Button) getView().findViewById(R.id.button_test);
-
-        bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                historyItems_list.add(new HistoryItem("Withdraw" + "\n", "1000$", "id: " + Integer.toString(Constants.oper_counter)));
-                Constants.oper_counter += 1;
-                adapter_h.notifyDataSetChanged();
-            }
-        });*/
-
+        ArrayList<history_item> finalHistoryItems = historyItems;
         history_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                /*FragmentManager manager = getFragmentManager();
-                MyDialogFragment myDialogFragment = new MyDialogFragment();
-                myDialogFragment.show(manager, "myDialog");*/
-
-                /*MyDialogFragment myDialogFragment = new MyDialogFragment();
-                FragmentManager manager = getFragmentManager();
-                //myDialogFragment.show(manager, "dialog");
-
-                FragmentTransaction transaction = manager.beginTransaction();
-                myDialogFragment.show(transaction, "dialog");*/
 
                 new AlertDialog.Builder(getContext()).setTitle(Html.fromHtml("<font color='#5E5E5E'>Do you want to cancel the operation?</font>")).setPositiveButton(Html.fromHtml("<font color='#FAA634'>Yes</font>"), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int j) {
-                        historyItems_list.remove(i);
+                        String type = finalHistoryItems.get(i).getType();
+                        String oper_id = finalHistoryItems.get(i).getOperationId();
+                        operation_db odb = new operation_db(getContext());
+                        bills_db bdb = new bills_db(getContext());
+                        person_db pdb = new person_db(getContext());
+                        i_easy_money_operation easy_oper = null;
+                        i_ne_easy_money_operation ne_easy_oper = null;
+
+                        String sub_type = type.substring(0, type.length() - 1);
+
+                        if (sub_type.equals(constants.REFIL)) {
+                            easy_oper = new refill_operation(bdb, pdb, odb);
+                        } else if (sub_type.equals(constants.WITHDRAWAL)) {
+                            easy_oper = new withdrawal_operation(bdb, pdb, odb);
+                        } else if (sub_type.equals(constants.TRANSFER)) {
+                            ne_easy_oper = new transfer_operation(bdb, pdb, odb);
+                        }
+                        Cursor cursor = odb.find_bill(oper_id);
+                        cursor.moveToFirst();
+                        String sender_card_id = cursor.getString(0);
+                        String reciver_card_id = cursor.getString(1);
+                        String sum = cursor.getString(2);
+                        String sender_id = cursor.getString(3);
+                        String reciver_id = cursor.getString(4);
+                        String operation_type = cursor.getString(5);
+
+                        if (!sender_card_id.equals("")) {
+                            Cursor cursor1 = bdb.get_bill(sender_card_id);
+                            cursor1.moveToFirst();
+                            String card_type2 = cursor1.getString(0);
+                            if (ne_easy_oper != null) {
+                                ne_easy_oper.cancelTransferOperation(sender_card_id, reciver_card_id, sum, card_type2);
+                            }
+                        } else {
+                            Cursor cursor1 = bdb.get_bill(reciver_id);
+                            cursor1.moveToFirst();
+                            String card_type = cursor1.getString(0);
+                            if (easy_oper != null) {
+                                easy_oper.cancelOperation(reciver_id, sum, card_type);
+                            }
+                        }
+
+                        odb.deleteData(oper_id);
+                        finalHistoryItems.remove(i);
                         adapter_h.notifyDataSetChanged();
-                        constants.oper_counter -= 1;
                     }
                 }).setNegativeButton(Html.fromHtml("<font color='#9D9FA2'>No</font>"), new DialogInterface.OnClickListener() {
                     @Override
@@ -140,6 +144,26 @@ public class dashboard_fragment extends Fragment {
                 }).create().show();
             }
         });
+    }
+
+    public ArrayList<history_item> find_operations(String id) {
+        operation_db odb = new operation_db(getContext());
+        ArrayList<history_item> temp = new ArrayList<history_item>();
+        Cursor cursor = odb.getOperations(constants.person.get_id());
+        if (cursor != null) {
+            cursor.moveToFirst();
+            do {
+                String card_id = cursor.getString(0);
+                String sum = cursor.getString(2);
+                String operation_type = cursor.getString(5);
+                String operation_id = cursor.getString(6);
+
+                temp.add(new history_item(operation_type + "\n", sum, "id: " + operation_id, operation_id));
+                constants.oper_counter += 1;
+            } while (cursor.moveToNext());
+            return temp;
+        }
+        return null;
     }
 
     @Override

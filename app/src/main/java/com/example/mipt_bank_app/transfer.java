@@ -1,5 +1,6 @@
 package com.example.mipt_bank_app;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -38,22 +39,38 @@ public class transfer extends Fragment {
         transfer_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transfer_operation transfer = new transfer_operation(new bills_db(getContext()), new person_db(getContext()));
+                transfer_operation transfer = new transfer_operation(new bills_db(getContext()), new person_db(getContext()), new operation_db(getContext()));
                 EditText money = (EditText) getView().findViewById(R.id.sum);
-                EditText reciver_bill_id = (EditText) getView().findViewById(R.id.receiver_bill_id);
+                EditText receiver_bill_id = (EditText) getView().findViewById(R.id.receiver_bill_id);
                 EditText password = (EditText) getView().findViewById(R.id.password);
-                if (money != null && reciver_bill_id != null && password != null) {
-                    String temp = money.getText().toString();
-                    String reciver_bill = reciver_bill_id.getText().toString();
-                    if (constants.person.get_password().equals(password.getText().toString())) {
-                        transfer.executeTransferOperation(constants.person.get_id(), reciver_bill, temp, constants.operation);
-                        Navigation.findNavController(view).navigate(R.id.navigation_home);
-                    } else {
-                        Toast.makeText(getActivity(), "Incorrect Password! ", Toast.LENGTH_SHORT).show();
-                    }
 
-                } else {
-                    Toast.makeText(getActivity(), "Enter all fields! ", Toast.LENGTH_SHORT).show();
+                if (money != null && receiver_bill_id != null && password != null) {
+                    String temp = money.getText().toString();
+                    String receiver_bill = receiver_bill_id.getText().toString();
+                    String password_tr = password.getText().toString();
+
+                    password.setHintTextColor(Color.parseColor("#9D9FA2"));
+                    money.setHintTextColor(Color.parseColor("#9D9FA2"));
+                    receiver_bill_id.setHintTextColor(Color.parseColor("#9D9FA2"));
+
+                    password.setTextColor(Color.parseColor("#9D9FA2"));
+
+                    if (receiver_bill.isEmpty()) {
+                        receiver_bill_id.setHintTextColor(Color.parseColor("#FAA634"));
+                        Toast.makeText(getActivity(), "Empty recipient's bill id!", Toast.LENGTH_SHORT).show();
+                    } else if (temp.isEmpty()) {
+                        money.setHintTextColor(Color.parseColor("#FAA634"));
+                        Toast.makeText(getActivity(), "Invalid sum!", Toast.LENGTH_SHORT).show();
+                    } else if (password_tr.isEmpty()) {
+                        password.setHintTextColor(Color.parseColor("#FAA634"));
+                        Toast.makeText(getActivity(), "Empty Password! ", Toast.LENGTH_SHORT).show();
+                    } else if (!constants.person.get_password().equals(password.getText().toString())) {
+                        password.setTextColor(Color.parseColor("#FAA634"));
+                        Toast.makeText(getActivity(), "Incorrect Password! ", Toast.LENGTH_SHORT).show();
+                    } else {
+                        transfer.executeTransferOperation(constants.person.get_id(), receiver_bill, temp, constants.operation);
+                        Navigation.findNavController(view).navigate(R.id.navigation_home);
+                    }
                 }
             }
         });

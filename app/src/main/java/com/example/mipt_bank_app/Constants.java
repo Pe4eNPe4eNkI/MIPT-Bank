@@ -13,7 +13,7 @@ public class constants {
 
     public static int selected_key = 0;
 
-    public static com.example.mipt_bank_app.person person = null;
+    public static person person = null;
 
     public static String operation = "";
 
@@ -22,6 +22,10 @@ public class constants {
     public static String BILL_KIND_DEBIT = "debit";
 
     public static String BILL_KIND_DEPOSIT = "deposit";
+
+    public static String WITHDRAWAL = "WITHDRAWAL";
+    public static String TRANSFER = "TRANSFER";
+    public static String REFIL = "REFIL";
 
     static int money_limit = 1000;
 

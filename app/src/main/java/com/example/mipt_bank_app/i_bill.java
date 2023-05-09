@@ -1,6 +1,6 @@
 package com.example.mipt_bank_app;
 
-abstract class i_bill {
+public abstract class i_bill {
 
     public static int bill_id;
 
@@ -26,4 +26,5 @@ abstract class i_bill {
     protected String bill_id_;
     protected String person_id_;
     protected String cash_size_;
+
 }

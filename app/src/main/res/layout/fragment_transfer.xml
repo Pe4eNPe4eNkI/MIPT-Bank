@@ -7,6 +7,7 @@
     tools:context=".transfer">
 
     <EditText
+        android:inputType="number"
         android:theme="@style/Based_enter"
         android:id="@+id/receiver_bill_id"
         android:layout_width="match_parent"
@@ -28,6 +29,7 @@
         android:maxLines="1"/>
 
     <EditText
+        android:inputType="number"
         android:theme="@style/Based_enter"
         android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/sum"

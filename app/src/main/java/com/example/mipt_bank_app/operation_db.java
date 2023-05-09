@@ -14,11 +14,13 @@ public class operation_db extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase DB) {
         DB.execSQL("create Table OperationTable(" +
-                "card_id TEXT primary key, " +
+                "card_id_sender TEXT, " +
+                "card_id_receiver TEXT, " +
                 "sum TEXT, " +
                 "send TEXT, " +
                 "receiver TEXT, " +
-                "operation_type TEXT)");
+                "operation_type TEXT, " +
+                "operation_id TEXT)");
     }
 
     @Override
@@ -26,39 +28,85 @@ public class operation_db extends SQLiteOpenHelper {
         DB.execSQL("drop Table if exists OperationTable");
     }
 
-    public Boolean insertUserData(String card_id,
-                                  String sum,
-                                  String send,
-                                  String receiver,
-                                  String operation_type) {
+    public String getMaxId() {
+        Cursor res = this.getData();
+        if (res == null || res.getCount() == 0) {
+            return "0";
+        }
+        String id = new String();
+        while (res.moveToNext()) {
+            id = res.getString(6);
+
+        }
+        return id;
+    }
+
+    public String getMaxId_pp() {
+        big_int temp = new big_int(getMaxId());
+        return temp.operator_pp_prefix().toString();
+    }
+
+    public Boolean insertUserData(i_bill bill, String sum, String receiver, String type_oper, String reciver_bill_id, String sender_bill_id) {
 
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
+        if (!bill.get_bill_id().equals("")) {
+            contentValues.put("card_id_receiver", reciver_bill_id);
+        }
+        if (!bill.get_bill_id().equals("")) {
+            contentValues.put("card_id_sender", sender_bill_id);
+        }
+        if (!sum.equals("")) {
+            contentValues.put("sum", sum);
+        }
+        if (!bill.get_person_id().equals("")) {
+            contentValues.put("send", bill.get_person_id());
+        }
+        if (!receiver.equals("")) {
+            contentValues.put("receiver", receiver);
+        }
+        if (!bill.get_bill_kind().equals("")) {
+            contentValues.put("operation_type", type_oper);
+        }
+        contentValues.put("operation_id", getMaxId_pp());
 
-        contentValues.put("card_id", card_id);
-        contentValues.put("sum", sum);
-        contentValues.put("send", send);
-        contentValues.put("receiver", receiver);
-        contentValues.put("operation_type", operation_type);
+        long result = DB.insert("OperationTable", null, contentValues);
+        return result != -1;
+    }
+    public Boolean insertUserData(i_bill bill, String sum, String receiver, String type_oper, String reciver_bill_id) {
+
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        if (!bill.get_bill_id().equals("")) {
+            contentValues.put("card_id_sender", "");
+        }
+        if (!bill.get_bill_id().equals("")) {
+            contentValues.put("card_id_receiver", reciver_bill_id);
+        }
+        if (!sum.equals("")) {
+            contentValues.put("sum", sum);
+        }
+        if (!bill.get_person_id().equals("")) {
+            contentValues.put("send", bill.get_person_id());
+        }
+        if (!receiver.equals("")) {
+            contentValues.put("receiver", receiver);
+        }
+        if (!bill.get_bill_kind().equals("")) {
+            contentValues.put("operation_type", type_oper);
+        }
+        contentValues.put("operation_id", getMaxId_pp());
 
         long result = DB.insert("OperationTable", null, contentValues);
         return result != -1;
     }
 
-
-    public Boolean deleteData(String card_id) {
+    public Boolean deleteData(String operation_id) {
         SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from OperationTable where card_id = ?", new String[]{card_id});
-        if (cursor.getCount() > 0) {
-            long result = DB.delete("OperationTable", "card_id=?", new String[]{card_id});
-
-            if (result == -1) {
-                return false;
-            }
-            return true;
-        }
-        return false;
+        long result = DB.delete("OperationTable", "operation_id=?", new String[]{operation_id});
+        return result == -1 ? false : true;
     }
 
     public Cursor getData() {
@@ -67,10 +115,17 @@ public class operation_db extends SQLiteOpenHelper {
         return (cursor.getCount() == 0 ? null : cursor);
     }
 
-    public Cursor getOperation(String card_id) {
+    public Cursor getOperations(String person_id) {
         SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from OperationTable where card_id = ?", new String[]{card_id});
+        Cursor cursor = DB.rawQuery("Select * from OperationTable where send = ?", new String[]{person_id});
         return (cursor.getCount() == 0 ? null : cursor);
     }
+
+    public Cursor find_bill(String operation_id) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("Select * from OperationTable where operation_id = ? ", new String[]{operation_id});
+        return (cursor.getCount() == 0 ? null : cursor);
+    }
+
 
 }

@@ -4,9 +4,10 @@ package com.example.mipt_bank_app;
 import android.database.Cursor;
 
 public class refill_operation extends i_easy_money_operation {
-    public refill_operation(bills_db trans, person_db person_db) {
+    public refill_operation(bills_db trans, person_db person_db, operation_db odb) {
         this.trans_ = trans;
         person_db_ = person_db;
+        odb_ = odb;
     }
 
     @Override
@@ -14,10 +15,11 @@ public class refill_operation extends i_easy_money_operation {
         Cursor cursor_bill = trans_.get_bill(receiver_id, type);
         cursor_bill.moveToFirst();
         String bill_id_from_db = cursor_bill.getString(1);
+
         String money_from_db = cursor_bill.getString(3);
         String field_for_bill_from_db = cursor_bill.getString(4);
 
-        Cursor cursor_person = person_db_.getPerson(receiver_id);
+        Cursor cursor_person = person_db_.get_person_by_id(receiver_id);
         cursor_person.moveToFirst();
         String is_doubtful = cursor_person.getString(8);
         boolean flag = (is_doubtful.equals("1") ? true : false);
@@ -32,40 +34,57 @@ public class refill_operation extends i_easy_money_operation {
 
             user_balance.operator_plus_equal(refill_sum_big);
 
+            i_bill bill = null;
             if (type == constants.BILL_KIND_CREDIT) {
 
                 big_int updeted_field = new big_int(field_for_bill_from_db);
                 updeted_field.operator_minus_equal(refill_sum_big);
-                credit cr = bf.build_credit(bill_id_from_db, receiver_id, money_from_db.toString(), updeted_field.toString());
-                trans_.updateUserData(cr);
-
+                bill = bf.build_credit(bill_id_from_db, receiver_id, user_balance.toString(), updeted_field.toString());
             } else if (type == constants.BILL_KIND_DEBIT) {
-
-                debit db = bf.build_debit(bill_id_from_db, receiver_id, user_balance.toString());
-                trans_.updateUserData(db);
-
+                bill = bf.build_debit(bill_id_from_db, receiver_id, user_balance.toString());
             } else if (type == constants.BILL_KIND_DEPOSIT) {
-
-                deposit dp = bf.build_deposit(bill_id_from_db, receiver_id, user_balance.toString());
-                trans_.updateUserData(dp);
-
+                bill = bf.build_deposit(bill_id_from_db, receiver_id, user_balance.toString());
             }
+            odb_.insertUserData(bill, refill_sum.toString(), receiver_id, constants.REFIL, bill_id_from_db);
+            trans_.updateUserData(bill);
         }
     }
 
     @Override
-    public void cancelOperation(String receiver_bill_id, String money_size) {
-        /*try {
-            Cursor receiver = trans_.getBill("" + receiver_bill_id);
+    public void cancelOperation(String sender_bill_id, String width_sum, String type) {
+        Cursor cursor_bill = trans_.get_bill(sender_bill_id, type);
+        cursor_bill.moveToFirst();
+        String bill_id_from_bd = cursor_bill.getString(1);
+        String money_from_bd = cursor_bill.getString(3);
+        String field_for_bill_from_bd = cursor_bill.getString(4);
 
-            if (Integer.parseInt(receiver.getString(3).trim()) < money_size) {
-                throw new ArithmeticException("fuck you, lox!");
+        Cursor cursor_person = person_db_.get_person_by_id(sender_bill_id);
+        cursor_person.moveToFirst();
+        String is_doubtful = cursor_person.getString(8);
+        boolean flag = (is_doubtful.equals("1") ? true : false);
+
+        bill_factory bf = new bill_factory();
+
+        big_int balance = new big_int(money_from_bd);
+        big_int width_sum_big = new big_int(width_sum);
+        big_int money_limit = new big_int(constants.money_limit);
+        big_int nul = new big_int(0);
+
+        if ((flag && width_sum_big.operator_less_or_equal(money_limit) || !flag) && width_sum_big.operator_more_or_equal(nul) && balance.operator_more_or_equal(width_sum_big)) {
+            balance.operator_minus_equal(width_sum_big);
+            i_bill bill = null;
+            if (type.equals(constants.BILL_KIND_CREDIT)) {
+                big_int updeted_field = new big_int(field_for_bill_from_bd);
+                updeted_field.operator_plus_equal(width_sum_big);
+                bill = bf.build_credit(bill_id_from_bd, sender_bill_id, balance.toString(), updeted_field.toString());
+            } else if (type.equals(constants.BILL_KIND_DEBIT)) {
+                bill = bf.build_debit(bill_id_from_bd, sender_bill_id, balance.toString());
+            } else if (type.equals(constants.BILL_KIND_DEPOSIT)) {
+                bill = bf.build_deposit(bill_id_from_bd, sender_bill_id, balance.toString());
             }
-            int money = Integer.parseInt(receiver.getString(3).trim()) - money_size;
-            trans_.updateUserData(receiver.getString(0), receiver.getString(1), receiver.getString(2), "" + money);
-        } catch (ArithmeticException e) {
-            System.out.println(e);
-        }*/
+
+            trans_.updateUserData(bill);
+        }
     }
 
 
