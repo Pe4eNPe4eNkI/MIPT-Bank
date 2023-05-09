@@ -1,13 +1,13 @@
 package com.example.mipt_bank_app;
 
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.database.Cursor;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import android.content.Context;
+
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,121 +18,106 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Account#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Account extends Fragment {
+public class account extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    PersonDB DB_Person;
-
-    public Account() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Account.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Account newInstance(String param1, String param2) {
-        Account fragment = new Account();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    person_db DB_Person;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_account, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        /*TextView cl = (TextView) getView().findViewById(R.id.block);
-        cl.setText("HUIHUI");*/
 
         Button rewrite_btn = (Button) getView().findViewById(R.id.rewrite_button);
         TextView reg = (TextView) getView().findViewById(R.id.exit);
+        TextView user_id = (TextView) getView().findViewById(R.id.user_id);
 
-        EditText login_re = (EditText) getView().findViewById(R.id.rewrite_login);
-        EditText password1_re = (EditText) getView().findViewById(R.id.rewrite_password);
-        EditText password2_re = (EditText) getView().findViewById(R.id.rewrite_password2);
-        EditText surname_re = (EditText) getView().findViewById(R.id.rewrite_surname);
-        EditText name_re = (EditText) getView().findViewById(R.id.rewrite_name);
-        EditText address_re = (EditText) getView().findViewById(R.id.rewrite_address);
-        EditText passport_re = (EditText) getView().findViewById(R.id.rewrite_passport);
+        EditText user_login = (EditText) getView().findViewById(R.id.rewrite_login);
+        EditText user_surname = (EditText) getView().findViewById(R.id.rewrite_surname);
+        EditText user_name = (EditText) getView().findViewById(R.id.rewrite_name);
+        EditText user_address = (EditText) getView().findViewById(R.id.rewrite_address);
+        EditText user_passport = (EditText) getView().findViewById(R.id.rewrite_passport);
+        EditText user_password1 = (EditText) getView().findViewById(R.id.rewrite_password1);
+        EditText user_password2 = (EditText) getView().findViewById(R.id.rewrite_password2);
 
-        DB_Person = new PersonDB(getContext());
+        DB_Person = new person_db(getContext());
+        Cursor cursor = DB_Person.getPerson(constants.person.get_login(), constants.person.get_password());
+        cursor.moveToFirst();
+        String per_login = cursor.getString(0);
+        String per_id = cursor.getString(1);
+        String per_password = cursor.getString(2);
+        String per_surname = cursor.getString(3);
+        String per_name = cursor.getString(4);
+        String per_address = cursor.getString(5);
+        String per_passport = cursor.getString(6);
+
+        user_id.setText("Id: " + per_id);
+        user_login.setText(per_login.toString());
+        user_password1.setText(per_password.toString());
+        user_password2.setText(per_password.toString());
+        user_surname.setText(per_surname.toString());
+        user_name.setText(per_name.toString());
+        user_address.setText(per_address.toString());
+        user_passport.setText(per_passport.toString());
+
         rewrite_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login_re.getBackground().setColorFilter(Color.parseColor("#EBEBEB"), PorterDuff.Mode.SRC_ATOP);
-                surname_re.getBackground().setColorFilter(Color.parseColor("#EBEBEB"), PorterDuff.Mode.SRC_ATOP);
-                name_re.getBackground().setColorFilter(Color.parseColor("#EBEBEB"), PorterDuff.Mode.SRC_ATOP);
-                surname_re.getBackground().setColorFilter(Color.parseColor("#EBEBEB"), PorterDuff.Mode.SRC_ATOP);
-                address_re.getBackground().setColorFilter(Color.parseColor("#EBEBEB"), PorterDuff.Mode.SRC_ATOP);
-                passport_re.getBackground().setColorFilter(Color.parseColor("#EBEBEB"), PorterDuff.Mode.SRC_ATOP);
 
-                String loginTXT = login_re.getText().toString();
-                String password1TXT = password1_re.getText().toString();
-                String password2TXT = password2_re.getText().toString();
-                String surnameTXT = surname_re.getText().toString();
-                String nameTXT = name_re.getText().toString();
-                String addressTXT = address_re.getText().toString();
-                String passport_idTXT = passport_re.getText().toString();
+                EditText login_text = (EditText) getView().findViewById(R.id.rewrite_login);
+                EditText password1_text = (EditText) getView().findViewById(R.id.rewrite_password1);
+                EditText password2_text = (EditText) getView().findViewById(R.id.rewrite_password2);
+                EditText surname_text = (EditText) getView().findViewById(R.id.rewrite_surname);
+                EditText name_text = (EditText) getView().findViewById(R.id.rewrite_name);
+                EditText address_text = (EditText) getView().findViewById(R.id.rewrite_address);
+                EditText passport_text = (EditText) getView().findViewById(R.id.rewrite_passport);
 
-                if (surnameTXT.isEmpty()) {
-                    surname_re.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
+                login_text.setHintTextColor(Color.parseColor("#9D9FA2"));
+                surname_text.setHintTextColor(Color.parseColor("#9D9FA2"));
+                name_text.setHintTextColor(Color.parseColor("#9D9FA2"));
+                address_text.setHintTextColor(Color.parseColor("#9D9FA2"));
+                passport_text.setHintTextColor(Color.parseColor("#9D9FA2"));
+                password1_text.setHintTextColor(Color.parseColor("#9D9FA2"));
+                password2_text.setHintTextColor(Color.parseColor("#9D9FA2"));
+
+                password1_text.setTextColor(Color.parseColor("#9D9FA2"));
+                password2_text.setTextColor(Color.parseColor("#9D9FA2"));
+
+                String login = login_text.getText().toString();
+                String password1 = password1_text.getText().toString();
+                String password2 = password2_text.getText().toString();
+                String surname = surname_text.getText().toString();
+                String name = name_text.getText().toString();
+                String address = address_text.getText().toString();
+                String passport_id = passport_text.getText().toString();
+
+                person_builder pb = new person_builder();
+                pb.set_first_name(name).set_second_name(surname).set_address(address).set_passport_id(passport_id).set_login(login).set_password(password1);
+                person_director pd = new person_director();
+                person person = pd.createPerson(pb);
+
+                if (person.get_second_name().isEmpty()) {
+                    surname_text.setHintTextColor(Color.parseColor("#FAA634"));
                     Toast.makeText(getActivity(), "Empty surname", Toast.LENGTH_SHORT).show();
-                } else if (nameTXT.isEmpty()) {
-                    name_re.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
+                } else if (person.get_first_name().isEmpty()) {
+                    name_text.setHintTextColor(Color.parseColor("#FAA634"));
                     Toast.makeText(getActivity(), "Empty name", Toast.LENGTH_SHORT).show();
-                } else if (password1TXT.isEmpty()) {
-                    password1_re.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
-                    password2_re.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
+                } else if (person.get_password().isEmpty()) {
+                    password1_text.setHintTextColor(Color.parseColor("#FAA634"));
+                    password2_text.setHintTextColor(Color.parseColor("#FAA634"));
                     Toast.makeText(getActivity(), "Empty password", Toast.LENGTH_SHORT).show();
-                } else if (!password1TXT.equals(password2TXT)) {
-                    password1_re.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
-                    password2_re.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
+                } else if (!person.get_password().equals(password2)) {
+                    password1_text.setTextColor(Color.parseColor("#FAA634"));
+                    password2_text.setTextColor(Color.parseColor("#FAA634"));
                     Toast.makeText(getActivity(), "Invalid password", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "Great!", Toast.LENGTH_SHORT).show();
                 }
 
-                Boolean check_insert_data = DB_Person.updateUserData(loginTXT,
-                                                                     password1TXT,
-                                                                     surnameTXT,
-                                                                     nameTXT,
-                                                                     addressTXT,
-                                                                     passport_idTXT);
+                Boolean check_insert_data = DB_Person.updateUserData(person);
 
                 if (!check_insert_data) {
                     Toast.makeText(getActivity(), "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
@@ -144,7 +129,10 @@ public class Account extends Fragment {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Constants.entered = 0;
+                constants.entered = 0;
+                constants.have_credit = 0;
+                constants.have_debit = 0;
+                constants.have_deposit = 0;
                 Navigation.findNavController(view).navigate(R.id.navigation_notifications);
             }
         });

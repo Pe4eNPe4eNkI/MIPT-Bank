@@ -4,10 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Registration">
+    tools:context=".registration">
 
 
     <EditText
+        android:theme="@style/Based_enter"
+        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/sign_up_surname"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -27,6 +29,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:theme="@style/Based_enter"
+        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/sign_up_name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -46,6 +50,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:theme="@style/Based_enter"
+        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/sign_up_address"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -65,6 +71,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:theme="@style/Based_enter"
+        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/sign_up_passport"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -84,6 +92,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:theme="@style/Based_enter"
+        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/sign_up_login"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -102,6 +112,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:theme="@style/Based_enter"
+        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/sign_up_password1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -120,6 +132,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:theme="@style/Based_enter"
+        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/sign_up_password2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -178,7 +192,7 @@
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/jost_medium"
         android:gravity="bottom"
-        android:text="Enter information about you"
+        android:text="Enter information"
         android:textColor="@color/dark_gray"
         android:textSize="26sp"
         app:layout_constraintBottom_toTopOf="@+id/line_button"

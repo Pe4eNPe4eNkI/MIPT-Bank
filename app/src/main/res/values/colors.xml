@@ -13,6 +13,6 @@
     <color name="light_gray">#9D9FA2</color>
     <color name="dark_gray">#5E5E5E</color>
     <color name="poly_orange">#FAA634</color>
-    <color name="light_gray_trans">#9D9FA240</color>
+    <color name="light_gray_trans">#209D9FA2</color>
     <color name="clean_white_trans">#C0FFFFFF</color>
 </resources>

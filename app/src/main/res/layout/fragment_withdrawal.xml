@@ -1,65 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.notifications.notifications_fragment">
-
-    <!--<TextView
-        android:id="@+id/text_notifications"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".withdrawal">
 
     <EditText
-        android:id="@+id/sign_in_login"
-        android:theme="@style/Based_enter"
-        android:textCursorDrawable="@drawable/cursor"
+        android:id="@+id/sum"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/no_angles_text_view"
-        android:hint="Login"
+        android:hint="Sum"
+        android:maxLines="1"
+        android:numeric="signed"
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
-        android:textSize="20sp"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/sign_in_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:theme="@style/Based_enter"
         android:textCursorDrawable="@drawable/cursor"
-        android:id="@+id/sign_in_password"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/no_angles_text_view"
-        android:hint="Password"
-        android:textColor="@color/light_gray"
-        android:textColorHint="@color/light_gray"
         android:textSize="20sp"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/sign_in_button"
+        android:theme="@style/Based_enter"
+        app:layout_constraintBottom_toTopOf="@+id/withdrawal_confirm_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/line_button"
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginStart="80dp"
@@ -68,25 +37,27 @@
         android:background="@color/light_gray"
         android:backgroundTint="@color/light_gray"
         android:clickable="false"
-        app:layout_constraintBottom_toTopOf="@+id/sign_in_login"
+        app:layout_constraintBottom_toTopOf="@+id/sum"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/sign_in_button"
+        android:id="@+id/withdrawal_confirm_button"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"
-        android:layout_marginBottom="300dp"
+        android:layout_marginBottom="340dp"
         android:background="@drawable/no_angles_button"
         android:fontFamily="@font/jost_medium"
-        android:text="Sign in"
+        android:text="Confirm"
         android:textAllCaps="false"
         android:textColor="@color/clean_white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -98,16 +69,16 @@
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/jost_medium"
         android:gravity="bottom"
-        android:text="Hello! Enter please"
+        android:text="Confirm operation"
         android:textColor="@color/dark_gray"
         android:textSize="26sp"
-        app:layout_constraintBottom_toTopOf="@+id/line_button"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/want_sign_in"
+        android:id="@+id/back_to_bill_lobby"
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_marginStart="80dp"
@@ -116,11 +87,12 @@
         android:clickable="true"
         android:fontFamily="@font/jost_medium"
         android:gravity="bottom|center"
-        android:text="Become a client"
+        android:text="Exit"
         android:textColor="@color/dark_gray"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_in_button" />
+        app:layout_constraintTop_toBottomOf="@+id/withdrawal_confirm_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,6 @@
 package com.example.mipt_bank_app;
 
-import android.app.AlertDialog;
-import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -18,18 +15,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Registration extends Fragment {
+public class registration extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_registration, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        if (Constants.entered == 0) {
+        if (constants.entered == 0) {
             TextView reg = (TextView) getView().findViewById(R.id.want_sign_in);
 
             reg.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +39,7 @@ public class Registration extends Fragment {
             btn_up.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    PersonDB pdb = new PersonDB(getContext());
+                    person_db pdb = new person_db(getContext());
 
                     EditText surname_text = (EditText) getView().findViewById(R.id.sign_up_surname);
                     EditText name_text = (EditText) getView().findViewById(R.id.sign_up_name);
@@ -61,28 +57,48 @@ public class Registration extends Fragment {
                     String password1 = password1_text == null ? "" : password1_text.getText().toString();
                     String password2 = password2_text == null ? "" : password2_text.getText().toString();
 
+                    person_builder pb = new person_builder();
+                    pb.set_first_name(name).set_second_name(surname).set_address(address).set_passport_id(passport_id).set_login(login).set_password(password1);
+                    person_director pd = new person_director();
+                    person person = pd.createPerson(pb);
+
+                    login_text.setHintTextColor(Color.parseColor("#9D9FA2"));
+                    surname_text.setHintTextColor(Color.parseColor("#9D9FA2"));
+                    name_text.setHintTextColor(Color.parseColor("#9D9FA2"));
+                    password1_text.setHintTextColor(Color.parseColor("#9D9FA2"));
+                    password2_text.setHintTextColor(Color.parseColor("#9D9FA2"));
+
+                    login_text.setTextColor(Color.parseColor("#9D9FA2"));
+                    password1_text.setTextColor(Color.parseColor("#9D9FA2"));
+                    password2_text.setTextColor(Color.parseColor("#9D9FA2"));
+
                     if (surname.isEmpty()) {
-                        surname_text.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
+                        surname_text.setHintTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Empty surname", Toast.LENGTH_SHORT).show();
                     } else if (name.isEmpty()) {
-                        name_text.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
+                        name_text.setHintTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Empty name", Toast.LENGTH_SHORT).show();
                     } else if (login.isEmpty()) {
-                        login_text.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
+                        login_text.setHintTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Empty login", Toast.LENGTH_SHORT).show();
+                    } else if (pdb.personFind(login)) {
+                        login_text.setTextColor(Color.parseColor("#FAA634"));
+                        Toast.makeText(getActivity(), "This login is already occupied", Toast.LENGTH_SHORT).show();
                     } else if (!password1.equals(password2)) {
-                        password1_text.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
-                        password2_text.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
+                        password1_text.setTextColor(Color.parseColor("#FAA634"));
+                        password2_text.setTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Invalid password", Toast.LENGTH_SHORT).show();
                     } else if (password1.isEmpty()) {
-                        password1_text.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
-                        password2_text.getBackground().setColorFilter(Color.parseColor("#FAA634"), PorterDuff.Mode.SRC_ATOP);
+                        password1_text.setHintTextColor(Color.parseColor("#FAA634"));
+                        password2_text.setHintTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Empty password", Toast.LENGTH_SHORT).show();
                     } else {
-                        pdb.insertUserData(login, password1, name, surname, address, passport_id);
-                        Constants.entered = 1;
-                        Navigation.findNavController(view).navigate(R.id.account);
-                        Toast.makeText(getActivity(), "Great!    " + pdb.getMaxId() , Toast.LENGTH_SHORT).show();
+                        if (pdb.insertUserData(person)) {
+                            Navigation.findNavController(view).navigate(R.id.navigation_notifications);
+                            Toast.makeText(getActivity(), "Great!\t" + pdb.getMaxId(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), " I can't registrate you!    " + pdb.getMaxId(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             });

@@ -1,7 +1,7 @@
 package com.example.mipt_bank_app;
 
 
-public class Person extends IPerson {
+public class person extends i_person {
 
     @Override
     public String get_first_name() {
@@ -29,11 +29,6 @@ public class Person extends IPerson {
     }
 
     @Override
-    public boolean is_doubtful() {
-        return is_doubtful_;
-    }
-
-    @Override
     public String get_password() {
         return password_;
     }
@@ -41,6 +36,11 @@ public class Person extends IPerson {
     @Override
     public String get_login() {
         return login_;
+    }
+
+    @Override
+    public boolean is_doubtful() {
+        return is_doubtful_;
     }
 
 
@@ -74,8 +74,17 @@ public class Person extends IPerson {
         login_ = login;
     }
 
+    @Override
+    public String get_id() {
+        return id_;
+    }
+
+    @Override
+    public void set_id(String id) {
+        id_ = id;
+    }
     public void update() {
         is_doubtful_ = address_.isEmpty() || passport_id_.isEmpty();
-        money_limit_ = (is_doubtful_ ? SupConstants.money_limit : 0);
+        money_limit_ = (is_doubtful_ ? constants.money_limit : 0);
     }
 }

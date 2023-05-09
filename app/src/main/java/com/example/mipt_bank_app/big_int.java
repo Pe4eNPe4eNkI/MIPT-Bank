@@ -62,7 +62,7 @@ public class big_int {
         result += a.toString();
         for (int i = digits_arr_.size() - 2; i >= 0; --i) {
             String temp = digits_arr_.get(i).toString();
-            helper h = new helper();
+            big_int_helper h = new big_int_helper();
             result += h.cpp_string_con(9 - temp.length(), '0') + temp;
         }
         return result;

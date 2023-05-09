@@ -4,9 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Account">
+    tools:context=".account">
 
     <EditText
+        android:theme="@style/Based_enter"
+        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/rewrite_surname"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -26,6 +28,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:theme="@style/Based_enter"
+        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/rewrite_name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -45,6 +49,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:theme="@style/Based_enter"
+        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/rewrite_address"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -64,6 +70,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:theme="@style/Based_enter"
+        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/rewrite_passport"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -83,6 +91,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:theme="@style/Based_enter"
+        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/rewrite_login"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -91,16 +101,21 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/no_angles_text_view"
         android:hint="Login"
+        android:focusable="false"
+        android:longClickable="false"
+        android:cursorVisible="false"
         android:inputType="textPersonName"
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/rewrite_password"
+        app:layout_constraintBottom_toTopOf="@+id/rewrite_password1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/rewrite_password"
+        android:theme="@style/Based_enter"
+        android:textCursorDrawable="@drawable/cursor"
+        android:id="@+id/rewrite_password1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="80dp"
@@ -117,6 +132,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:theme="@style/Based_enter"
+        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/rewrite_password2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -154,7 +171,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="100dp"
         android:background="@drawable/no_angles_button"
         android:fontFamily="@font/jost_medium"
         android:text="Rewrite"
@@ -174,7 +191,7 @@
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/jost_medium"
         android:gravity="bottom"
-        android:text="You can rewrite or add some information"
+        android:text="User info"
         android:textColor="@color/dark_gray"
         android:textSize="26sp"
         app:layout_constraintBottom_toTopOf="@+id/button"
@@ -199,5 +216,17 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rewrite_button" />
+
+    <TextView
+        android:id="@+id/user_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/jost_medium"
+        android:text="id: 000001"
+        android:textColor="@color/light_gray"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

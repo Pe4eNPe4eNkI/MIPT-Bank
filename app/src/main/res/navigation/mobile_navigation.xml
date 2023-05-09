@@ -7,26 +7,38 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.mipt_bank_app.ui.home.HomeFragment"
+        android:name="com.example.mipt_bank_app.ui.home.home_fragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_replenishment2"
-            app:destination="@id/replenishment2" />
+            app:destination="@id/refill2" />
         <action
             android:id="@+id/action_navigation_home_to_withdraw2"
-            app:destination="@id/withdraw2" />
+            app:destination="@id/transfer2" />
+        <action
+            android:id="@+id/action_navigation_home_to_get_debit"
+            app:destination="@id/get_debit" />
+        <action
+            android:id="@+id/action_navigation_home_to_getCredit"
+            app:destination="@id/getCredit" />
+        <action
+            android:id="@+id/action_navigation_home_to_getDeposit"
+            app:destination="@id/getDeposit" />
+        <action
+            android:id="@+id/action_navigation_home_to_throwAway"
+            app:destination="@id/withdrawal2" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.mipt_bank_app.ui.dashboard.DashboardFragment"
+        android:name="com.example.mipt_bank_app.ui.dashboard.dashboard_fragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.mipt_bank_app.ui.notifications.NotificationsFragment"
+        android:name="com.example.mipt_bank_app.ui.notifications.notifications_fragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" >
         <action
@@ -38,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/registration"
-        android:name="com.example.mipt_bank_app.Registration"
+        android:name="com.example.mipt_bank_app.registration"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" >
         <action
@@ -50,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/account"
-        android:name="com.example.mipt_bank_app.Account"
+        android:name="com.example.mipt_bank_app.account"
         android:label="fragment_account"
         tools:layout="@layout/fragment_account" >
         <action
@@ -58,13 +70,57 @@
             app:destination="@id/navigation_notifications" />
     </fragment>
     <fragment
-        android:id="@+id/replenishment2"
-        android:name="com.example.mipt_bank_app.Replenishment"
+        android:id="@+id/refill2"
+        android:name="com.example.mipt_bank_app.refill"
         android:label="fragment_replenishment"
-        tools:layout="@layout/fragment_replenishment" />
+        tools:layout="@layout/fragment_refill" >
+        <action
+            android:id="@+id/action_replenishment2_to_navigation_home2"
+            app:destination="@id/navigation_home" />
+    </fragment>
     <fragment
-        android:id="@+id/withdraw2"
-        android:name="com.example.mipt_bank_app.Withdraw"
+        android:id="@+id/transfer2"
+        android:name="com.example.mipt_bank_app.transfer"
         android:label="fragment_withdraw"
-        tools:layout="@layout/fragment_withdraw" />
+        tools:layout="@layout/fragment_transfer" >
+        <action
+            android:id="@+id/action_withdraw2_to_navigation_home2"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/get_debit"
+        android:name="com.example.mipt_bank_app.get_debit"
+        android:label="fragment_get_debit"
+        tools:layout="@layout/fragment_get_debit" >
+        <action
+            android:id="@+id/action_get_debit_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/getCredit"
+        android:name="com.example.mipt_bank_app.get_credit"
+        android:label="fragment_get_credit"
+        tools:layout="@layout/fragment_get_credit" >
+        <action
+            android:id="@+id/action_getCredit_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/getDeposit"
+        android:name="com.example.mipt_bank_app.get_deposit"
+        android:label="fragment_get_deposit"
+        tools:layout="@layout/fragment_get_deposit" >
+        <action
+            android:id="@+id/action_getDeposit_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/withdrawal2"
+        android:name="com.example.mipt_bank_app.withdrawal"
+        android:label="fragment_withdrawal"
+        tools:layout="@layout/fragment_withdrawal" >
+        <action
+            android:id="@+id/action_throwAway_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 </navigation>
