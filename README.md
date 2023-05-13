@@ -18,7 +18,7 @@ git clone https://github.com/Pe4eNPe4eNkI/MIPT-Bank.git
 
 # UML 
 
-![UML](image_src/uml.png)
+![UML](image_src/umlv2.png)
  
 =======
 UML - https://goo.su/nCeymnF 
