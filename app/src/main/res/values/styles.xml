@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Based_enter">
+        parent="Base.Theme.AppCompat.Light.DarkActionBar"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <!-- Other theme overrides here -->
+        <item name="colorAccent">#9D9FA2</item>
+        <item name="colorPrimary">#9D9FA2</item>
+    </style>
+</resources>
