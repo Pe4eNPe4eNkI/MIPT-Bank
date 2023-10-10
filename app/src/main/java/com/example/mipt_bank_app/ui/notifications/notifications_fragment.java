@@ -20,10 +20,10 @@ import androidx.navigation.Navigation;
 import com.example.mipt_bank_app.constants;
 import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.databinding.FragmentNotificationsBinding;
-import com.example.mipt_bank_app.person;
-import com.example.mipt_bank_app.person_builder;
-import com.example.mipt_bank_app.person_db;
-import com.example.mipt_bank_app.person_director;
+import com.example.mipt_bank_app.person.person;
+import com.example.mipt_bank_app.person.person_builder;
+import com.example.mipt_bank_app.person.person_db;
+import com.example.mipt_bank_app.person.person_director;
 
 public class notifications_fragment extends Fragment {
 

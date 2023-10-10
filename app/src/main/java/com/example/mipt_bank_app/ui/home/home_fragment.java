@@ -15,11 +15,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.example.mipt_bank_app.big_int.big_int;
 import com.example.mipt_bank_app.constants;
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.constants;
-import com.example.mipt_bank_app.big_int;
-import com.example.mipt_bank_app.bills_db;
+import com.example.mipt_bank_app.bill.bills_db;
 import com.example.mipt_bank_app.databinding.FragmentHomeBinding;
 
 public class home_fragment extends Fragment {

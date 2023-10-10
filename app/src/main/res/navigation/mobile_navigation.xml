@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/registration"
-        android:name="com.example.mipt_bank_app.registration"
+        android:name="com.example.mipt_bank_app.layout_classes.registration"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" >
         <action
@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/account"
-        android:name="com.example.mipt_bank_app.account"
+        android:name="com.example.mipt_bank_app.layout_classes.account"
         android:label="fragment_account"
         tools:layout="@layout/fragment_account" >
         <action
@@ -71,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/refill2"
-        android:name="com.example.mipt_bank_app.refill"
+        android:name="com.example.mipt_bank_app.layout_classes.refill"
         android:label="fragment_replenishment"
         tools:layout="@layout/fragment_refill" >
         <action
@@ -80,7 +80,7 @@
     </fragment>
     <fragment
         android:id="@+id/transfer2"
-        android:name="com.example.mipt_bank_app.transfer"
+        android:name="com.example.mipt_bank_app.layout_classes.transfer"
         android:label="fragment_withdraw"
         tools:layout="@layout/fragment_transfer" >
         <action
@@ -89,7 +89,7 @@
     </fragment>
     <fragment
         android:id="@+id/get_debit"
-        android:name="com.example.mipt_bank_app.get_debit"
+        android:name="com.example.mipt_bank_app.layout_classes.get_debit"
         android:label="fragment_get_debit"
         tools:layout="@layout/fragment_get_debit" >
         <action
@@ -98,7 +98,7 @@
     </fragment>
     <fragment
         android:id="@+id/getCredit"
-        android:name="com.example.mipt_bank_app.get_credit"
+        android:name="com.example.mipt_bank_app.layout_classes.get_credit"
         android:label="fragment_get_credit"
         tools:layout="@layout/fragment_get_credit" >
         <action
@@ -107,7 +107,7 @@
     </fragment>
     <fragment
         android:id="@+id/getDeposit"
-        android:name="com.example.mipt_bank_app.get_deposit"
+        android:name="com.example.mipt_bank_app.layout_classes.get_deposit"
         android:label="fragment_get_deposit"
         tools:layout="@layout/fragment_get_deposit" >
         <action
@@ -116,7 +116,7 @@
     </fragment>
     <fragment
         android:id="@+id/withdrawal2"
-        android:name="com.example.mipt_bank_app.withdrawal"
+        android:name="com.example.mipt_bank_app.layout_classes.withdrawal"
         android:label="fragment_withdrawal"
         tools:layout="@layout/fragment_withdrawal" >
         <action
