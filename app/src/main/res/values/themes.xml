@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MIPT_bank_app" parent="Theme.AppCompat.Light">
+    <style name="Theme.MIPT_bank_app" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!--<item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>-->
@@ -8,6 +8,9 @@
         <item name="colorPrimary">@color/poly_orange</item>
         <!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->
         <item name="colorOnPrimary">@color/clean_white</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
         <!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
         <!--        <item name="colorSecondary">@color/teal_200</item>-->
         <!--        <item name="colorSecondaryVariant">@color/teal_700</item>-->
