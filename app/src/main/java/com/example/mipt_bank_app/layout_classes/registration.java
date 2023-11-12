@@ -16,11 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.constants;
-import com.example.mipt_bank_app.person.person;
-import com.example.mipt_bank_app.person.person_builder;
-import com.example.mipt_bank_app.person.person_db;
-import com.example.mipt_bank_app.person.person_director;
+import com.example.mipt_bank_app.Constants;
+import com.example.mipt_bank_app.person.Adult;
+import com.example.mipt_bank_app.person.AdultBuilder;
+import com.example.mipt_bank_app.person.AdultParams;
+import com.example.mipt_bank_app.person.PersonDB;
 
 public class registration extends Fragment {
 
@@ -32,7 +32,7 @@ public class registration extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        if (constants.entered == 0) {
+        if (Constants.entered == 0) {
             TextView reg = (TextView) getView().findViewById(R.id.want_sign_in);
 
             reg.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +46,7 @@ public class registration extends Fragment {
             btn_up.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    person_db pdb = new person_db(getContext());
+                    PersonDB pdb = new PersonDB(getContext());
 
                     EditText surname_text = (EditText) getView().findViewById(R.id.sign_up_surname);
                     EditText name_text = (EditText) getView().findViewById(R.id.sign_up_name);
@@ -64,10 +64,11 @@ public class registration extends Fragment {
                     String password1 = password1_text == null ? "" : password1_text.getText().toString();
                     String password2 = password2_text == null ? "" : password2_text.getText().toString();
 
-                    person_builder pb = new person_builder();
-                    pb.set_first_name(name).set_second_name(surname).set_address(address).set_passport_id(passport_id).set_login(login).set_password(password1);
-                    person_director pd = new person_director();
-                    person person = pd.createPerson(pb);
+                    AdultParams adultParams = new AdultParams(name, surname, address, passport_id, login, password1);
+
+                    AdultBuilder adultBuilder = new AdultBuilder(adultParams);
+                    adultBuilder.build();
+                    Adult adult = adultBuilder.getPerson();
 
                     login_text.setHintTextColor(Color.parseColor("#9D9FA2"));
                     surname_text.setHintTextColor(Color.parseColor("#9D9FA2"));
@@ -100,7 +101,7 @@ public class registration extends Fragment {
                         password2_text.setHintTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Empty password", Toast.LENGTH_SHORT).show();
                     } else {
-                        if (pdb.insertUserData(person)) {
+                        if (pdb.insertUserData(adult)) {
                             Navigation.findNavController(view).navigate(R.id.navigation_notifications);
                             Toast.makeText(getActivity(), "Great!\t" + pdb.getMaxId(), Toast.LENGTH_SHORT).show();
                         } else {

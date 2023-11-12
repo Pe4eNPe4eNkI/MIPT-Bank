@@ -17,9 +17,9 @@ import android.widget.Toast;
 
 import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.bill.bills_db;
-import com.example.mipt_bank_app.constants;
+import com.example.mipt_bank_app.Constants;
 import com.example.mipt_bank_app.operations.operation_db;
-import com.example.mipt_bank_app.person.person_db;
+import com.example.mipt_bank_app.person.PersonDB;
 import com.example.mipt_bank_app.operations.refill_operation;
 
 public class refill extends Fragment {
@@ -47,7 +47,7 @@ public class refill extends Fragment {
             @Override
             public void onClick(View view) {
 
-                refill_operation refill = new refill_operation(new bills_db(getContext()), new person_db(getContext()),new operation_db(getContext()));
+                refill_operation refill = new refill_operation(new bills_db(getContext()), new PersonDB(getContext()),new operation_db(getContext()));
                 EditText money = (EditText) getView().findViewById(R.id.sum);
                 money.setHintTextColor(Color.parseColor("#9D9FA2"));
                 if (money != null) {
@@ -56,7 +56,7 @@ public class refill extends Fragment {
                         money.setHintTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Invalid sum!", Toast.LENGTH_SHORT).show();
                     } else {
-                        refill.executeOperation(constants.person.get_id(), temp, constants.operation);
+                        refill.executeOperation(Constants.adult.getID(), temp, Constants.operation);
                         Navigation.findNavController(view).navigate(R.id.navigation_home);
                     }
                 } else {

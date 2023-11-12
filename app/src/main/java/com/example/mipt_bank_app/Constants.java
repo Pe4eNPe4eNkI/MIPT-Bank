@@ -1,8 +1,12 @@
 package com.example.mipt_bank_app;
 
-import com.example.mipt_bank_app.person.person;
+import com.example.mipt_bank_app.person.Adult;
 
-public class constants {
+public class Constants {
+
+    public final static String AdultBuilderType = "adult";
+
+    public static Adult adult = null;
 
     public static int oper_counter = 1;
     public static int entered = 0;
@@ -14,8 +18,6 @@ public class constants {
     public static int have_deposit = 0;
 
     public static int selected_key = 0;
-
-    public static person person = null;
 
     public static String operation = "";
 

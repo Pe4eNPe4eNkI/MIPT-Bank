@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.mipt_bank_app.big_int.big_int;
-import com.example.mipt_bank_app.constants;
+import com.example.mipt_bank_app.Constants;
 import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.bill.bills_db;
 import com.example.mipt_bank_app.databinding.FragmentHomeBinding;
@@ -88,12 +88,12 @@ public class home_fragment extends Fragment {
 
         bills_db bdb = new bills_db(getContext());
 
-        if (constants.person != null && constants.entered != 0) {
+        if (Constants.adult != null && Constants.entered != 0) {
 
 
-            if (bdb.try_find_bill(constants.person, constants.BILL_KIND_DEBIT)) {
-                constants.have_debit = 1;
-                Cursor cursor = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEBIT);
+            if (bdb.try_find_bill(Constants.adult, Constants.BILL_KIND_DEBIT)) {
+                Constants.have_debit = 1;
+                Cursor cursor = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_DEBIT);
                 cursor.moveToFirst();
                 String avalible = cursor.getString(3);
                 String cashback = cursor.getString(4);
@@ -101,18 +101,18 @@ public class home_fragment extends Fragment {
                 debit_cashback.setText(cashback + " $");
 
             }
-            if (bdb.try_find_bill(constants.person, constants.BILL_KIND_CREDIT)) {
-                constants.have_credit = 1;
-                Cursor cursor = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_CREDIT);
+            if (bdb.try_find_bill(Constants.adult, Constants.BILL_KIND_CREDIT)) {
+                Constants.have_credit = 1;
+                Cursor cursor = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_CREDIT);
                 cursor.moveToFirst();
                 String avalible = cursor.getString(3);
                 String debt = cursor.getString(4);
                 credit_available.setText(avalible + " $");
                 credit_debt.setText(debt + " $");
             }
-            if (bdb.try_find_bill(constants.person, constants.BILL_KIND_DEPOSIT)) {
-                constants.have_deposit = 1;
-                Cursor cursor = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEPOSIT);
+            if (bdb.try_find_bill(Constants.adult, Constants.BILL_KIND_DEPOSIT)) {
+                Constants.have_deposit = 1;
+                Cursor cursor = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_DEPOSIT);
                 cursor.moveToFirst();
                 String avalible = cursor.getString(3);
                 String income = cursor.getString(4);
@@ -122,7 +122,7 @@ public class home_fragment extends Fragment {
         }
 
 
-        if (constants.entered == 1) {
+        if (Constants.entered == 1) {
             selected_descriprion.setVisibility(View.INVISIBLE);
 
             credit_description.setVisibility(View.INVISIBLE);
@@ -145,8 +145,8 @@ public class home_fragment extends Fragment {
             big_int global_debt = new big_int(0);
             big_int global_income = new big_int(0);
 
-            if (constants.have_debit == 1) {
-                Cursor cursor_debit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEBIT);
+            if (Constants.have_debit == 1) {
+                Cursor cursor_debit = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_DEBIT);
                 cursor_debit.moveToFirst();
 
                 big_int avalible1 = new big_int(cursor_debit.getString(3));
@@ -156,8 +156,8 @@ public class home_fragment extends Fragment {
                 global_income.operator_plus_equal(cashback);
             }
 
-            if (constants.have_credit == 1) {
-                Cursor cursor_credit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_CREDIT);
+            if (Constants.have_credit == 1) {
+                Cursor cursor_credit = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_CREDIT);
                 cursor_credit.moveToFirst();
 
                 big_int avalible2 = new big_int(cursor_credit.getString(3));
@@ -167,8 +167,8 @@ public class home_fragment extends Fragment {
                 global_debt.operator_plus_equal(debt);
             }
 
-            if (constants.have_deposit == 1) {
-                Cursor cursor_deposit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEPOSIT);
+            if (Constants.have_deposit == 1) {
+                Cursor cursor_deposit = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_DEPOSIT);
                 cursor_deposit.moveToFirst();
 
                 big_int avalible3 = new big_int(cursor_deposit.getString(3));
@@ -203,7 +203,7 @@ public class home_fragment extends Fragment {
             deposit.setClickable(false);
         }
 
-        if (constants.have_debit == 1) {
+        if (Constants.have_debit == 1) {
             debit_description.setVisibility(View.INVISIBLE);
             textView9.setVisibility(View.VISIBLE);
             textView13.setVisibility(View.VISIBLE);
@@ -217,7 +217,7 @@ public class home_fragment extends Fragment {
             debit_cashback.setVisibility(View.INVISIBLE);
         }
 
-        if (constants.have_credit == 1) {
+        if (Constants.have_credit == 1) {
             credit_description.setVisibility(View.INVISIBLE);
             textView7.setVisibility(View.VISIBLE);
             textView12.setVisibility(View.VISIBLE);
@@ -231,7 +231,7 @@ public class home_fragment extends Fragment {
             credit_debt.setVisibility(View.INVISIBLE);
         }
 
-        if (constants.have_deposit == 1) {
+        if (Constants.have_deposit == 1) {
             deposit_description.setVisibility(View.INVISIBLE);
             textView14.setVisibility(View.VISIBLE);
             textView10.setVisibility(View.VISIBLE);
@@ -270,10 +270,10 @@ public class home_fragment extends Fragment {
         debit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (constants.entered == 1 && constants.have_debit == 0) {
+                if (Constants.entered == 1 && Constants.have_debit == 0) {
                     Navigation.findNavController(view).navigate(R.id.get_debit);
-                } else if (constants.entered == 1 && constants.have_debit == 1 && constants.selected_key != 1) {
-                    constants.selected_key = 1;
+                } else if (Constants.entered == 1 && Constants.have_debit == 1 && Constants.selected_key != 1) {
+                    Constants.selected_key = 1;
                     selector_debit.setVisibility(View.VISIBLE);
                     selector_credit.setVisibility(View.INVISIBLE);
                     selector_deposit.setVisibility(View.INVISIBLE);
@@ -290,7 +290,7 @@ public class home_fragment extends Fragment {
                     refill.setEnabled(true);
                     withdrawal.setEnabled(true);
 
-                    Cursor cursor = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEBIT);
+                    Cursor cursor = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_DEBIT);
                     cursor.moveToFirst();
                     String card_id = cursor.getString(1);
                     String avalible = cursor.getString(3);
@@ -300,10 +300,10 @@ public class home_fragment extends Fragment {
                     selected_num_2.setText(cashback + "$");
                     card_id_selected.setText("Card id:" + card_id);
 
-                    constants.operation = "debit";
+                    Constants.operation = "debit";
 
-                } else if (constants.entered == 1 && constants.have_debit == 1 && constants.selected_key == 1) {
-                    constants.selected_key = 0;
+                } else if (Constants.entered == 1 && Constants.have_debit == 1 && Constants.selected_key == 1) {
+                    Constants.selected_key = 0;
                     selector_debit.setVisibility(View.INVISIBLE);
                     type_selected.setText("CURRENT ACCOUNT");
                     selected_1.setText("Available");
@@ -323,8 +323,8 @@ public class home_fragment extends Fragment {
                     big_int global_debt = new big_int(0);
                     big_int global_income = new big_int(0);
 
-                    if (constants.have_debit == 1) {
-                        Cursor cursor_debit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEBIT);
+                    if (Constants.have_debit == 1) {
+                        Cursor cursor_debit = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_DEBIT);
                         cursor_debit.moveToFirst();
 
                         big_int avalible1 = new big_int(cursor_debit.getString(3));
@@ -334,8 +334,8 @@ public class home_fragment extends Fragment {
                         global_income.operator_plus_equal(cashback);
                     }
 
-                    if (constants.have_credit == 1) {
-                        Cursor cursor_credit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_CREDIT);
+                    if (Constants.have_credit == 1) {
+                        Cursor cursor_credit = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_CREDIT);
                         cursor_credit.moveToFirst();
 
                         big_int avalible2 = new big_int(cursor_credit.getString(3));
@@ -345,8 +345,8 @@ public class home_fragment extends Fragment {
                         global_debt.operator_plus_equal(debt);
                     }
 
-                    if (constants.have_deposit == 1) {
-                        Cursor cursor_deposit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEPOSIT);
+                    if (Constants.have_deposit == 1) {
+                        Cursor cursor_deposit = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_DEPOSIT);
                         cursor_deposit.moveToFirst();
 
                         big_int avalible3 = new big_int(cursor_deposit.getString(3));
@@ -366,10 +366,10 @@ public class home_fragment extends Fragment {
         credit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (constants.entered == 1 && constants.have_credit == 0) {
+                if (Constants.entered == 1 && Constants.have_credit == 0) {
                     Navigation.findNavController(view).navigate(R.id.getCredit);
-                } else if (constants.entered == 1 && constants.have_credit == 1 && constants.selected_key != 2) {
-                    constants.selected_key = 2;
+                } else if (Constants.entered == 1 && Constants.have_credit == 1 && Constants.selected_key != 2) {
+                    Constants.selected_key = 2;
                     selector_debit.setVisibility(View.INVISIBLE);
                     selector_credit.setVisibility(View.VISIBLE);
                     selector_deposit.setVisibility(View.INVISIBLE);
@@ -386,7 +386,7 @@ public class home_fragment extends Fragment {
                     refill.setEnabled(true);
                     withdrawal.setEnabled(true);
 
-                    Cursor cursor = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_CREDIT);
+                    Cursor cursor = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_CREDIT);
                     cursor.moveToFirst();
                     String card_id = cursor.getString(1);
                     String avalible = cursor.getString(3);
@@ -396,10 +396,10 @@ public class home_fragment extends Fragment {
                     selected_num_2.setText(debt + "$");
                     card_id_selected.setText("Card id: " + card_id);
 
-                    constants.operation = "credit";
+                    Constants.operation = "credit";
 
-                } else if (constants.entered == 1 && constants.have_credit == 1 && constants.selected_key == 2) {
-                    constants.selected_key = 0;
+                } else if (Constants.entered == 1 && Constants.have_credit == 1 && Constants.selected_key == 2) {
+                    Constants.selected_key = 0;
                     selector_credit.setVisibility(View.INVISIBLE);
                     type_selected.setText("CURRENT ACCOUNT");
                     selected_1.setText("Available");
@@ -418,8 +418,8 @@ public class home_fragment extends Fragment {
                     big_int global_debt = new big_int(0);
                     big_int global_income = new big_int(0);
 
-                    if (constants.have_debit == 1) {
-                        Cursor cursor_debit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEBIT);
+                    if (Constants.have_debit == 1) {
+                        Cursor cursor_debit = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_DEBIT);
                         cursor_debit.moveToFirst();
 
                         big_int avalible1 = new big_int(cursor_debit.getString(3));
@@ -429,8 +429,8 @@ public class home_fragment extends Fragment {
                         global_income.operator_plus_equal(cashback);
                     }
 
-                    if (constants.have_credit == 1) {
-                        Cursor cursor_credit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_CREDIT);
+                    if (Constants.have_credit == 1) {
+                        Cursor cursor_credit = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_CREDIT);
                         cursor_credit.moveToFirst();
 
                         big_int avalible2 = new big_int(cursor_credit.getString(3));
@@ -440,8 +440,8 @@ public class home_fragment extends Fragment {
                         global_debt.operator_plus_equal(debt);
                     }
 
-                    if (constants.have_deposit == 1) {
-                        Cursor cursor_deposit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEPOSIT);
+                    if (Constants.have_deposit == 1) {
+                        Cursor cursor_deposit = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_DEPOSIT);
                         cursor_deposit.moveToFirst();
 
                         big_int avalible3 = new big_int(cursor_deposit.getString(3));
@@ -461,10 +461,10 @@ public class home_fragment extends Fragment {
         deposit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (constants.entered == 1 && constants.have_deposit == 0) {
+                if (Constants.entered == 1 && Constants.have_deposit == 0) {
                     Navigation.findNavController(view).navigate(R.id.getDeposit);
-                } else if (constants.entered == 1 && constants.have_deposit == 1 && constants.selected_key != 3) {
-                    constants.selected_key = 3;
+                } else if (Constants.entered == 1 && Constants.have_deposit == 1 && Constants.selected_key != 3) {
+                    Constants.selected_key = 3;
                     selector_debit.setVisibility(View.INVISIBLE);
                     selector_credit.setVisibility(View.INVISIBLE);
                     selector_deposit.setVisibility(View.VISIBLE);
@@ -482,7 +482,7 @@ public class home_fragment extends Fragment {
                     withdrawal.setEnabled(true);
 
 
-                    Cursor cursor = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEPOSIT);
+                    Cursor cursor = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_DEPOSIT);
                     cursor.moveToFirst();
                     String card_id = cursor.getString(1);
                     String avalible = cursor.getString(3);
@@ -492,9 +492,9 @@ public class home_fragment extends Fragment {
                     selected_num_2.setText(income + "$");
                     card_id_selected.setText("Card id: " + card_id);
 
-                    constants.operation = "deposit";
-                } else if (constants.entered == 1 && constants.have_deposit == 1 && constants.selected_key == 3) {
-                    constants.selected_key = 0;
+                    Constants.operation = "deposit";
+                } else if (Constants.entered == 1 && Constants.have_deposit == 1 && Constants.selected_key == 3) {
+                    Constants.selected_key = 0;
                     selector_deposit.setVisibility(View.INVISIBLE);
                     type_selected.setText("CURRENT ACCOUNT");
                     selected_1.setText("Available");
@@ -513,8 +513,8 @@ public class home_fragment extends Fragment {
                     big_int global_debt = new big_int(0);
                     big_int global_income = new big_int(0);
 
-                    if (constants.have_debit == 1) {
-                        Cursor cursor_debit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEBIT);
+                    if (Constants.have_debit == 1) {
+                        Cursor cursor_debit = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_DEBIT);
                         cursor_debit.moveToFirst();
 
                         big_int avalible1 = new big_int(cursor_debit.getString(3));
@@ -524,8 +524,8 @@ public class home_fragment extends Fragment {
                         global_income.operator_plus_equal(cashback);
                     }
 
-                    if (constants.have_credit == 1) {
-                        Cursor cursor_credit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_CREDIT);
+                    if (Constants.have_credit == 1) {
+                        Cursor cursor_credit = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_CREDIT);
                         cursor_credit.moveToFirst();
 
                         big_int avalible2 = new big_int(cursor_credit.getString(3));
@@ -535,8 +535,8 @@ public class home_fragment extends Fragment {
                         global_debt.operator_plus_equal(debt);
                     }
 
-                    if (constants.have_deposit == 1) {
-                        Cursor cursor_deposit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEPOSIT);
+                    if (Constants.have_deposit == 1) {
+                        Cursor cursor_deposit = bdb.get_bill(Constants.adult.getID(), Constants.BILL_KIND_DEPOSIT);
                         cursor_deposit.moveToFirst();
 
                         big_int avalible3 = new big_int(cursor_deposit.getString(3));

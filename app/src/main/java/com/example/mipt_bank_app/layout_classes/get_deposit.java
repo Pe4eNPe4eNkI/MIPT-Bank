@@ -16,7 +16,7 @@ import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.bill.bill_factory;
 import com.example.mipt_bank_app.bill.bills_db;
 import com.example.mipt_bank_app.bill.deposit;
-import com.example.mipt_bank_app.constants;
+import com.example.mipt_bank_app.Constants;
 
 public class get_deposit extends Fragment {
 
@@ -45,9 +45,9 @@ public class get_deposit extends Fragment {
             public void onClick(View view) {
                 bills_db bdb = new bills_db(getContext());
                 bill_factory bf = new bill_factory();
-                deposit debit = bf.build_deposit(constants.person.get_id());
-                if (constants.have_deposit == 0) {
-                    constants.have_deposit = 1;
+                deposit debit = bf.build_deposit(Constants.adult.getID());
+                if (Constants.have_deposit == 0) {
+                    Constants.have_deposit = 1;
                     Navigation.findNavController(view).navigate(R.id.navigation_home);
                     bdb.add_bill(debit);
                 }

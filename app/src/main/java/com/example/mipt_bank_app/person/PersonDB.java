@@ -1,6 +1,5 @@
 package com.example.mipt_bank_app.person;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -9,8 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.mipt_bank_app.big_int.big_int;
 
-public class person_db extends SQLiteOpenHelper {
-    public person_db(Context context) {
+public class PersonDB extends SQLiteOpenHelper {
+    public PersonDB(Context context) {
         super(context, "MyDB_person.db", null, 1);
     }
 
@@ -28,7 +27,7 @@ public class person_db extends SQLiteOpenHelper {
                 "is_doubtful TEXT)");
     }
 
-    public String getMaxId_pp() {
+    public String getMaxIdPP() {
         big_int temp = new big_int(getMaxId());
         return temp.operator_pp_prefix().toString();
     }
@@ -51,51 +50,50 @@ public class person_db extends SQLiteOpenHelper {
         DB.execSQL("drop Table if exists PersonTable");
     }
 
-    public Boolean insertUserData(i_person person) {
+    public Boolean insertUserData(Adult adult) {
 
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        person.set_id(this.getMaxId_pp());
-        contentValues.put("login", person.get_login());
-        contentValues.put("id", person.get_id());
-        contentValues.put("password", person.get_password());
-        contentValues.put("first_name", person.get_first_name());
-        contentValues.put("second_name", person.get_second_name());
-        contentValues.put("address", person.get_address());
-        contentValues.put("passport_id", person.get_passport_id());
-        contentValues.put("money_limit", person.get_money_limit());
-        contentValues.put("is_doubtful", person.is_doubtful());
+        contentValues.put("login", adult.getLogin());
+        contentValues.put("id", this.getMaxIdPP());
+        contentValues.put("password", adult.getPassword());
+        contentValues.put("first_name", adult.getName());
+        contentValues.put("second_name", adult.getSurName());
+        contentValues.put("address", adult.getAddress());
+        contentValues.put("passport_id", adult.getPassportId());
+        contentValues.put("money_limit", adult.getMoneyLimit());
+        contentValues.put("is_doubtful", adult.getIsDoubtful());
         long result = DB.insert("PersonTable", null, contentValues);
         return result != -1;
     }
 
-    public Boolean updateUserData(i_person person) {
+    public Boolean updateUserData(Adult adult) {
 
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        person.update();
-        if (!person.get_password().isEmpty()) {
-            contentValues.put("password", person.get_password());
+        adult.updateStatus();
+        if (!adult.getPassword().isEmpty()) {
+            contentValues.put("password", adult.getPassword());
         }
-        if (!person.get_first_name().isEmpty()) {
-            contentValues.put("first_name", person.get_first_name());
+        if (!adult.getName().isEmpty()) {
+            contentValues.put("first_name", adult.getName());
         }
-        if (!person.get_second_name().isEmpty()) {
-            contentValues.put("second_name", person.get_second_name());
+        if (!adult.getSurName().isEmpty()) {
+            contentValues.put("second_name", adult.getSurName());
         }
-        if (!person.get_address().isEmpty()) {
-            contentValues.put("address", person.get_address());
+        if (!adult.getAddress().isEmpty()) {
+            contentValues.put("address", adult.getAddress());
         }
-        if (!person.get_passport_id().isEmpty()) {
-            contentValues.put("passport_id", person.get_passport_id());
+        if (!adult.getPassportId().isEmpty()) {
+            contentValues.put("passport_id", adult.getPassportId());
         }
-        contentValues.put("money_limit", person.get_money_limit());
-        contentValues.put("is_doubtful", person.is_doubtful());
+        contentValues.put("money_limit", adult.getMoneyLimit());
+        contentValues.put("is_doubtful", adult.getIsDoubtful());
 
-        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ?", new String[]{person.get_login()});
+        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ?", new String[]{adult.getLogin()});
         if (cursor.getCount() > 0) {
-            long result = DB.update("PersonTable", contentValues, "login=?", new String[]{person.get_login()});
+            long result = DB.update("PersonTable", contentValues, "login=?", new String[]{adult.getLogin()});
             if (result == -1) {
                 return false;
             }
@@ -151,6 +149,11 @@ public class person_db extends SQLiteOpenHelper {
     public Cursor get_person_by_id(String id) {
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("Select * from PersonTable where id = ? ", new String[]{id});
+        return (cursor.getCount() == 0 ? null : cursor);
+    }
+    public Cursor getPersonByLoginPassword(String login, String password) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ? and password = ?", new String[]{login,password});
         return (cursor.getCount() == 0 ? null : cursor);
     }
 

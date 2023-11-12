@@ -17,13 +17,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.example.mipt_bank_app.constants;
+import com.example.mipt_bank_app.Constants;
 import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.databinding.FragmentNotificationsBinding;
-import com.example.mipt_bank_app.person.person;
-import com.example.mipt_bank_app.person.person_builder;
-import com.example.mipt_bank_app.person.person_db;
-import com.example.mipt_bank_app.person.person_director;
+import com.example.mipt_bank_app.person.Adult;
+import com.example.mipt_bank_app.person.AdultBuilder;
+import com.example.mipt_bank_app.person.AdultParams;
+import com.example.mipt_bank_app.person.PersonDB;
 
 public class notifications_fragment extends Fragment {
 
@@ -42,7 +42,7 @@ public class notifications_fragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        if (constants.entered == 0) {
+        if (Constants.entered == 0) {
             TextView reg = (TextView) getView().findViewById(R.id.want_sign_in);
 
             reg.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +58,7 @@ public class notifications_fragment extends Fragment {
             btn_in.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    person_db pdb = new person_db(getContext());
+                    PersonDB pdb = new PersonDB(getContext());
                     EditText login_text = (EditText) getView().findViewById(R.id.sign_in_login);
                     EditText password_text = (EditText) getView().findViewById(R.id.sign_in_password);
                     login_text.setHintTextColor(Color.parseColor("#9D9FA2"));
@@ -74,20 +74,21 @@ public class notifications_fragment extends Fragment {
                         Cursor cursor = pdb.getPerson(login, password);
                         cursor.moveToFirst();
                         String id = cursor.getString(1);
-                        String first_name = cursor.getString(3);
-                        String second_name = cursor.getString(4);
+                        String name = cursor.getString(3);
+                        String surname = cursor.getString(4);
                         String address = cursor.getString(5);
                         String passport_id = cursor.getString(6);
 
-                        person_builder pb = new person_builder();
-                        pb.set_first_name(first_name).set_second_name(second_name).set_address(address).set_passport_id(passport_id).set_login(login).set_password(password);
-                        person_director pd = new person_director();
-                        person person1 = pd.createPerson(pb);
-                        person1.set_id(id);
+                        AdultParams adultParams = new AdultParams(name, surname, address, passport_id, login, password);
 
-                        constants.person = person1;
+                        AdultBuilder adultBuilder = new AdultBuilder(adultParams);
+                        adultBuilder.build();
+                        Adult adult = adultBuilder.getPerson();
+                        adult.setID(id);
 
-                        constants.entered = 1;
+                        Constants.adult = adult;
+
+                        Constants.entered = 1;
                         Toast.makeText(getActivity(), "Great!", Toast.LENGTH_SHORT).show();
                         Navigation.findNavController(view).navigate(R.id.account);
                     } else if (login.isEmpty() && password.isEmpty()) {

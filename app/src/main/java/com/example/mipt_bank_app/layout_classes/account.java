@@ -18,16 +18,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.constants;
-import com.example.mipt_bank_app.person.person;
-import com.example.mipt_bank_app.person.person_builder;
-import com.example.mipt_bank_app.person.person_db;
-import com.example.mipt_bank_app.person.person_director;
+import com.example.mipt_bank_app.Constants;
+import com.example.mipt_bank_app.person.*;
+import com.example.mipt_bank_app.person.PersonDB;
 
 
 public class account extends Fragment {
 
-    person_db DB_Person;
+    PersonDB DB_Person;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,8 +48,8 @@ public class account extends Fragment {
         EditText user_password1 = (EditText) getView().findViewById(R.id.rewrite_password1);
         EditText user_password2 = (EditText) getView().findViewById(R.id.rewrite_password2);
 
-        DB_Person = new person_db(getContext());
-        Cursor cursor = DB_Person.getPerson(constants.person.get_login(), constants.person.get_password());
+        DB_Person = new PersonDB(getContext());
+        Cursor cursor = DB_Person.getPerson(Constants.adult.getLogin(), Constants.adult.getPassword());
         cursor.moveToFirst();
         String per_login = cursor.getString(0);
         String per_id = cursor.getString(1);
@@ -101,22 +99,23 @@ public class account extends Fragment {
                 String address = address_text.getText().toString();
                 String passport_id = passport_text.getText().toString();
 
-                person_builder pb = new person_builder();
-                pb.set_first_name(name).set_second_name(surname).set_address(address).set_passport_id(passport_id).set_login(login).set_password(password1);
-                person_director pd = new person_director();
-                person person = pd.createPerson(pb);
+                AdultParams adultParams = new AdultParams(name, surname, address, passport_id, login, password1);
 
-                if (person.get_second_name().isEmpty()) {
+                AdultBuilder adultBuilder = new AdultBuilder(adultParams);
+                adultBuilder.build();
+                Adult adult = adultBuilder.getPerson();
+
+                if (adult.getSurName().isEmpty()) {
                     surname_text.setHintTextColor(Color.parseColor("#FAA634"));
                     Toast.makeText(getActivity(), "Empty surname", Toast.LENGTH_SHORT).show();
-                } else if (person.get_first_name().isEmpty()) {
+                } else if (adult.getName().isEmpty()) {
                     name_text.setHintTextColor(Color.parseColor("#FAA634"));
                     Toast.makeText(getActivity(), "Empty name", Toast.LENGTH_SHORT).show();
-                } else if (person.get_password().isEmpty()) {
+                } else if (adult.getPassword().isEmpty()) {
                     password1_text.setHintTextColor(Color.parseColor("#FAA634"));
                     password2_text.setHintTextColor(Color.parseColor("#FAA634"));
                     Toast.makeText(getActivity(), "Empty password", Toast.LENGTH_SHORT).show();
-                } else if (!person.get_password().equals(password2)) {
+                } else if (!adult.getPassword().equals(password2)) {
                     password1_text.setTextColor(Color.parseColor("#FAA634"));
                     password2_text.setTextColor(Color.parseColor("#FAA634"));
                     Toast.makeText(getActivity(), "Invalid password", Toast.LENGTH_SHORT).show();
@@ -124,7 +123,7 @@ public class account extends Fragment {
                     Toast.makeText(getActivity(), "Great!", Toast.LENGTH_SHORT).show();
                 }
 
-                Boolean check_insert_data = DB_Person.updateUserData(person);
+                Boolean check_insert_data = DB_Person.updateUserData(adult);
 
                 if (!check_insert_data) {
                     Toast.makeText(getActivity(), "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
@@ -136,10 +135,10 @@ public class account extends Fragment {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                constants.entered = 0;
-                constants.have_credit = 0;
-                constants.have_debit = 0;
-                constants.have_deposit = 0;
+                Constants.entered = 0;
+                Constants.have_credit = 0;
+                Constants.have_debit = 0;
+                Constants.have_deposit = 0;
                 Navigation.findNavController(view).navigate(R.id.navigation_notifications);
             }
         });

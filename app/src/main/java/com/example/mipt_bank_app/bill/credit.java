@@ -1,7 +1,7 @@
 package com.example.mipt_bank_app.bill;
 
 
-import com.example.mipt_bank_app.constants;
+import com.example.mipt_bank_app.Constants;
 
 public class credit extends i_bill {
 
@@ -64,7 +64,7 @@ public class credit extends i_bill {
         payment_on_this_month_ = Long.parseLong(debt_size_) / 10;
     }*/
 
-    private String bill_kind_ = constants.BILL_KIND_CREDIT;
+    private String bill_kind_ = Constants.BILL_KIND_CREDIT;
 
     private Long max_balance;
     private Long payment_on_this_month_;

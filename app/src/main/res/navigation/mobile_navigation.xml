@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/pinCode2">
+
+
 
     <fragment
         android:id="@+id/navigation_home"
@@ -122,5 +124,17 @@
         <action
             android:id="@+id/action_throwAway_to_navigation_home"
             app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/pinCode2"
+        android:name="com.example.mipt_bank_app.layout_classes.PinCode"
+        android:label="fragment_pin_code"
+        tools:layout="@layout/fragment_pin_code" >
+        <action
+            android:id="@+id/action_pinCode2_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_pinCode2_to_account"
+            app:destination="@id/account" />
     </fragment>
 </navigation>

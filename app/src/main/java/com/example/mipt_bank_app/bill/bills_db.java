@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.mipt_bank_app.big_int.big_int;
-import com.example.mipt_bank_app.person.i_person;
+import com.example.mipt_bank_app.person.IPerson;
 
 public class bills_db extends SQLiteOpenHelper {
 
@@ -108,9 +108,9 @@ public class bills_db extends SQLiteOpenHelper {
         return (cursor.getCount() == 0 ? null : cursor);
     }
 
-    public boolean try_find_bill(i_person person, String bill_kind) {
+    public boolean try_find_bill(IPerson person, String bill_kind) {
         SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from bill_table where bill_kind = ? and person_id = ?", new String[]{bill_kind, person.get_id()});
+        Cursor cursor = DB.rawQuery("Select * from bill_table where bill_kind = ? and person_id = ?", new String[]{bill_kind, person.getID()});
         return cursor.getCount() != 0;
     }
 }

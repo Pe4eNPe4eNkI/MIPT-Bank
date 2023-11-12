@@ -1,6 +1,6 @@
 package com.example.mipt_bank_app.bill;
 
-import com.example.mipt_bank_app.constants;
+import com.example.mipt_bank_app.Constants;
 
 public class debit extends i_bill {
 
@@ -52,6 +52,6 @@ public class debit extends i_bill {
         cashback_potential_size_ = Long.parseLong(cash_size_) / 100 * 5;
     }
 
-    private String bill_kind_ = constants.BILL_KIND_DEBIT;
+    private String bill_kind_ = Constants.BILL_KIND_DEBIT;
     private long cashback_potential_size_;
 }
