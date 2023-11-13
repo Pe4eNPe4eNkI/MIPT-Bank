@@ -73,6 +73,8 @@ public class registration extends Fragment {
                     adultBuilder.build();
                     Adult adult = adultBuilder.getPerson();
 
+
+
                     login_text.setHintTextColor(Color.parseColor("#9D9FA2"));
                     surname_text.setHintTextColor(Color.parseColor("#9D9FA2"));
                     name_text.setHintTextColor(Color.parseColor("#9D9FA2"));
@@ -110,7 +112,10 @@ public class registration extends Fragment {
 
                             PinCodeDB pinCodeDB = new PinCodeDB(getContext());
                             pinCodeDB.addPerson(login, password1, pinCode);
-                            Navigation.findNavController(view).navigate(R.id.navigation_notifications);
+                            adult.setID(pdb.getMaxIdPP());
+                            Constants.adult = adult;
+                            Constants.entered = 1;
+                            Navigation.findNavController(view).navigate(R.id.action_registration_to_navigation_home);
                             Toast.makeText(getActivity(), "Great!\t" + pdb.getMaxId(), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getActivity(), " I can't registrate you!    " + pdb.getMaxId(), Toast.LENGTH_SHORT).show();
