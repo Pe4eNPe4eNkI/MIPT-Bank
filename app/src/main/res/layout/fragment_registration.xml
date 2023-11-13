@@ -8,8 +8,6 @@
 
 
     <EditText
-        android:theme="@style/Based_enter"
-        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/sign_up_surname"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -18,11 +16,13 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/no_angles_text_view"
         android:hint="Surname"
-        android:maxLines="1"
         android:inputType="textPersonName"
+        android:maxLines="1"
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
+        android:textCursorDrawable="@drawable/cursor"
         android:textSize="20sp"
+        android:theme="@style/Based_enter"
         app:layout_constraintBottom_toTopOf="@+id/sign_up_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
