@@ -160,7 +160,7 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/no_angles_text_view"
         android:hint="Pincode"
-        android:inputType="textPassword"
+        android:inputType="number"
         android:maxLines="1"
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.mipt_bank_app.PinCodeDB;
 import com.example.mipt_bank_app.R;
@@ -27,6 +28,7 @@ import com.example.mipt_bank_app.person.PersonDB;
 import java.util.ArrayList;
 
 import com.example.mipt_bank_app.Constants;
+
 import org.apache.commons.lang3.StringUtils;
 
 public class PinCode extends Fragment {
@@ -80,6 +82,7 @@ public class PinCode extends Fragment {
                     public void onClick(View view) {
                         pinCode = pinCode + elem.second;
 
+                        Toast.makeText(getActivity(), elem.second + " " + pinCode, Toast.LENGTH_SHORT).show();
                         /*for (ImageView elem : imageViews){
                             elem.setColorFilter(Color.parseColor("green"));
                         }*/
@@ -87,6 +90,8 @@ public class PinCode extends Fragment {
                         if (pinCode.length() >= 4) {
                             if (db.checkPinCode(pinCode)) {
                                 Cursor cursor = db.getPerson(pinCode);
+                                cursor.moveToFirst();
+                                int a = cursor.getCount();
                                 PersonDB personDB = new PersonDB(getContext());
                                 Cursor personCursor = personDB.getPersonByLoginPassword(cursor.getString(0), cursor.getString(1));
 
@@ -106,6 +111,7 @@ public class PinCode extends Fragment {
                                 Adult adult = adultBuilder.getPerson();
                                 adult.setID(id);
                                 Constants.adult = adult;
+                                Constants.entered = 1;
 
                                 Navigation.findNavController(view).navigate(R.id.action_pinCode2_to_account);
                             } else {

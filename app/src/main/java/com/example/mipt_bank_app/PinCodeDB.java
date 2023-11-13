@@ -30,7 +30,7 @@ public class PinCodeDB extends SQLiteOpenHelper {
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("Select * from PinCode", null);
         cursor.moveToFirst();
-        return cursor.getCount() != 0 ? new Pair<Boolean, String>(cursor.getCount() != 0, cursor.getString(3)) : new Pair<Boolean, String>(cursor.getCount() != 0, "-1");
+        return cursor.getCount() != 0 ? new Pair<Boolean, String>(cursor.getCount() != 0, cursor.getString(2)) : new Pair<Boolean, String>(cursor.getCount() != 0, "-1");
     }
 
     public Boolean checkPinCode(String PinCode) {
@@ -49,8 +49,9 @@ public class PinCodeDB extends SQLiteOpenHelper {
     public boolean addPerson(String login, String password, String pinCode) {
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("Select * from PinCode", null);
+
         if (cursor.getCount() > 0) {
-            long result = DB.delete("PersonTable", null, null);
+            long result = DB.delete("PinCode", null, null);
         }
         ContentValues cv = new ContentValues();
         cv.put("login", login);

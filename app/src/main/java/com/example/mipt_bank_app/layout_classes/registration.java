@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mipt_bank_app.PinCodeDB;
 import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.Constants;
 import com.example.mipt_bank_app.person.Adult;
@@ -55,6 +56,7 @@ public class registration extends Fragment {
                     EditText login_text = (EditText) getView().findViewById(R.id.sign_up_login);
                     EditText password1_text = (EditText) getView().findViewById(R.id.sign_up_password1);
                     EditText password2_text = (EditText) getView().findViewById(R.id.sign_up_password2);
+                    EditText pinCodeText = (EditText) getView().findViewById(R.id.sign_up_pincode);
 
                     String surname = surname_text == null ? "" : surname_text.getText().toString();
                     String name = name_text == null ? "" : name_text.getText().toString();
@@ -63,6 +65,7 @@ public class registration extends Fragment {
                     String login = login_text == null ? "" : login_text.getText().toString();
                     String password1 = password1_text == null ? "" : password1_text.getText().toString();
                     String password2 = password2_text == null ? "" : password2_text.getText().toString();
+                    String pinCode = pinCodeText == null ? "" : pinCodeText.getText().toString();
 
                     AdultParams adultParams = new AdultParams(name, surname, address, passport_id, login, password1);
 
@@ -100,8 +103,13 @@ public class registration extends Fragment {
                         password1_text.setHintTextColor(Color.parseColor("#FAA634"));
                         password2_text.setHintTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Empty password", Toast.LENGTH_SHORT).show();
+                    } else if (pinCode.length() < 4) {
+                        pinCodeText.setHintTextColor(Color.parseColor("#FAA634"));
                     } else {
                         if (pdb.insertUserData(adult)) {
+
+                            PinCodeDB pinCodeDB = new PinCodeDB(getContext());
+                            pinCodeDB.addPerson(login, password1, pinCode);
                             Navigation.findNavController(view).navigate(R.id.navigation_notifications);
                             Toast.makeText(getActivity(), "Great!\t" + pdb.getMaxId(), Toast.LENGTH_SHORT).show();
                         } else {
