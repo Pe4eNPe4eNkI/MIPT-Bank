@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.mipt_bank_app.Constants;
+import com.example.mipt_bank_app.PinCodeDB;
 import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.databinding.FragmentNotificationsBinding;
 import com.example.mipt_bank_app.person.Adult;
@@ -59,6 +60,7 @@ public class notifications_fragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     PersonDB pdb = new PersonDB(getContext());
+                    PinCodeDB pinCodeDB = new PinCodeDB(getContext());
                     EditText login_text = (EditText) getView().findViewById(R.id.sign_in_login);
                     EditText password_text = (EditText) getView().findViewById(R.id.sign_in_password);
                     login_text.setHintTextColor(Color.parseColor("#9D9FA2"));
@@ -112,6 +114,8 @@ public class notifications_fragment extends Fragment {
                     }
                 }
             });
+        } else if(Constants.entered == 1 ){
+            Navigation.findNavController(view).navigate(R.id.account);
         }
     }
 

@@ -16,7 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.example.mipt_bank_app.PinCodeDB;
 import com.example.mipt_bank_app.R;
@@ -40,7 +41,6 @@ public class PinCode extends Fragment {
     public PinCode() {
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,7 +55,6 @@ public class PinCode extends Fragment {
         if (!db.checkPerson().first) { //
             Navigation.findNavController(view).navigate(R.id.action_pinCode2_to_navigation_home);
         } else {
-            Button bExit = (Button) getView().findViewById(R.id.button_exit);
             Button bClearLast = (Button) getView().findViewById(R.id.button_delete_last);
 
             ArrayList<Pair<Button, String>> arrayList = new ArrayList<>();
@@ -81,8 +80,6 @@ public class PinCode extends Fragment {
                     @Override
                     public void onClick(View view) {
                         pinCode = pinCode + elem.second;
-
-                        Toast.makeText(getActivity(), elem.second + " " + pinCode, Toast.LENGTH_SHORT).show();
                         /*for (ImageView elem : imageViews){
                             elem.setColorFilter(Color.parseColor("green"));
                         }*/
@@ -113,7 +110,7 @@ public class PinCode extends Fragment {
                                 Constants.adult = adult;
                                 Constants.entered = 1;
 
-                                Navigation.findNavController(view).navigate(R.id.action_pinCode2_to_account);
+                                Navigation.findNavController(view).navigate(R.id.action_pinCode2_to_navigation_home);
                             } else {
                                 pinCode = "";
                                 //тут убираем зеленые шары если не тот пинкод
@@ -122,13 +119,6 @@ public class PinCode extends Fragment {
                     }
                 });
             }
-
-            bExit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Navigation.findNavController(view).navigate(R.id.action_pinCode2_to_navigation_home);
-                }
-            });
             bClearLast.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

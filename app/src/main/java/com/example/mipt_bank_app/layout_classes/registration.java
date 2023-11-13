@@ -103,7 +103,7 @@ public class registration extends Fragment {
                         password1_text.setHintTextColor(Color.parseColor("#FAA634"));
                         password2_text.setHintTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Empty password", Toast.LENGTH_SHORT).show();
-                    } else if (pinCode.length() < 4) {
+                    } else if (pinCode.length() < 4 || pinCode.length() > 5) {
                         pinCodeText.setHintTextColor(Color.parseColor("#FAA634"));
                     } else {
                         if (pdb.insertUserData(adult)) {

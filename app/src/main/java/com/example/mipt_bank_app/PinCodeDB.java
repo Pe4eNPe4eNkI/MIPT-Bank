@@ -61,4 +61,14 @@ public class PinCodeDB extends SQLiteOpenHelper {
 
         return result != -1;
     }
+
+    public boolean deletePinCode(){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("Select * from PinCode", null);
+        long result = new Long(0);
+        if (cursor.getCount() > 0) {
+            result = DB.delete("PinCode", null, null);
+        }
+        return result != -1;
+    }
 }

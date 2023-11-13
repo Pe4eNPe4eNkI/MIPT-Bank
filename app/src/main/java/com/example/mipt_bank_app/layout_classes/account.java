@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mipt_bank_app.PinCodeDB;
 import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.Constants;
 import com.example.mipt_bank_app.person.*;
@@ -37,7 +38,7 @@ public class account extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         Button rewrite_btn = (Button) getView().findViewById(R.id.rewrite_button);
-        TextView reg = (TextView) getView().findViewById(R.id.exit);
+        TextView exit = (TextView) getView().findViewById(R.id.exit);
         TextView user_id = (TextView) getView().findViewById(R.id.user_id);
 
         EditText user_login = (EditText) getView().findViewById(R.id.rewrite_login);
@@ -47,6 +48,7 @@ public class account extends Fragment {
         EditText user_passport = (EditText) getView().findViewById(R.id.rewrite_passport);
         EditText user_password1 = (EditText) getView().findViewById(R.id.rewrite_password1);
         EditText user_password2 = (EditText) getView().findViewById(R.id.rewrite_password2);
+        EditText user_pinCode = (EditText) getView().findViewById(R.id.rewrite_pinCode);
 
         DB_Person = new PersonDB(getContext());
         Cursor cursor = DB_Person.getPerson(Constants.adult.getLogin(), Constants.adult.getPassword());
@@ -59,6 +61,9 @@ public class account extends Fragment {
         String per_address = cursor.getString(5);
         String per_passport = cursor.getString(6);
 
+        PinCodeDB pinCodeDB = new PinCodeDB(getContext());
+        String pinCode = pinCodeDB.checkPerson().second;
+
         user_id.setText("Id: " + per_id);
         user_login.setText(per_login.toString());
         user_password1.setText(per_password.toString());
@@ -67,6 +72,7 @@ public class account extends Fragment {
         user_name.setText(per_name.toString());
         user_address.setText(per_address.toString());
         user_passport.setText(per_passport.toString());
+        user_pinCode.setText(pinCode);
 
         rewrite_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +85,7 @@ public class account extends Fragment {
                 EditText name_text = (EditText) getView().findViewById(R.id.rewrite_name);
                 EditText address_text = (EditText) getView().findViewById(R.id.rewrite_address);
                 EditText passport_text = (EditText) getView().findViewById(R.id.rewrite_passport);
+                EditText pinCodeText = (EditText) getView().findViewById(R.id.rewrite_pinCode);
 
                 login_text.setHintTextColor(Color.parseColor("#9D9FA2"));
                 surname_text.setHintTextColor(Color.parseColor("#9D9FA2"));
@@ -87,6 +94,7 @@ public class account extends Fragment {
                 passport_text.setHintTextColor(Color.parseColor("#9D9FA2"));
                 password1_text.setHintTextColor(Color.parseColor("#9D9FA2"));
                 password2_text.setHintTextColor(Color.parseColor("#9D9FA2"));
+                pinCodeText.setHintTextColor(Color.parseColor("#9D9FA2"));
 
                 password1_text.setTextColor(Color.parseColor("#9D9FA2"));
                 password2_text.setTextColor(Color.parseColor("#9D9FA2"));
@@ -98,6 +106,7 @@ public class account extends Fragment {
                 String name = name_text.getText().toString();
                 String address = address_text.getText().toString();
                 String passport_id = passport_text.getText().toString();
+                String rewritePinCode = pinCodeText.getText().toString();
 
                 AdultParams adultParams = new AdultParams(name, surname, address, passport_id, login, password1);
 
@@ -119,22 +128,29 @@ public class account extends Fragment {
                     password1_text.setTextColor(Color.parseColor("#FAA634"));
                     password2_text.setTextColor(Color.parseColor("#FAA634"));
                     Toast.makeText(getActivity(), "Invalid password", Toast.LENGTH_SHORT).show();
+                } else if (rewritePinCode.length() < 4 || rewritePinCode.length() > 5) {
+                    pinCodeText.setTextColor(Color.parseColor("#FAA634"));
+                    Toast.makeText(getActivity(), "PinCode must be 4 symbols", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "Great!", Toast.LENGTH_SHORT).show();
+                    Boolean check_insert_data = DB_Person.updateUserData(adult);
+
+                    if (!check_insert_data) {
+                        Toast.makeText(getActivity(), "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
+                    }
+
+                    pinCodeDB.addPerson(login, password1, rewritePinCode);
                 }
 
-                Boolean check_insert_data = DB_Person.updateUserData(adult);
 
-                if (!check_insert_data) {
-                    Toast.makeText(getActivity(), "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
 
-        reg.setOnClickListener(new View.OnClickListener() {
+        exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pinCodeDB.deletePinCode();
                 Constants.entered = 0;
                 Constants.have_credit = 0;
                 Constants.have_debit = 0;
