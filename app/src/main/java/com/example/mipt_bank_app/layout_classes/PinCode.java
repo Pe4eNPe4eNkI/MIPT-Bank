@@ -1,6 +1,7 @@
 package com.example.mipt_bank_app.layout_classes;
 
 
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Toast;
 
 import com.example.mipt_bank_app.PinCodeDB;
 import com.example.mipt_bank_app.R;
@@ -80,9 +82,7 @@ public class PinCode extends Fragment {
                     @Override
                     public void onClick(View view) {
                         pinCode = pinCode + elem.second;
-                        /*for (ImageView elem : imageViews){
-                            elem.setColorFilter(Color.parseColor("green"));
-                        }*/
+                        imageViews.get(pinCode.length() - 1).setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.green)));
 
                         if (pinCode.length() >= 4) {
                             if (db.checkPinCode(pinCode)) {
@@ -113,8 +113,12 @@ public class PinCode extends Fragment {
                                 Navigation.findNavController(view).navigate(R.id.action_pinCode2_to_navigation_home);
                             } else {
                                 pinCode = "";
-                                //тут убираем зеленые шары если не тот пинкод
+                                for (ImageView elem : imageViews) {
+                                    elem.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.black)));
+                                }
+                                Toast.makeText(getActivity(), "Wrong PinCode", Toast.LENGTH_SHORT).show();
                             }
+
                         }
                     }
                 });
@@ -122,10 +126,10 @@ public class PinCode extends Fragment {
             bClearLast.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (pinCode.length() > 0) {
-                        pinCode = StringUtils.chop(pinCode);
+                    pinCode = StringUtils.chop(pinCode);
+                    if (pinCode.length() >= 0) {
+                        imageViews.get(pinCode.length()).setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.black)));
                     }
-                    // и тут тоже цвет убираем
                 }
             });
 

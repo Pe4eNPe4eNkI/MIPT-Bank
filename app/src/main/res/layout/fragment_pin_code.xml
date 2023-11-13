@@ -14,7 +14,7 @@
         android:layout_marginStart="85dp"
         android:layout_width="22dp"
         android:layout_height="22dp"
-        android:background="@drawable/circle"
+        android:background="@drawable/baseline_circle_24"
         />
     <ImageButton
         android:id="@+id/second_circle"
@@ -22,7 +22,7 @@
         android:layout_marginStart="135dp"
         android:layout_width="22dp"
         android:layout_height="22dp"
-        android:background="@drawable/circle"
+        android:background="@drawable/baseline_circle_24"
         />
     <ImageButton
         android:id="@+id/third_circle"
@@ -30,7 +30,8 @@
         android:layout_marginStart="185dp"
         android:layout_width="22dp"
         android:layout_height="22dp"
-        android:background="@drawable/circle"
+        android:background="@drawable/baseline_circle_24"
+
         />
     <ImageButton
         android:id="@+id/fourth_circle"
@@ -38,7 +39,7 @@
         android:layout_marginStart="235dp"
         android:layout_width="22dp"
         android:layout_height="22dp"
-        android:background="@drawable/circle"
+        android:background="@drawable/baseline_circle_24"
         />
 
     <androidx.appcompat.widget.AppCompatButton
