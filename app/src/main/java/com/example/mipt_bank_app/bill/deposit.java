@@ -1,7 +1,7 @@
 package com.example.mipt_bank_app.bill;
 
 
-import com.example.mipt_bank_app.Constants;
+import com.example.mipt_bank_app.Helper;
 
 public class deposit extends i_bill {
     @Override
@@ -58,7 +58,7 @@ public class deposit extends i_bill {
         income_potential_size_ = Long.toString(temp);
     }
 
-    private String bill_kind_ = Constants.BILL_KIND_DEPOSIT;
+    private String bill_kind_ = Helper.BILL_KIND_DEPOSIT;
     private String income_potential_size_;
 
 }

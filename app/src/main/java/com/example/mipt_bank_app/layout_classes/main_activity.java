@@ -3,7 +3,9 @@ package com.example.mipt_bank_app.layout_classes;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.R;
+import com.example.mipt_bank_app.person.PersonDB;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +29,6 @@ public class main_activity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         /*requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

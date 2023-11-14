@@ -19,14 +19,12 @@ import android.widget.Toast;
 
 import com.example.mipt_bank_app.PinCodeDB;
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.Constants;
+import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.person.*;
 import com.example.mipt_bank_app.person.PersonDB;
 
 
 public class account extends Fragment {
-
-    PersonDB DB_Person;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,8 +48,7 @@ public class account extends Fragment {
         EditText user_password2 = (EditText) getView().findViewById(R.id.rewrite_password2);
         EditText user_pinCode = (EditText) getView().findViewById(R.id.rewrite_pinCode);
 
-        DB_Person = new PersonDB(getContext());
-        Cursor cursor = DB_Person.getPerson(Constants.adult.getLogin(), Constants.adult.getPassword());
+        Cursor cursor = Helper.personDB.getPerson(Helper.adult.getLogin(), Helper.adult.getPassword());
         cursor.moveToFirst();
         String per_login = cursor.getString(0);
         String per_id = cursor.getString(1);
@@ -133,7 +130,7 @@ public class account extends Fragment {
                     Toast.makeText(getActivity(), "PinCode must be 4 symbols", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "Great!", Toast.LENGTH_SHORT).show();
-                    Boolean check_insert_data = DB_Person.updateUserData(adult);
+                    Boolean check_insert_data = Helper.personDB.updateUserData(adult);
 
                     if (!check_insert_data) {
                         Toast.makeText(getActivity(), "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
@@ -151,10 +148,10 @@ public class account extends Fragment {
             @Override
             public void onClick(View view) {
                 pinCodeDB.deletePinCode();
-                Constants.entered = 0;
-                Constants.have_credit = 0;
-                Constants.have_debit = 0;
-                Constants.have_deposit = 0;
+                Helper.entered = 0;
+                Helper.have_credit = 0;
+                Helper.have_debit = 0;
+                Helper.have_deposit = 0;
                 Navigation.findNavController(view).navigate(R.id.navigation_notifications);
             }
         });

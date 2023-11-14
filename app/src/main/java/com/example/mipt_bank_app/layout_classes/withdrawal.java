@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.bill.bills_db;
-import com.example.mipt_bank_app.Constants;
+import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.operations.operation_db;
 import com.example.mipt_bank_app.person.PersonDB;
 import com.example.mipt_bank_app.operations.withdrawal_operation;
@@ -47,7 +47,7 @@ public class withdrawal extends Fragment {
         withdraw_b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                withdrawal_operation withdrawal = new withdrawal_operation(new bills_db(getContext()), new PersonDB(getContext()), new operation_db(getContext()));
+                withdrawal_operation withdrawal = new withdrawal_operation(Helper.billsDB, Helper.personDB, Helper.operationDB);
                 EditText money = (EditText) getView().findViewById(R.id.sum);
                 money.setHintTextColor(Color.parseColor("#9D9FA2"));
 
@@ -57,7 +57,7 @@ public class withdrawal extends Fragment {
                         money.setHintTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Invalid sum!", Toast.LENGTH_SHORT).show();
                     } else {
-                        withdrawal.executeOperation(Constants.adult.getID(), temp, Constants.operation);
+                        withdrawal.executeOperation(Helper.adult.getID(), temp, Helper.operation);
                         Navigation.findNavController(view).navigate(R.id.navigation_home);
                     }
                 } else {

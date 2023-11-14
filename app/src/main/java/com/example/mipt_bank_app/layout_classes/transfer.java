@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.bill.bills_db;
-import com.example.mipt_bank_app.Constants;
+import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.operations.operation_db;
 import com.example.mipt_bank_app.person.PersonDB;
 import com.example.mipt_bank_app.operations.transfer_operation;
@@ -46,7 +46,7 @@ public class transfer extends Fragment {
         transfer_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transfer_operation transfer = new transfer_operation(new bills_db(getContext()), new PersonDB(getContext()), new operation_db(getContext()));
+                transfer_operation transfer = new transfer_operation(Helper.billsDB, Helper.personDB, Helper.operationDB);
                 EditText money = (EditText) getView().findViewById(R.id.sum);
                 EditText receiver_bill_id = (EditText) getView().findViewById(R.id.receiver_bill_id);
                 EditText password = (EditText) getView().findViewById(R.id.password);
@@ -71,11 +71,11 @@ public class transfer extends Fragment {
                     } else if (password_tr.isEmpty()) {
                         password.setHintTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Empty Password! ", Toast.LENGTH_SHORT).show();
-                    } else if (!Constants.adult.getPassword().equals(password.getText().toString())) {
+                    } else if (!Helper.adult.getPassword().equals(password.getText().toString())) {
                         password.setTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Incorrect Password! ", Toast.LENGTH_SHORT).show();
                     } else {
-                        transfer.executeTransferOperation(Constants.adult.getID(), receiver_bill, temp, Constants.operation);
+                        transfer.executeTransferOperation(Helper.adult.getID(), receiver_bill, temp, Helper.operation);
                         Navigation.findNavController(view).navigate(R.id.navigation_home);
                     }
                 }

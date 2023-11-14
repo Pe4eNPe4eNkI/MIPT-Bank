@@ -1,12 +1,12 @@
 package com.example.mipt_bank_app.person;
 
-import com.example.mipt_bank_app.Constants;
+import com.example.mipt_bank_app.Helper;
 
 
 public class AdultBuilder extends IPersonBuilder {
 
     public AdultBuilder(AdultParams params) {
-        type = Constants.AdultBuilderType;
+        type = Helper.AdultBuilderType;
         name = params.name;
         surname = params.surname;
         address = params.address;
@@ -19,7 +19,7 @@ public class AdultBuilder extends IPersonBuilder {
 
     public AdultBuilder(String name, String surname, String address, String passportId,
                  String login, String password) {
-        type = Constants.AdultBuilderType;
+        type = Helper.AdultBuilderType;
         this.name = name;
         this.surname = surname;
         this.address = address;

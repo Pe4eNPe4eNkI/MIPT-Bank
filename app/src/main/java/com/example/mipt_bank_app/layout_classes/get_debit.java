@@ -16,7 +16,7 @@ import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.bill.bill_factory;
 import com.example.mipt_bank_app.bill.bills_db;
 import com.example.mipt_bank_app.bill.debit;
-import com.example.mipt_bank_app.Constants;
+import com.example.mipt_bank_app.Helper;
 
 public class get_debit extends Fragment {
 
@@ -43,13 +43,12 @@ public class get_debit extends Fragment {
         replenish_b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bills_db bdb = new bills_db(getContext());
                 bill_factory bf = new bill_factory();
-                debit debit = bf.build_debit(Constants.adult.getID());
-                if (Constants.have_debit == 0) {
-                    Constants.have_debit = 1;
+                debit debit = bf.build_debit(Helper.adult.getID());
+                if (Helper.have_debit == 0) {
+                    Helper.have_debit = 1;
                     Navigation.findNavController(view).navigate(R.id.navigation_home);
-                    bdb.add_bill(debit);
+                    Helper.billsDB.add_bill(debit);
                 }
             }
         });

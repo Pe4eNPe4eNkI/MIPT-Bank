@@ -1,9 +1,10 @@
 package com.example.mipt_bank_app.layout_classes;
 
 
+import static com.example.mipt_bank_app.Helper.personDB;
+
 import android.content.res.ColorStateList;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -15,22 +16,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.widget.Toast;
 
+import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.PinCodeDB;
 import com.example.mipt_bank_app.R;
+import com.example.mipt_bank_app.bill.bills_db;
+import com.example.mipt_bank_app.operations.operation_db;
 import com.example.mipt_bank_app.person.Adult;
 import com.example.mipt_bank_app.person.AdultBuilder;
 import com.example.mipt_bank_app.person.AdultParams;
 import com.example.mipt_bank_app.person.PersonDB;
 
 import java.util.ArrayList;
-
-import com.example.mipt_bank_app.Constants;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -52,6 +51,19 @@ public class PinCode extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        if(Helper.pinCodeDB == null){
+            Helper.pinCodeDB = new PinCodeDB(getContext());
+        }
+        if(personDB == null){
+            Helper.personDB = new PersonDB(getContext());
+        }
+        if(Helper.billsDB == null){
+            Helper.billsDB = new bills_db(getContext());
+        }
+        if(Helper.operationDB == null){
+            Helper.operationDB = new operation_db(getContext());
+        }
 
         PinCodeDB db = new PinCodeDB(getContext());
         if (!db.checkPerson().first) { //
@@ -89,8 +101,7 @@ public class PinCode extends Fragment {
                                 Cursor cursor = db.getPerson(pinCode);
                                 cursor.moveToFirst();
                                 int a = cursor.getCount();
-                                PersonDB personDB = new PersonDB(getContext());
-                                Cursor personCursor = personDB.getPersonByLoginPassword(cursor.getString(0), cursor.getString(1));
+                                Cursor personCursor = Helper.personDB.getPersonByLoginPassword(cursor.getString(0), cursor.getString(1));
 
                                 personCursor.moveToFirst();
                                 String login = personCursor.getString(0);
@@ -107,8 +118,8 @@ public class PinCode extends Fragment {
                                 adultBuilder.build();
                                 Adult adult = adultBuilder.getPerson();
                                 adult.setID(id);
-                                Constants.adult = adult;
-                                Constants.entered = 1;
+                                Helper.adult = adult;
+                                Helper.entered = 1;
 
                                 Navigation.findNavController(view).navigate(R.id.action_pinCode2_to_navigation_home);
                             } else {

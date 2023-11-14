@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.example.mipt_bank_app.Constants;
+import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.PinCodeDB;
 import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.databinding.FragmentNotificationsBinding;
@@ -43,7 +43,7 @@ public class notifications_fragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        if (Constants.entered == 0) {
+        if (Helper.entered == 0) {
             TextView reg = (TextView) getView().findViewById(R.id.want_sign_in);
 
             reg.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +59,6 @@ public class notifications_fragment extends Fragment {
             btn_in.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    PersonDB pdb = new PersonDB(getContext());
-                    PinCodeDB pinCodeDB = new PinCodeDB(getContext());
                     EditText login_text = (EditText) getView().findViewById(R.id.sign_in_login);
                     EditText password_text = (EditText) getView().findViewById(R.id.sign_in_password);
                     login_text.setHintTextColor(Color.parseColor("#9D9FA2"));
@@ -71,9 +69,9 @@ public class notifications_fragment extends Fragment {
                     String login = login_text.getText().toString();
                     String password = password_text.getText().toString();
 
-                    if (pdb.personFind(login, password) && !login.isEmpty() && !password.isEmpty()) {
+                    if (Helper.personDB.personFind(login, password) && !login.isEmpty() && !password.isEmpty()) {
 
-                        Cursor cursor = pdb.getPerson(login, password);
+                        Cursor cursor = Helper.personDB.getPerson(login, password);
                         cursor.moveToFirst();
                         String id = cursor.getString(1);
                         String name = cursor.getString(3);
@@ -88,9 +86,9 @@ public class notifications_fragment extends Fragment {
                         Adult adult = adultBuilder.getPerson();
                         adult.setID(id);
 
-                        Constants.adult = adult;
+                        Helper.adult = adult;
 
-                        Constants.entered = 1;
+                        Helper.entered = 1;
                         Toast.makeText(getActivity(), "Great!", Toast.LENGTH_SHORT).show();
                         Navigation.findNavController(view).navigate(R.id.account);
                     } else if (login.isEmpty() && password.isEmpty()) {
@@ -103,18 +101,18 @@ public class notifications_fragment extends Fragment {
                     } else if (login.isEmpty() && !password.isEmpty()) {
                         login_text.setHintTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Empty login", Toast.LENGTH_SHORT).show();
-                    } else if (!pdb.personFind(login)) {
+                    } else if (!Helper.personDB.personFind(login)) {
                         password_text.setHintTextColor(Color.parseColor("#FAA634"));
                         login_text.setTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Invalid login", Toast.LENGTH_SHORT).show();
-                    } else if (!pdb.personFind(login, password)) {
+                    } else if (!Helper.personDB.personFind(login, password)) {
                         login_text.setTextColor(Color.parseColor("#FAA634"));
                         password_text.setTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Incorrect login or password", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
-        } else if(Constants.entered == 1 ){
+        } else if(Helper.entered == 1 ){
             Navigation.findNavController(view).navigate(R.id.account);
         }
     }
