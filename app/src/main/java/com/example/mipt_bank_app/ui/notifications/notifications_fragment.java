@@ -24,6 +24,9 @@ import com.example.mipt_bank_app.Person.Adult;
 import com.example.mipt_bank_app.Person.AdultBuilder;
 import com.example.mipt_bank_app.Person.AdultParams;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 public class notifications_fragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
@@ -67,28 +70,34 @@ public class notifications_fragment extends Fragment {
                     String login = login_text.getText().toString();
                     String password = password_text.getText().toString();
 
-                    if (Helper.personDB.personFind(login, password) && !login.isEmpty() && !password.isEmpty()) {
+                    if (Helper.personDB.personFind(login) && !login.isEmpty() && !password.isEmpty()) {
 
-                        Cursor cursor = Helper.personDB.getPerson(login, password);
+                        Cursor cursor = Helper.personDB.getPerson(login);
                         cursor.moveToFirst();
-                        String id = cursor.getString(1);
-                        String name = cursor.getString(3);
-                        String surname = cursor.getString(4);
-                        String address = cursor.getString(5);
-                        String passport_id = cursor.getString(6);
+                        String id = cursor.getString(Helper.personDbColumnNumber.get("id"));
+                        String name = cursor.getString(Helper.personDbColumnNumber.get("first_name"));
+                        String surname = cursor.getString(Helper.personDbColumnNumber.get("second_name"));
+                        String address = cursor.getString(Helper.personDbColumnNumber.get("address"));
+                        String passportId = cursor.getString(Helper.personDbColumnNumber.get("passport_id"));
+                        String passwordFromDb = cursor.getString(Helper.personDbColumnNumber.get("password"));
+                        String salt = cursor.getString(Helper.personDbColumnNumber.get("salt"));
 
-                        AdultParams adultParams = new AdultParams(name, surname, address, passport_id, login, password);
+                        AdultParams adultParams = new AdultParams(name, surname, address, passportId, login, password);
 
                         AdultBuilder adultBuilder = new AdultBuilder(adultParams);
                         adultBuilder.build();
                         Adult adult = adultBuilder.getPerson();
                         adult.setID(id);
-
-                        Helper.adult = adult;
-
-                        Helper.entered = 1;
-                        Toast.makeText(getActivity(), "Great!", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(view).navigate(R.id.account);
+                        try {
+                            if(Helper.stringHash.comparePasswords(passwordFromDb, salt, password)){
+                                Helper.adult = adult;
+                                Helper.entered = 1;
+                                Toast.makeText(getActivity(), "Great!", Toast.LENGTH_SHORT).show();
+                                Navigation.findNavController(view).navigate(R.id.account);
+                            }
+                        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+                            throw new RuntimeException(e);
+                        }
                     } else if (login.isEmpty() && password.isEmpty()) {
                         login_text.setHintTextColor(Color.parseColor("#FAA634"));
                         password_text.setHintTextColor(Color.parseColor("#FAA634"));
@@ -103,7 +112,7 @@ public class notifications_fragment extends Fragment {
                         password_text.setHintTextColor(Color.parseColor("#FAA634"));
                         login_text.setTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Invalid login", Toast.LENGTH_SHORT).show();
-                    } else if (!Helper.personDB.personFind(login, password)) {
+                    } else if (!Helper.personDB.personFind(login)) {
                         login_text.setTextColor(Color.parseColor("#FAA634"));
                         password_text.setTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Incorrect login or password", Toast.LENGTH_SHORT).show();

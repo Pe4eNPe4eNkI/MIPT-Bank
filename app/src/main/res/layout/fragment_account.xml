@@ -7,8 +7,6 @@
     tools:context=".layout_classes.account">
 
     <EditText
-        android:theme="@style/Based_enter"
-        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/rewrite_surname"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -17,11 +15,13 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/no_angles_text_view"
         android:hint="Surname"
+        android:inputType="textPersonName"
+        android:maxLines="1"
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
+        android:textCursorDrawable="@drawable/cursor"
         android:textSize="20sp"
-        android:maxLines="1"
-        android:inputType="textPersonName"
+        android:theme="@style/Based_enter"
         app:layout_constraintBottom_toTopOf="@+id/rewrite_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

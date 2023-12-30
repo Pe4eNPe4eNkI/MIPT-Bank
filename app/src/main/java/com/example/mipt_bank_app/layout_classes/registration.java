@@ -22,6 +22,10 @@ import com.example.mipt_bank_app.Person.Adult;
 import com.example.mipt_bank_app.Person.AdultBuilder;
 import com.example.mipt_bank_app.Person.AdultParams;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 public class registration extends Fragment {
 
     @Override
@@ -106,17 +110,22 @@ public class registration extends Fragment {
                     } else if (pinCode.length() < 4 || pinCode.length() > 5) {
                         pinCodeText.setHintTextColor(Color.parseColor("#FAA634"));
                     } else {
-                        if (Helper.personDB.insertUserData(adult)) {
+                        try {
+                            if (Helper.personDB.insertUserData(adult)) {
 
-                            PinCodeDB pinCodeDB = new PinCodeDB(getContext());
-                            pinCodeDB.addPerson(login, password1, pinCode);
-                            adult.setID(Helper.personDB.getMaxIdPP());
-                            Helper.adult = adult;
-                            Helper.entered = 1;
-                            Navigation.findNavController(view).navigate(R.id.action_registration_to_navigation_home);
-                            Toast.makeText(getActivity(), "Great!\t" + Helper.personDB.getMaxId(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getActivity(), " I can't registrate you!    " + Helper.personDB.getMaxId(), Toast.LENGTH_SHORT).show();
+                                PinCodeDB pinCodeDB = new PinCodeDB(getContext());
+                                pinCodeDB.addPerson(login, password1, pinCode);
+                                adult.setID(Helper.personDB.getMaxIdPP());
+                                Helper.adult = adult;
+                                Helper.entered = 1;
+                                Navigation.findNavController(view).navigate(R.id.action_registration_to_account);
+                                Toast.makeText(getActivity(), "Great!\t" + Helper.personDB.getMaxId(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), " I can't registrate you!    " + Helper.personDB.getMaxId(), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (NoSuchAlgorithmException | InvalidKeySpecException |
+                                 UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
                         }
                     }
                 }

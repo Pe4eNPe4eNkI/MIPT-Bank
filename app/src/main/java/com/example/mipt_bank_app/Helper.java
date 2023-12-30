@@ -4,11 +4,30 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mipt_bank_app.Person.Adult;
 import com.example.mipt_bank_app.Person.PersonDB;
+import com.example.mipt_bank_app.StringHash.StringHash;
 import com.example.mipt_bank_app.bill.bills_db;
 import com.example.mipt_bank_app.operations.operation_db;
 
-public class Helper extends Fragment {
+import java.util.HashMap;
+import java.util.Map;
 
+public class Helper extends Fragment {
+    public Helper() {
+        personDbColumnNumber.put("login", 0);
+        personDbColumnNumber.put("id", 1);
+        personDbColumnNumber.put("password", 2);
+        personDbColumnNumber.put("salt", 3);
+        personDbColumnNumber.put("first_name", 4);
+        personDbColumnNumber.put("second_name", 5);
+        personDbColumnNumber.put("address", 6);
+        personDbColumnNumber.put("passport_id", 7);
+        personDbColumnNumber.put("money_limit", 8);
+        personDbColumnNumber.put("is_doubtful", 9);
+    }
+
+    public static StringHash stringHash = new StringHash();
+
+    public static HashMap<String, Integer> personDbColumnNumber = new HashMap<>();
     public static PersonDB personDB = null;
 
     public static bills_db billsDB = null;

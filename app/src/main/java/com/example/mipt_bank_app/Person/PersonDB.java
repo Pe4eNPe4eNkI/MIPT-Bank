@@ -7,10 +7,19 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.mipt_bank_app.BigInt.BigInt;
+import com.example.mipt_bank_app.Helper;
+import com.example.mipt_bank_app.StringHash.StringHash;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 public class PersonDB extends SQLiteOpenHelper {
+
+    private final SQLiteDatabase DB_;
     public PersonDB(Context context) {
         super(context, "MyDB_person.db", null, 1);
+        DB_ = this.getWritableDatabase();
     }
 
     @Override
@@ -19,6 +28,7 @@ public class PersonDB extends SQLiteOpenHelper {
                 "login TEXT primary key, " +
                 "id TEXT, " +
                 "password TEXT, " +
+                "salt TEXT, " +
                 "first_name TEXT, " +
                 "second_name TEXT, " +
                 "address TEXT, " +
@@ -50,31 +60,38 @@ public class PersonDB extends SQLiteOpenHelper {
         DB.execSQL("drop Table if exists PersonTable");
     }
 
-    public Boolean insertUserData(Adult adult) {
+    public Boolean insertUserData(Adult adult) throws NoSuchAlgorithmException, InvalidKeySpecException, UnsupportedEncodingException {
 
-        SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("login", adult.getLogin());
         contentValues.put("id", this.getMaxIdPP());
-        contentValues.put("password", adult.getPassword());
         contentValues.put("first_name", adult.getName());
         contentValues.put("second_name", adult.getSurName());
         contentValues.put("address", adult.getAddress());
         contentValues.put("passport_id", adult.getPassportId());
         contentValues.put("money_limit", adult.getMoneyLimit());
         contentValues.put("is_doubtful", adult.getIsDoubtful());
-        long result = DB.insert("PersonTable", null, contentValues);
+
+        Helper.stringHash.generateSalt();
+        String hash = Helper.stringHash.generateHash(adult.getPassword());
+        contentValues.put("password", hash);
+
+        contentValues.put("salt", Helper.stringHash.getSalt());
+
+        long result = DB_.insert("PersonTable", null, contentValues);
         return result != -1;
     }
 
-    public Boolean updateUserData(Adult adult) {
+    public Boolean updateUserData(Adult adult) throws NoSuchAlgorithmException, InvalidKeySpecException, UnsupportedEncodingException {
 
-        SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         adult.updateStatus();
         if (!adult.getPassword().isEmpty()) {
-            contentValues.put("password", adult.getPassword());
+            Helper.stringHash.generateSalt();
+            String hash = Helper.stringHash.generateHash(adult.getPassword());
+            contentValues.put("password", hash);
+            contentValues.put("salt", Helper.stringHash.getSalt());
         }
         if (!adult.getName().isEmpty()) {
             contentValues.put("first_name", adult.getName());
@@ -91,9 +108,9 @@ public class PersonDB extends SQLiteOpenHelper {
         contentValues.put("money_limit", adult.getMoneyLimit());
         contentValues.put("is_doubtful", adult.getIsDoubtful());
 
-        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ?", new String[]{adult.getLogin()});
+        Cursor cursor = DB_.rawQuery("Select * from PersonTable where login = ?", new String[]{adult.getLogin()});
         if (cursor.getCount() > 0) {
-            long result = DB.update("PersonTable", contentValues, "login=?", new String[]{adult.getLogin()});
+            long result = DB_.update("PersonTable", contentValues, "login=?", new String[]{adult.getLogin()});
             if (result == -1) {
                 return false;
             }
@@ -103,10 +120,9 @@ public class PersonDB extends SQLiteOpenHelper {
     }
 
     public Boolean deleteData(String login) {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ?", new String[]{login});
+        Cursor cursor = DB_.rawQuery("Select * from PersonTable where login = ?", new String[]{login});
         if (cursor.getCount() > 0) {
-            long result = DB.delete("PersonTable", "login=?", new String[]{login});
+            long result = DB_.delete("PersonTable", "login=?", new String[]{login});
 
             if (result == -1) {
                 return false;
@@ -117,43 +133,21 @@ public class PersonDB extends SQLiteOpenHelper {
     }
 
     public Cursor getData() {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from PersonTable", null);
-        return cursor;
-    }
-
-    public Cursor getPerson(String login, String password) {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ? and password = ? ", new String[]{login, password});
-        return (cursor.getCount() == 0 ? null : cursor);
+        return DB_.rawQuery("Select * from PersonTable", null);
     }
 
     public Cursor getPerson(String login) {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ? ", new String[]{login});
+        Cursor cursor = DB_.rawQuery("Select * from PersonTable where login = ? ", new String[]{login});
         return (cursor.getCount() == 0 ? null : cursor);
     }
 
     public Boolean personFind(String login) {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ? ", new String[]{login});
-        return cursor.getCount() != 0;
-    }
-
-    public Boolean personFind(String login, String password) {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ? and password = ? ", new String[]{login, password});
+        Cursor cursor = DB_.rawQuery("Select * from PersonTable where login = ? ", new String[]{login});
         return cursor.getCount() != 0;
     }
 
     public Cursor get_person_by_id(String id) {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from PersonTable where id = ? ", new String[]{id});
-        return (cursor.getCount() == 0 ? null : cursor);
-    }
-    public Cursor getPersonByLoginPassword(String login, String password) {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from PersonTable where login = ? and password = ?", new String[]{login,password});
+        Cursor cursor = DB_.rawQuery("Select * from PersonTable where id = ? ", new String[]{id});
         return (cursor.getCount() == 0 ? null : cursor);
     }
 

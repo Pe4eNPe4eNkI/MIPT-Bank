@@ -99,7 +99,7 @@ public class PinCode extends Fragment {
                                 Cursor cursor = db.getPerson(pinCode);
                                 cursor.moveToFirst();
                                 int a = cursor.getCount();
-                                Cursor personCursor = Helper.personDB.getPersonByLoginPassword(cursor.getString(0), cursor.getString(1));
+                                Cursor personCursor = Helper.personDB.getPerson(cursor.getString(0));
 
                                 personCursor.moveToFirst();
                                 String login = personCursor.getString(0);

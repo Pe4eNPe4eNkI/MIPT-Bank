@@ -22,6 +22,10 @@ import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.Person.*;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 
 public class account extends Fragment {
 
@@ -47,15 +51,15 @@ public class account extends Fragment {
         EditText user_password2 = (EditText) getView().findViewById(R.id.rewrite_password2);
         EditText user_pinCode = (EditText) getView().findViewById(R.id.rewrite_pinCode);
 
-        Cursor cursor = Helper.personDB.getPerson(Helper.adult.getLogin(), Helper.adult.getPassword());
+        Cursor cursor = Helper.personDB.getPerson(Helper.adult.getLogin());
         cursor.moveToFirst();
-        String per_login = cursor.getString(0);
-        String per_id = cursor.getString(1);
-        String per_password = cursor.getString(2);
-        String per_surname = cursor.getString(3);
-        String per_name = cursor.getString(4);
-        String per_address = cursor.getString(5);
-        String per_passport = cursor.getString(6);
+        String per_login = cursor.getString(Helper.personDbColumnNumber.get("login"));
+        String per_id = cursor.getString(Helper.personDbColumnNumber.get("id"));
+        String per_password = cursor.getString(Helper.personDbColumnNumber.get("password"));
+        String per_surname = cursor.getString(Helper.personDbColumnNumber.get("second_name"));
+        String per_name = cursor.getString(Helper.personDbColumnNumber.get("first_name"));
+        String per_address = cursor.getString(Helper.personDbColumnNumber.get("address"));
+        String per_passport = cursor.getString(Helper.personDbColumnNumber.get("passport_id"));
 
         PinCodeDB pinCodeDB = new PinCodeDB(getContext());
         String pinCode = pinCodeDB.checkPerson().second;
@@ -129,7 +133,13 @@ public class account extends Fragment {
                     Toast.makeText(getActivity(), "PinCode must be 4 symbols", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "Great!", Toast.LENGTH_SHORT).show();
-                    Boolean check_insert_data = Helper.personDB.updateUserData(adult);
+                    Boolean check_insert_data = null;
+                    try {
+                        check_insert_data = Helper.personDB.updateUserData(adult);
+                    } catch (NoSuchAlgorithmException | InvalidKeySpecException |
+                             UnsupportedEncodingException e) {
+                        throw new RuntimeException(e);
+                    }
 
                     if (!check_insert_data) {
                         Toast.makeText(getActivity(), "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
