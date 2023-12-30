@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.mipt_bank_app.BigInt.BigInt;
-import com.example.mipt_bank_app.person.IPerson;
+import com.example.mipt_bank_app.Person.IPerson;
 
 public class bills_db extends SQLiteOpenHelper {
 

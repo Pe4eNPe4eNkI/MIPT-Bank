@@ -2,7 +2,7 @@ package com.example.mipt_bank_app.operations;
 
 
 import com.example.mipt_bank_app.bill.bills_db;
-import com.example.mipt_bank_app.person.PersonDB;
+import com.example.mipt_bank_app.Person.PersonDB;
 
 public abstract class i_easy_money_operation {
     public abstract void executeOperation(String receiver_bill_id, String money_size, String type);

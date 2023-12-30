@@ -2,11 +2,10 @@ package com.example.mipt_bank_app;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.mipt_bank_app.person.Adult;
-import com.example.mipt_bank_app.person.PersonDB;
+import com.example.mipt_bank_app.Person.Adult;
+import com.example.mipt_bank_app.Person.PersonDB;
 import com.example.mipt_bank_app.bill.bills_db;
 import com.example.mipt_bank_app.operations.operation_db;
-import com.example.mipt_bank_app.PinCodeDB;
 
 public class Helper extends Fragment {
 

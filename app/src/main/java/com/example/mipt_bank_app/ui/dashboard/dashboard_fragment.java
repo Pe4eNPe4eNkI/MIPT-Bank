@@ -19,13 +19,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.bill.bills_db;
 import com.example.mipt_bank_app.databinding.FragmentDashboardBinding;
 import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.operations.i_easy_money_operation;
 import com.example.mipt_bank_app.operations.i_ne_easy_money_operation;
 import com.example.mipt_bank_app.operations.operation_db;
-import com.example.mipt_bank_app.person.PersonDB;
 import com.example.mipt_bank_app.operations.refill_operation;
 import com.example.mipt_bank_app.operations.transfer_operation;
 import com.example.mipt_bank_app.operations.withdrawal_operation;

@@ -20,8 +20,7 @@ import android.widget.Toast;
 import com.example.mipt_bank_app.PinCodeDB;
 import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.Helper;
-import com.example.mipt_bank_app.person.*;
-import com.example.mipt_bank_app.person.PersonDB;
+import com.example.mipt_bank_app.Person.*;
 
 
 public class account extends Fragment {

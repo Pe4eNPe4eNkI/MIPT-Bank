@@ -24,10 +24,10 @@ import com.example.mipt_bank_app.PinCodeDB;
 import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.bill.bills_db;
 import com.example.mipt_bank_app.operations.operation_db;
-import com.example.mipt_bank_app.person.Adult;
-import com.example.mipt_bank_app.person.AdultBuilder;
-import com.example.mipt_bank_app.person.AdultParams;
-import com.example.mipt_bank_app.person.PersonDB;
+import com.example.mipt_bank_app.Person.Adult;
+import com.example.mipt_bank_app.Person.AdultBuilder;
+import com.example.mipt_bank_app.Person.AdultParams;
+import com.example.mipt_bank_app.Person.PersonDB;
 
 import java.util.ArrayList;
 
@@ -36,8 +36,6 @@ import org.apache.commons.lang3.StringUtils;
 public class PinCode extends Fragment {
 
     private String pinCode = "";
-    private String mParam1;
-    private String mParam2;
 
     public PinCode() {
     }

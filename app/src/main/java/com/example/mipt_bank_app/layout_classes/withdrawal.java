@@ -16,10 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.bill.bills_db;
 import com.example.mipt_bank_app.Helper;
-import com.example.mipt_bank_app.operations.operation_db;
-import com.example.mipt_bank_app.person.PersonDB;
 import com.example.mipt_bank_app.operations.withdrawal_operation;
 
 

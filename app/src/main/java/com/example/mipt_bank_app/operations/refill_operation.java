@@ -8,7 +8,7 @@ import com.example.mipt_bank_app.bill.bill_factory;
 import com.example.mipt_bank_app.bill.bills_db;
 import com.example.mipt_bank_app.bill.i_bill;
 import com.example.mipt_bank_app.Helper;
-import com.example.mipt_bank_app.person.PersonDB;
+import com.example.mipt_bank_app.Person.PersonDB;
 
 public class refill_operation extends i_easy_money_operation {
     public refill_operation(bills_db trans, PersonDB person_db, operation_db odb) {

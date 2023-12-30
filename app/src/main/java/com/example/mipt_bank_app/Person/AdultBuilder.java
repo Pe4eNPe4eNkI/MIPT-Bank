@@ -1,4 +1,4 @@
-package com.example.mipt_bank_app.person;
+package com.example.mipt_bank_app.Person;
 
 import com.example.mipt_bank_app.Helper;
 
