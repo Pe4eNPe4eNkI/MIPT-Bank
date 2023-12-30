@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.mipt_bank_app.big_int.big_int;
+import com.example.mipt_bank_app.BigInt.BigInt;
 import com.example.mipt_bank_app.bill.i_bill;
 
 public class
@@ -46,8 +46,8 @@ operation_db extends SQLiteOpenHelper {
     }
 
     public String getMaxId_pp() {
-        big_int temp = new big_int(getMaxId());
-        return temp.operator_pp_prefix().toString();
+        BigInt temp = new BigInt(getMaxId());
+        return temp.operator_prefix_increment().toString();
     }
 
     public Boolean insertUserData(i_bill bill, String sum, String receiver, String type_oper, String reciver_bill_id, String sender_bill_id) {

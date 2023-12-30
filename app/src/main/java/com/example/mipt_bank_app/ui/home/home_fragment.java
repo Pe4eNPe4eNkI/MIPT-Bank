@@ -15,10 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.example.mipt_bank_app.big_int.big_int;
+import com.example.mipt_bank_app.BigInt.BigInt;
 import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.bill.bills_db;
 import com.example.mipt_bank_app.databinding.FragmentHomeBinding;
 
 public class home_fragment extends Fragment {
@@ -139,41 +138,41 @@ public class home_fragment extends Fragment {
             credit.setClickable(true);
             deposit.setClickable(true);
 
-            big_int global_available = new big_int(0);
-            big_int global_debt = new big_int(0);
-            big_int global_income = new big_int(0);
+            BigInt global_available = new BigInt(0);
+            BigInt global_debt = new BigInt(0);
+            BigInt global_income = new BigInt(0);
 
             if (Helper.have_debit == 1) {
                 Cursor cursor_debit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
                 cursor_debit.moveToFirst();
 
-                big_int avalible1 = new big_int(cursor_debit.getString(3));
-                big_int cashback = new big_int(cursor_debit.getString(4));
+                BigInt avalible1 = new BigInt(cursor_debit.getString(3));
+                BigInt cashback = new BigInt(cursor_debit.getString(4));
 
-                global_available.operator_plus_equal(avalible1);
-                global_income.operator_plus_equal(cashback);
+                global_available.operatorPlusEqual(avalible1);
+                global_income.operatorPlusEqual(cashback);
             }
 
             if (Helper.have_credit == 1) {
                 Cursor cursor_credit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
                 cursor_credit.moveToFirst();
 
-                big_int avalible2 = new big_int(cursor_credit.getString(3));
-                big_int debt = new big_int(cursor_credit.getString(4));
+                BigInt avalible2 = new BigInt(cursor_credit.getString(3));
+                BigInt debt = new BigInt(cursor_credit.getString(4));
 
-                global_available.operator_plus_equal(avalible2);
-                global_debt.operator_plus_equal(debt);
+                global_available.operatorPlusEqual(avalible2);
+                global_debt.operatorPlusEqual(debt);
             }
 
             if (Helper.have_deposit == 1) {
                 Cursor cursor_deposit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
                 cursor_deposit.moveToFirst();
 
-                big_int avalible3 = new big_int(cursor_deposit.getString(3));
-                big_int income = new big_int(cursor_deposit.getString(4));
+                BigInt avalible3 = new BigInt(cursor_deposit.getString(3));
+                BigInt income = new BigInt(cursor_deposit.getString(4));
 
-                global_available.operator_plus_equal(avalible3);
-                global_income.operator_plus_equal(income);
+                global_available.operatorPlusEqual(avalible3);
+                global_income.operatorPlusEqual(income);
             }
 
             selected_num_1.setText(global_available.toString() + "$");
@@ -317,41 +316,41 @@ public class home_fragment extends Fragment {
                     refill.setEnabled(false);
                     withdrawal.setEnabled(false);
 
-                    big_int global_available = new big_int(0);
-                    big_int global_debt = new big_int(0);
-                    big_int global_income = new big_int(0);
+                    BigInt global_available = new BigInt(0);
+                    BigInt global_debt = new BigInt(0);
+                    BigInt global_income = new BigInt(0);
 
                     if (Helper.have_debit == 1) {
                         Cursor cursor_debit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
                         cursor_debit.moveToFirst();
 
-                        big_int avalible1 = new big_int(cursor_debit.getString(3));
-                        big_int cashback = new big_int(cursor_debit.getString(4));
+                        BigInt avalible1 = new BigInt(cursor_debit.getString(3));
+                        BigInt cashback = new BigInt(cursor_debit.getString(4));
 
-                        global_available.operator_plus_equal(avalible1);
-                        global_income.operator_plus_equal(cashback);
+                        global_available.operatorPlusEqual(avalible1);
+                        global_income.operatorPlusEqual(cashback);
                     }
 
                     if (Helper.have_credit == 1) {
                         Cursor cursor_credit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
                         cursor_credit.moveToFirst();
 
-                        big_int avalible2 = new big_int(cursor_credit.getString(3));
-                        big_int debt = new big_int(cursor_credit.getString(4));
+                        BigInt avalible2 = new BigInt(cursor_credit.getString(3));
+                        BigInt debt = new BigInt(cursor_credit.getString(4));
 
-                        global_available.operator_plus_equal(avalible2);
-                        global_debt.operator_plus_equal(debt);
+                        global_available.operatorPlusEqual(avalible2);
+                        global_debt.operatorPlusEqual(debt);
                     }
 
                     if (Helper.have_deposit == 1) {
                         Cursor cursor_deposit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
                         cursor_deposit.moveToFirst();
 
-                        big_int avalible3 = new big_int(cursor_deposit.getString(3));
-                        big_int income = new big_int(cursor_deposit.getString(4));
+                        BigInt avalible3 = new BigInt(cursor_deposit.getString(3));
+                        BigInt income = new BigInt(cursor_deposit.getString(4));
 
-                        global_available.operator_plus_equal(avalible3);
-                        global_income.operator_plus_equal(income);
+                        global_available.operatorPlusEqual(avalible3);
+                        global_income.operatorPlusEqual(income);
                     }
 
                     selected_num_1.setText(global_available.toString() + "$");
@@ -412,41 +411,41 @@ public class home_fragment extends Fragment {
                     transfer.setEnabled(false);
                     refill.setEnabled(false);
                     withdrawal.setEnabled(false);
-                    big_int global_available = new big_int(0);
-                    big_int global_debt = new big_int(0);
-                    big_int global_income = new big_int(0);
+                    BigInt global_available = new BigInt(0);
+                    BigInt global_debt = new BigInt(0);
+                    BigInt global_income = new BigInt(0);
 
                     if (Helper.have_debit == 1) {
                         Cursor cursor_debit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
                         cursor_debit.moveToFirst();
 
-                        big_int avalible1 = new big_int(cursor_debit.getString(3));
-                        big_int cashback = new big_int(cursor_debit.getString(4));
+                        BigInt avalible1 = new BigInt(cursor_debit.getString(3));
+                        BigInt cashback = new BigInt(cursor_debit.getString(4));
 
-                        global_available.operator_plus_equal(avalible1);
-                        global_income.operator_plus_equal(cashback);
+                        global_available.operatorPlusEqual(avalible1);
+                        global_income.operatorPlusEqual(cashback);
                     }
 
                     if (Helper.have_credit == 1) {
                         Cursor cursor_credit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
                         cursor_credit.moveToFirst();
 
-                        big_int avalible2 = new big_int(cursor_credit.getString(3));
-                        big_int debt = new big_int(cursor_credit.getString(4));
+                        BigInt avalible2 = new BigInt(cursor_credit.getString(3));
+                        BigInt debt = new BigInt(cursor_credit.getString(4));
 
-                        global_available.operator_plus_equal(avalible2);
-                        global_debt.operator_plus_equal(debt);
+                        global_available.operatorPlusEqual(avalible2);
+                        global_debt.operatorPlusEqual(debt);
                     }
 
                     if (Helper.have_deposit == 1) {
                         Cursor cursor_deposit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
                         cursor_deposit.moveToFirst();
 
-                        big_int avalible3 = new big_int(cursor_deposit.getString(3));
-                        big_int income = new big_int(cursor_deposit.getString(4));
+                        BigInt avalible3 = new BigInt(cursor_deposit.getString(3));
+                        BigInt income = new BigInt(cursor_deposit.getString(4));
 
-                        global_available.operator_plus_equal(avalible3);
-                        global_income.operator_plus_equal(income);
+                        global_available.operatorPlusEqual(avalible3);
+                        global_income.operatorPlusEqual(income);
                     }
 
                     selected_num_1.setText(global_available.toString() + "$");
@@ -507,41 +506,41 @@ public class home_fragment extends Fragment {
                     transfer.setEnabled(false);
                     refill.setEnabled(false);
                     withdrawal.setEnabled(false);
-                    big_int global_available = new big_int(0);
-                    big_int global_debt = new big_int(0);
-                    big_int global_income = new big_int(0);
+                    BigInt global_available = new BigInt(0);
+                    BigInt global_debt = new BigInt(0);
+                    BigInt global_income = new BigInt(0);
 
                     if (Helper.have_debit == 1) {
                         Cursor cursor_debit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
                         cursor_debit.moveToFirst();
 
-                        big_int avalible1 = new big_int(cursor_debit.getString(3));
-                        big_int cashback = new big_int(cursor_debit.getString(4));
+                        BigInt avalible1 = new BigInt(cursor_debit.getString(3));
+                        BigInt cashback = new BigInt(cursor_debit.getString(4));
 
-                        global_available.operator_plus_equal(avalible1);
-                        global_income.operator_plus_equal(cashback);
+                        global_available.operatorPlusEqual(avalible1);
+                        global_income.operatorPlusEqual(cashback);
                     }
 
                     if (Helper.have_credit == 1) {
                         Cursor cursor_credit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
                         cursor_credit.moveToFirst();
 
-                        big_int avalible2 = new big_int(cursor_credit.getString(3));
-                        big_int debt = new big_int(cursor_credit.getString(4));
+                        BigInt avalible2 = new BigInt(cursor_credit.getString(3));
+                        BigInt debt = new BigInt(cursor_credit.getString(4));
 
-                        global_available.operator_plus_equal(avalible2);
-                        global_debt.operator_plus_equal(debt);
+                        global_available.operatorPlusEqual(avalible2);
+                        global_debt.operatorPlusEqual(debt);
                     }
 
                     if (Helper.have_deposit == 1) {
                         Cursor cursor_deposit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
                         cursor_deposit.moveToFirst();
 
-                        big_int avalible3 = new big_int(cursor_deposit.getString(3));
-                        big_int income = new big_int(cursor_deposit.getString(4));
+                        BigInt avalible3 = new BigInt(cursor_deposit.getString(3));
+                        BigInt income = new BigInt(cursor_deposit.getString(4));
 
-                        global_available.operator_plus_equal(avalible3);
-                        global_income.operator_plus_equal(income);
+                        global_available.operatorPlusEqual(avalible3);
+                        global_income.operatorPlusEqual(income);
                     }
 
                     selected_num_1.setText(global_available.toString() + "$");

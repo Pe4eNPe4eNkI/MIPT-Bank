@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.mipt_bank_app.big_int.big_int;
+import com.example.mipt_bank_app.BigInt.BigInt;
 import com.example.mipt_bank_app.person.IPerson;
 
 public class bills_db extends SQLiteOpenHelper {
@@ -71,8 +71,8 @@ public class bills_db extends SQLiteOpenHelper {
     }
 
     public String getMaxId_pp() {
-        big_int temp = new big_int(getMaxId());
-        return temp.operator_pp_prefix().toString();
+        BigInt temp = new BigInt(getMaxId());
+        return temp.operator_prefix_increment().toString();
     }
 
     public Cursor getData() {
