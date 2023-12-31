@@ -114,7 +114,7 @@ public class account extends Fragment {
                 adultBuilder.build();
                 Adult adult = adultBuilder.getPerson();
 
-                if (adult.getSurName().isEmpty()) {
+                if (adult.getSurname().isEmpty()) {
                     surname_text.setHintTextColor(Color.parseColor("#FAA634"));
                     Toast.makeText(getActivity(), "Empty surname", Toast.LENGTH_SHORT).show();
                 } else if (adult.getName().isEmpty()) {

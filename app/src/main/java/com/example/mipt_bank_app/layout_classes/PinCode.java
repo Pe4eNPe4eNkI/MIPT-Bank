@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.PinCodeDB;
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.bill.bills_db;
+import com.example.mipt_bank_app.bill.BillDB;
 import com.example.mipt_bank_app.operations.operation_db;
 import com.example.mipt_bank_app.Person.Adult;
 import com.example.mipt_bank_app.Person.AdultBuilder;
@@ -57,7 +57,7 @@ public class PinCode extends Fragment {
             Helper.personDB = new PersonDB(getContext());
         }
         if(Helper.billsDB == null){
-            Helper.billsDB = new bills_db(getContext());
+            Helper.billsDB = new BillDB(getContext());
         }
         if(Helper.operationDB == null){
             Helper.operationDB = new operation_db(getContext());

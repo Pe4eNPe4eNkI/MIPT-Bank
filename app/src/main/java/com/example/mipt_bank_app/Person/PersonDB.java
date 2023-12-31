@@ -6,9 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.mipt_bank_app.BigInt.BigInt;
 import com.example.mipt_bank_app.Helper;
-import com.example.mipt_bank_app.StringHash.StringHash;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -38,8 +36,8 @@ public class PersonDB extends SQLiteOpenHelper {
     }
 
     public String getMaxIdPP() {
-        BigInt temp = new BigInt(getMaxId());
-        return temp.operator_prefix_increment().toString();
+        long temp = new Long(getMaxId()) + 1;
+        return new Long(temp).toString();
     }
 
     public String getMaxId() {
@@ -67,7 +65,7 @@ public class PersonDB extends SQLiteOpenHelper {
         contentValues.put("login", adult.getLogin());
         contentValues.put("id", this.getMaxIdPP());
         contentValues.put("first_name", adult.getName());
-        contentValues.put("second_name", adult.getSurName());
+        contentValues.put("second_name", adult.getSurname());
         contentValues.put("address", adult.getAddress());
         contentValues.put("passport_id", adult.getPassportId());
         contentValues.put("money_limit", adult.getMoneyLimit());
@@ -96,8 +94,8 @@ public class PersonDB extends SQLiteOpenHelper {
         if (!adult.getName().isEmpty()) {
             contentValues.put("first_name", adult.getName());
         }
-        if (!adult.getSurName().isEmpty()) {
-            contentValues.put("second_name", adult.getSurName());
+        if (!adult.getSurname().isEmpty()) {
+            contentValues.put("second_name", adult.getSurname());
         }
         if (!adult.getAddress().isEmpty()) {
             contentValues.put("address", adult.getAddress());

@@ -88,9 +88,9 @@ public class home_fragment extends Fragment {
         if (Helper.adult != null && Helper.entered != 0) {
 
 
-            if (Helper.billsDB.try_find_bill(Helper.adult, Helper.BILL_KIND_DEBIT)) {
+            if (Helper.billsDB.tryFindBill(Helper.adult, Helper.BILL_KIND_DEBIT)) {
                 Helper.have_debit = 1;
-                Cursor cursor = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
+                Cursor cursor = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
                 cursor.moveToFirst();
                 String avalible = cursor.getString(3);
                 String cashback = cursor.getString(4);
@@ -98,18 +98,18 @@ public class home_fragment extends Fragment {
                 debit_cashback.setText(cashback + " $");
 
             }
-            if (Helper.billsDB.try_find_bill(Helper.adult, Helper.BILL_KIND_CREDIT)) {
+            if (Helper.billsDB.tryFindBill(Helper.adult, Helper.BILL_KIND_CREDIT)) {
                 Helper.have_credit = 1;
-                Cursor cursor = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
+                Cursor cursor = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
                 cursor.moveToFirst();
                 String avalible = cursor.getString(3);
                 String debt = cursor.getString(4);
                 credit_available.setText(avalible + " $");
                 credit_debt.setText(debt + " $");
             }
-            if (Helper.billsDB.try_find_bill(Helper.adult, Helper.BILL_KIND_DEPOSIT)) {
+            if (Helper.billsDB.tryFindBill(Helper.adult, Helper.BILL_KIND_DEPOSIT)) {
                 Helper.have_deposit = 1;
-                Cursor cursor = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
+                Cursor cursor = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
                 cursor.moveToFirst();
                 String avalible = cursor.getString(3);
                 String income = cursor.getString(4);
@@ -143,7 +143,7 @@ public class home_fragment extends Fragment {
             BigInt global_income = new BigInt(0);
 
             if (Helper.have_debit == 1) {
-                Cursor cursor_debit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
+                Cursor cursor_debit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
                 cursor_debit.moveToFirst();
 
                 BigInt avalible1 = new BigInt(cursor_debit.getString(3));
@@ -154,7 +154,7 @@ public class home_fragment extends Fragment {
             }
 
             if (Helper.have_credit == 1) {
-                Cursor cursor_credit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
+                Cursor cursor_credit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
                 cursor_credit.moveToFirst();
 
                 BigInt avalible2 = new BigInt(cursor_credit.getString(3));
@@ -165,7 +165,7 @@ public class home_fragment extends Fragment {
             }
 
             if (Helper.have_deposit == 1) {
-                Cursor cursor_deposit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
+                Cursor cursor_deposit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
                 cursor_deposit.moveToFirst();
 
                 BigInt avalible3 = new BigInt(cursor_deposit.getString(3));
@@ -287,7 +287,7 @@ public class home_fragment extends Fragment {
                     refill.setEnabled(true);
                     withdrawal.setEnabled(true);
 
-                    Cursor cursor = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
+                    Cursor cursor = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
                     cursor.moveToFirst();
                     String card_id = cursor.getString(1);
                     String avalible = cursor.getString(3);
@@ -321,7 +321,7 @@ public class home_fragment extends Fragment {
                     BigInt global_income = new BigInt(0);
 
                     if (Helper.have_debit == 1) {
-                        Cursor cursor_debit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
+                        Cursor cursor_debit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
                         cursor_debit.moveToFirst();
 
                         BigInt avalible1 = new BigInt(cursor_debit.getString(3));
@@ -332,7 +332,7 @@ public class home_fragment extends Fragment {
                     }
 
                     if (Helper.have_credit == 1) {
-                        Cursor cursor_credit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
+                        Cursor cursor_credit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
                         cursor_credit.moveToFirst();
 
                         BigInt avalible2 = new BigInt(cursor_credit.getString(3));
@@ -343,7 +343,7 @@ public class home_fragment extends Fragment {
                     }
 
                     if (Helper.have_deposit == 1) {
-                        Cursor cursor_deposit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
+                        Cursor cursor_deposit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
                         cursor_deposit.moveToFirst();
 
                         BigInt avalible3 = new BigInt(cursor_deposit.getString(3));
@@ -383,7 +383,7 @@ public class home_fragment extends Fragment {
                     refill.setEnabled(true);
                     withdrawal.setEnabled(true);
 
-                    Cursor cursor = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
+                    Cursor cursor = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
                     cursor.moveToFirst();
                     String card_id = cursor.getString(1);
                     String avalible = cursor.getString(3);
@@ -416,7 +416,7 @@ public class home_fragment extends Fragment {
                     BigInt global_income = new BigInt(0);
 
                     if (Helper.have_debit == 1) {
-                        Cursor cursor_debit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
+                        Cursor cursor_debit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
                         cursor_debit.moveToFirst();
 
                         BigInt avalible1 = new BigInt(cursor_debit.getString(3));
@@ -427,7 +427,7 @@ public class home_fragment extends Fragment {
                     }
 
                     if (Helper.have_credit == 1) {
-                        Cursor cursor_credit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
+                        Cursor cursor_credit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
                         cursor_credit.moveToFirst();
 
                         BigInt avalible2 = new BigInt(cursor_credit.getString(3));
@@ -438,7 +438,7 @@ public class home_fragment extends Fragment {
                     }
 
                     if (Helper.have_deposit == 1) {
-                        Cursor cursor_deposit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
+                        Cursor cursor_deposit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
                         cursor_deposit.moveToFirst();
 
                         BigInt avalible3 = new BigInt(cursor_deposit.getString(3));
@@ -479,7 +479,7 @@ public class home_fragment extends Fragment {
                     withdrawal.setEnabled(true);
 
 
-                    Cursor cursor = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
+                    Cursor cursor = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
                     cursor.moveToFirst();
                     String card_id = cursor.getString(1);
                     String avalible = cursor.getString(3);
@@ -511,7 +511,7 @@ public class home_fragment extends Fragment {
                     BigInt global_income = new BigInt(0);
 
                     if (Helper.have_debit == 1) {
-                        Cursor cursor_debit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
+                        Cursor cursor_debit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
                         cursor_debit.moveToFirst();
 
                         BigInt avalible1 = new BigInt(cursor_debit.getString(3));
@@ -522,7 +522,7 @@ public class home_fragment extends Fragment {
                     }
 
                     if (Helper.have_credit == 1) {
-                        Cursor cursor_credit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
+                        Cursor cursor_credit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
                         cursor_credit.moveToFirst();
 
                         BigInt avalible2 = new BigInt(cursor_credit.getString(3));
@@ -533,7 +533,7 @@ public class home_fragment extends Fragment {
                     }
 
                     if (Helper.have_deposit == 1) {
-                        Cursor cursor_deposit = Helper.billsDB.get_bill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
+                        Cursor cursor_deposit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
                         cursor_deposit.moveToFirst();
 
                         BigInt avalible3 = new BigInt(cursor_deposit.getString(3));

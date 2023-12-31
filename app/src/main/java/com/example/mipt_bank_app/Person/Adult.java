@@ -1,27 +1,28 @@
 package com.example.mipt_bank_app.Person;
 
-public class Adult extends IPerson {
+public class Adult extends Person {
 
+    @Override
     public String getName() {
         return name;
     }
 
-
-    public String getSurName() {
+    @Override
+    public String getSurname() {
         return surname;
     }
 
-
+    @Override
     public String getAddress() {
         return address;
     }
 
-
+    @Override
     public String getLogin() {
         return login;
     }
 
-
+    @Override
     public String getPassword() {
         return password;
     }
@@ -43,27 +44,27 @@ public class Adult extends IPerson {
         return id;
     }
 
-
+    @Override
     public void setName(String firstName) {
         this.name = firstName;
     }
 
-
-    public void setSurName(String secondName) {
+    @Override
+    public void setSurname(String secondName) {
         this.surname = secondName;
     }
 
-
+    @Override
     public void setAddress(String address) {
         this.address = address;
     }
 
-
+    @Override
     public void setLogin(String login) {
         this.login = login;
     }
 
-
+    @Override
     public void setPassword(String password) {
         this.password = password;
     }

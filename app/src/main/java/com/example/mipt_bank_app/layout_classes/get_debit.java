@@ -13,9 +13,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.bill.bill_factory;
-import com.example.mipt_bank_app.bill.bills_db;
-import com.example.mipt_bank_app.bill.debit;
+import com.example.mipt_bank_app.bill.BillFactory;
+import com.example.mipt_bank_app.bill.Debit;
 import com.example.mipt_bank_app.Helper;
 
 public class get_debit extends Fragment {
@@ -43,12 +42,12 @@ public class get_debit extends Fragment {
         replenish_b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bill_factory bf = new bill_factory();
-                debit debit = bf.build_debit(Helper.adult.getID());
+                BillFactory bf = new BillFactory();
+                Debit debit = bf.buildDebit("",Helper.adult.getID(),"");
                 if (Helper.have_debit == 0) {
                     Helper.have_debit = 1;
                     Navigation.findNavController(view).navigate(R.id.navigation_home);
-                    Helper.billsDB.add_bill(debit);
+                    Helper.billsDB.addBill(debit);
                 }
             }
         });

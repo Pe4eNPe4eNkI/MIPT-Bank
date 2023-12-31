@@ -1,7 +1,7 @@
 package com.example.mipt_bank_app.Person;
-
-public abstract class IPersonBuilder {
-    public abstract IPerson getPerson();
+/**Abstract Class*/
+public abstract class PersonBuilder {
+    public abstract Person getPerson();
 
     public abstract void build();
 

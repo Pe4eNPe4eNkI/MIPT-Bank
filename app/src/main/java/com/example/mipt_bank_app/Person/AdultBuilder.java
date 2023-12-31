@@ -3,7 +3,7 @@ package com.example.mipt_bank_app.Person;
 import com.example.mipt_bank_app.Helper;
 
 
-public class AdultBuilder extends IPersonBuilder {
+public class AdultBuilder extends PersonBuilder {
 
     public AdultBuilder(AdultParams params) {
         type = Helper.AdultBuilderType;
@@ -31,31 +31,31 @@ public class AdultBuilder extends IPersonBuilder {
     }
 
 
-    public void setAdultName(String name) {
+    private void buildName(String name) {
         adult.setName(name);
     }
 
-    public void setAdultSurName(String surname) {
-        adult.setSurName(surname);
+    private void buildSurname(String surname) {
+        adult.setSurname(surname);
     }
 
-    public void setAdultAddress(String address) {
+    private void buildAddress(String address) {
         adult.setAddress(address);
     }
 
-    public void setAdultPassportId(String passportId) {
+    private void buildPassportID(String passportId) {
         adult.setPassportId(passportId);
     }
 
-    public void setAdultLogin(String login) {
+    private void buildLogin(String login) {
         adult.setLogin(login);
     }
 
-    public void setAdultPassword(String password) {
+    private void buildPassword(String password) {
         adult.setPassword(password);
     }
 
-    public void doUpdate() {
+    private void doUpdate() {
         adult.updateStatus();
     }
 
@@ -66,12 +66,12 @@ public class AdultBuilder extends IPersonBuilder {
 
     @Override
     public void build() {
-        this.setAdultName(name);
-        this.setAdultSurName(surname);
-        this.setAdultAddress(address);
-        this.setAdultPassportId(passportId);
-        this.setAdultLogin(login);
-        this.setAdultPassword(password);
+        this.buildName(name);
+        this.buildSurname(surname);
+        this.buildAddress(address);
+        this.buildPassportID(passportId);
+        this.buildLogin(login);
+        this.buildPassword(password);
         this.doUpdate();
     }
 

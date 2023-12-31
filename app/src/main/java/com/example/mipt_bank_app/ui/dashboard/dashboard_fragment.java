@@ -105,14 +105,14 @@ public class dashboard_fragment extends Fragment {
                             String operation_type = cursor.getString(5);
 
                             if (!sender_card_id.equals("")) {
-                                Cursor cursor1 = Helper.billsDB.get_bill(sender_card_id);
+                                Cursor cursor1 = Helper.billsDB.getBill(sender_card_id);
                                 cursor1.moveToFirst();
                                 String card_type2 = cursor1.getString(0);
                                 if (ne_easy_oper != null) {
                                     ne_easy_oper.cancelTransferOperation(sender_card_id, reciver_card_id, sum, card_type2);
                                 }
                             } else {
-                                Cursor cursor1 = Helper.billsDB.get_bill(reciver_id);
+                                Cursor cursor1 = Helper.billsDB.getBill(reciver_id);
                                 cursor1.moveToFirst();
                                 String card_type = cursor1.getString(0);
                                 if (easy_oper != null) {

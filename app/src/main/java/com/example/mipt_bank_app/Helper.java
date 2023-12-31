@@ -5,11 +5,10 @@ import androidx.fragment.app.Fragment;
 import com.example.mipt_bank_app.Person.Adult;
 import com.example.mipt_bank_app.Person.PersonDB;
 import com.example.mipt_bank_app.StringHash.StringHash;
-import com.example.mipt_bank_app.bill.bills_db;
+import com.example.mipt_bank_app.bill.BillDB;
 import com.example.mipt_bank_app.operations.operation_db;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class Helper extends Fragment {
     public Helper() {
@@ -30,7 +29,7 @@ public class Helper extends Fragment {
     public static HashMap<String, Integer> personDbColumnNumber = new HashMap<>();
     public static PersonDB personDB = null;
 
-    public static bills_db billsDB = null;
+    public static BillDB billsDB = null;
 
     public static operation_db operationDB = null;
 
@@ -62,7 +61,11 @@ public class Helper extends Fragment {
     public static final String WITHDRAWAL = "WITHDRAWAL";
     public static final String TRANSFER = "TRANSFER";
     public static final String REFIL = "REFIL";
+    public static final String CREDIT_MONEY_LIMIT = "10000";
 
+    public static final String uniquePropertyDepositDBName = "percent";
+    public static final String uniquePropertyDebitDBName = "spent_money";
+    public static final String uniquePropertyCreditDBName = "debt";
     public static int money_limit = 1000;
 
 }
