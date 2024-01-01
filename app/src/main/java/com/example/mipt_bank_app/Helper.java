@@ -89,7 +89,7 @@ public class Helper extends Fragment {
     public static final String WITHDRAWAL = "withdrawal";
     public static final String TRANSFER = "transfer";
     public static final String REFIL = "refil";
-    public static final String CREDIT_MONEY_LIMIT = "10000";
+    public static final String CREDIT_MONEY_LIMIT = "10000.0";
 
     public static final String uniquePropertyDepositDBName = "percent";
     public static final String uniquePropertyDebitDBName = "spent_money";

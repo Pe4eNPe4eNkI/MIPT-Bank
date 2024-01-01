@@ -303,15 +303,15 @@ public class home_fragment extends Fragment {
 
                     Cursor cursor = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
                     cursor.moveToFirst();
-                    String card_id = cursor.getString(1);
-                    String avalible = cursor.getString(3);
-                    String cashback = cursor.getString(4);
+                    String cardId = cursor.getString(Helper.billDbColumnNumber.get("bill_id"));
+                    String available = cursor.getString(Helper.billDbColumnNumber.get("balance"));
+                    String spentMoney = cursor.getString(Helper.billDbColumnNumber.get("spent_money"));
 
-                    availableSum.setText(avalible + "$");
-                    debtSum.setText(cashback + "$");
-                    cardIdSelected.setText("Card id:" + card_id);
+                    availableSum.setText(available + "$");
+                    debtSum.setText(Double.parseDouble(spentMoney)/100 + "$");
+                    cardIdSelected.setText("Card id:" + cardId);
 
-                    Helper.selectedCardId = card_id;
+                    Helper.selectedCardId = cardId;
 
                 } else if (Helper.entered == 1 && Helper.haveDebit == 1 && Helper.selected_key == 1) {
                     Helper.selected_key = 0;
@@ -521,15 +521,15 @@ public class home_fragment extends Fragment {
 
                     Cursor cursor = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
                     cursor.moveToFirst();
-                    String card_id = cursor.getString(1);
-                    String avalible = cursor.getString(3);
-                    String income = cursor.getString(4);
+                    String cardId = cursor.getString(Helper.billDbColumnNumber.get("bill_id"));
+                    String available = cursor.getString(Helper.billDbColumnNumber.get("balance"));
+                    String income = cursor.getString(Helper.billDbColumnNumber.get("percent"));
 
-                    availableSum.setText(avalible + "$");
+                    availableSum.setText(available + "$");
                     debtSum.setText(income + "$");
-                    cardIdSelected.setText("Card id: " + card_id);
+                    cardIdSelected.setText("Card id: " + cardId);
 
-                    Helper.selectedCardId = card_id;
+                    Helper.selectedCardId = cardId;
                 } else if (Helper.entered == 1 && Helper.haveDeposit == 1 && Helper.selected_key == 3) {
                     Helper.selected_key = 0;
                     selectorDeposit.setVisibility(View.INVISIBLE);

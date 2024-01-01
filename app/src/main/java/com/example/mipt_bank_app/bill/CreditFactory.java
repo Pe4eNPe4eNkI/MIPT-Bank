@@ -10,7 +10,7 @@ public class CreditFactory extends BillFactory{
         credit_.setPersonID(person_id);
         if (money.equals("")) {
             credit_.setCashSize(Helper.CREDIT_MONEY_LIMIT);
-            credit_.setUniqueProperty("0");
+            credit_.setUniqueProperty("0.0");
         } else {
             credit_.setCashSize(money);
         }

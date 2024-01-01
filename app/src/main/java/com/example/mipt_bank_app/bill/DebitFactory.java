@@ -7,8 +7,8 @@ public class DebitFactory extends BillFactory{
         debit_.setPersonID(person_id);
         debit_.setBillID(bill_id);
         if (money.equals("")) {
-            debit_.setCashSize("0");
-            debit_.setUniqueProperty("0");
+            debit_.setCashSize("0.0");
+            debit_.setUniqueProperty("0.0");
         } else {
             debit_.setCashSize(money);
         }

@@ -7,8 +7,8 @@ public class DepositFactory extends BillFactory{
         deposit_.setPersonID(person_id);
         deposit_.setBillID(bill_id);
         if (money.equals("")) {
-            deposit_.setCashSize("0");
-            deposit_.setUniqueProperty("0");
+            deposit_.setCashSize("0.0");
+            deposit_.setUniqueProperty("0.0");
         } else {
             deposit_.setCashSize(money);
         }
