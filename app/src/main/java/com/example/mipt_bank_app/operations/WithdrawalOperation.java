@@ -29,7 +29,7 @@ public class WithdrawalOperation extends EasyMoneyOperation {
         }
 
         Helper.billsDB.updateUserData(bill);
-        Helper.operationDB.insertUserData(bill, personId, Double.toString(withdrawalSumDouble), Helper.REFIL);
+        Helper.operationDB.insertUserData(bill, bill.getBillID(), Double.toString(withdrawalSumDouble), Helper.WITHDRAWAL);
     }
 
     @Override

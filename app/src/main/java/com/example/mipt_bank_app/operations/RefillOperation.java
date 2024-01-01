@@ -2,6 +2,7 @@ package com.example.mipt_bank_app.operations;
 
 
 import android.database.Cursor;
+import android.widget.Toast;
 
 import com.example.mipt_bank_app.bill.Bill;
 import com.example.mipt_bank_app.Helper;
@@ -31,9 +32,8 @@ public class RefillOperation extends EasyMoneyOperation {
                 bill = Helper.debitFactory.buildBill(billIdFromDB, personId, Double.toString(userBalanceDouble));
                 break;
         }
-
         Helper.billsDB.updateUserData(bill);
-        Helper.operationDB.insertUserData(bill, personId, Double.toString(refillSumDouble), Helper.REFIL);
+        Helper.operationDB.insertUserData(bill, bill.getBillID(), Double.toString(refillSumDouble), Helper.REFIL);
     }
 
     @Override

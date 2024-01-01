@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.bill.Bill;
 
+import kotlin.Triple;
+
 public class OperationDB extends SQLiteOpenHelper {
     private final SQLiteDatabase DB_;
 
@@ -56,7 +58,7 @@ public class OperationDB extends SQLiteOpenHelper {
         long result;
         if (!bill.getBillID().equals("") && !sum.equals("") && !bill.getPersonID().equals("") && !receiverBillId.equals("") && !operationType.equals("")) {
             contentValues.put("card_id_receiver", receiverBillId);
-            contentValues.put("card_id_sender", bill.getPersonID());
+            contentValues.put("card_id_sender", bill.getBillID());
             contentValues.put("sum", sum);
             contentValues.put("operation_type", operationType);
             contentValues.put("operation_id", getMaxId_pp());
@@ -78,7 +80,7 @@ public class OperationDB extends SQLiteOpenHelper {
         return (cursor.getCount() == 0 ? null : cursor);
     }
 
-    public Cursor getOperations(String person_id) throws Exception{
+    public Triple<Cursor, Cursor, Cursor> getOperations(String person_id) throws Exception {
         Cursor billCredit = Helper.billsDB.getBill(person_id, Helper.BILL_KIND_CREDIT);
         Cursor billDeposit = Helper.billsDB.getBill(person_id, Helper.BILL_KIND_DEPOSIT);
         Cursor billDebit = Helper.billsDB.getBill(person_id, Helper.BILL_KIND_DEBIT);
@@ -87,23 +89,34 @@ public class OperationDB extends SQLiteOpenHelper {
         String billDepositId = "";
         String billDebitId = "";
 
-        if(billCredit != null){
+        if (billCredit != null) {
             billCredit.moveToFirst();
             billCreditId = billCredit.getString(Helper.billDbColumnNumber.get("bill_id"));
         }
-        if(billDeposit != null){
+        if (billDeposit != null) {
             billDeposit.moveToFirst();
             billDepositId = billDeposit.getString(Helper.billDbColumnNumber.get("bill_id"));
         }
-        if(billDebit != null){
+        if (billDebit != null) {
             billDebit.moveToFirst();
             billDebitId = billDebit.getString(Helper.billDbColumnNumber.get("bill_id"));
         }
-        Cursor cursor = null;
-        if (!billCreditId.equals("")|| !billDebitId.equals("") || !billDepositId.equals("") ) {
-            cursor = DB_.rawQuery("Select * from OperationTable where send = ?", new String[]{billCreditId, billDebitId, billDepositId});
+        Cursor cursorDebit = null;
+        if (!billDebitId.equals("")) {
+            cursorDebit = DB_.rawQuery("Select * from OperationTable where card_id_sender = ?", new String[]{billDebitId});
+            cursorDebit = cursorDebit.getCount() == 0 ? null : cursorDebit;
         }
-        return (cursor.getCount() == 0 ? null : cursor);
+        Cursor cursorCredit = null;
+        if (!billCreditId.equals("")) {
+            cursorCredit = DB_.rawQuery("Select * from OperationTable where card_id_sender = ?", new String[]{billCreditId});
+            cursorCredit = cursorCredit.getCount() == 0 ? null : cursorCredit;
+        }
+        Cursor cursorDeposit = null;
+        if (!billDepositId.equals("")) {
+            cursorDeposit = DB_.rawQuery("Select * from OperationTable where card_id_sender = ?", new String[]{billDepositId});
+            cursorDeposit = cursorDeposit.getCount() == 0 ? null : cursorDeposit;
+        }
+        return new Triple<>(cursorDebit, cursorCredit, cursorDeposit);
     }
 
     public Cursor find_bill(String operation_id) {

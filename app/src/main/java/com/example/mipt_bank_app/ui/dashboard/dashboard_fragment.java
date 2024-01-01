@@ -30,6 +30,8 @@ import com.example.mipt_bank_app.operations.transfer_operation;
 
 import java.util.ArrayList;
 
+import kotlin.Triple;
+
 public class dashboard_fragment extends Fragment {
 
     private FragmentDashboardBinding binding;
@@ -132,15 +134,22 @@ public class dashboard_fragment extends Fragment {
 
     }
 
-    public ArrayList<history_item> find_operations(String id){
+    public ArrayList<history_item> find_operations(String id) {
         ArrayList<history_item> temp = new ArrayList<history_item>();
-        Cursor cursor = null;
+        Triple<Cursor, Cursor, Cursor> cursors = null;
         try {
-            cursor = Helper.operationDB.getOperations(Helper.adult.getID());
-        } catch (Exception e){
+            cursors = Helper.operationDB.getOperations(id);
+        } catch (Exception e) {
             Toast.makeText(getActivity(), "Ничего не найдено", Toast.LENGTH_SHORT).show();
         }
+        getFromCursorData(temp, cursors.getFirst());
+        getFromCursorData(temp, cursors.getSecond());
+        getFromCursorData(temp, cursors.getThird());
 
+        return temp;
+    }
+
+    private void getFromCursorData(ArrayList<history_item> temp, Cursor cursor) {
         if (cursor != null) {
             cursor.moveToFirst();
             do {
@@ -152,9 +161,7 @@ public class dashboard_fragment extends Fragment {
                 temp.add(new history_item(operation_type + "\n", sum, "id: " + operation_id, operation_id));
                 Helper.operationsCounter += 1;
             } while (cursor.moveToNext());
-            return temp;
         }
-        return null;
     }
 
     @Override

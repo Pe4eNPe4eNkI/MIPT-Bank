@@ -38,7 +38,7 @@ public class Deposit extends Bill {
      */
     @Override
     public Triple<String,String,String> getUniqueProperty() {
-        return new Triple<>(Helper.uniquePropertyDepositDBName, percent, "");
+        return new Triple<>(Helper.uniquePropertyDepositDBName, uniqueProperty, "");
     }
 
     @Override
@@ -61,14 +61,11 @@ public class Deposit extends Bill {
      */
     @Override
     public void setUniqueProperty(String percent_) {
-        percent = percent_;
+        uniqueProperty = percent_;
     }
     @Override
     public void update() {
-        if (uniqueProperty != null) {
-            percent = new Double(Double.parseDouble(cashSize) / 100 * 10).toString();
-        }
+        uniqueProperty = new Double(Double.parseDouble(cashSize) / 100 * 10).toString();
     }
-    private String percent;
 
 }
