@@ -62,7 +62,7 @@ public class Credit extends Bill {
 
     @Override
     public void update() {
-        if (uniqueProperty != null) {
+        if (Double.parseDouble(maxBalance) - Double.parseDouble(cashSize) >= 0) {
             debt = new Double(Double.parseDouble(maxBalance) - Double.parseDouble(cashSize)).toString();
         }
     }

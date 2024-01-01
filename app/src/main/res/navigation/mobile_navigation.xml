@@ -73,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/refill2"
-        android:name="com.example.mipt_bank_app.layout_classes.refill"
+        android:name="com.example.mipt_bank_app.layout_classes.Refill"
         android:label="fragment_replenishment"
         tools:layout="@layout/fragment_refill" >
         <action
@@ -118,7 +118,7 @@
     </fragment>
     <fragment
         android:id="@+id/withdrawal2"
-        android:name="com.example.mipt_bank_app.layout_classes.withdrawal"
+        android:name="com.example.mipt_bank_app.layout_classes.Withdrawal"
         android:label="fragment_withdrawal"
         tools:layout="@layout/fragment_withdrawal" >
         <action

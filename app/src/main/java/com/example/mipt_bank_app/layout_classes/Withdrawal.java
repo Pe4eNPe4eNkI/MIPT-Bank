@@ -16,15 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.Helper;
-import com.example.mipt_bank_app.operations.RefillOperation;
+import com.example.mipt_bank_app.operations.WithdrawalOperation;
 
-public class refill extends Fragment {
+
+public class Withdrawal extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_refill, container, false);
+        return inflater.inflate(R.layout.fragment_withdrawal, container, false);
     }
 
     @Override
@@ -38,15 +38,15 @@ public class refill extends Fragment {
             }
         });
 
-        Button refill_button = (Button) getView().findViewById(R.id.refill_confirm_button);
+        Button withdrawButton = (Button) getView().findViewById(R.id.withdrawal_confirm_button);
 
-        refill_button.setOnClickListener(new View.OnClickListener() {
+        withdrawButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                RefillOperation refill = new RefillOperation();
+                WithdrawalOperation withdrawal = new WithdrawalOperation();
                 EditText money = (EditText) getView().findViewById(R.id.sum);
                 money.setHintTextColor(Color.parseColor("#9D9FA2"));
+
                 if (money != null) {
                     String moneyString = money.getText().toString();
                     if (moneyString.isEmpty()) {
@@ -54,7 +54,7 @@ public class refill extends Fragment {
                         Toast.makeText(getActivity(), "Invalid sum!", Toast.LENGTH_SHORT).show();
                     } else {
                         try {
-                            refill.executeOperation(moneyString);
+                            withdrawal.executeOperation(moneyString);
                         } catch (Exception e) {
                             Toast.makeText(getActivity(), "Invalid sum!", Toast.LENGTH_SHORT).show();
                         }

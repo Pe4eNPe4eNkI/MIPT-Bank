@@ -8,7 +8,7 @@ import com.example.mipt_bank_app.Helper;
 
 public class RefillOperation extends EasyMoneyOperation {
 
-    private void doRefil(Double userBalanceDouble, Double refillSumDouble, String billIdFromDB, String personId, String billKind) {
+    private void doRefil(Double userBalanceDouble, Double refillSumDouble, String billIdFromDB, String personId, String billKind, String debt) {
         userBalanceDouble += refillSumDouble;
 
         Bill bill = null;
@@ -16,6 +16,13 @@ public class RefillOperation extends EasyMoneyOperation {
         switch (billKind) {
             case Helper.BILL_KIND_CREDIT:
                 bill = Helper.creditFactory.buildBill(billIdFromDB, personId, Double.toString(userBalanceDouble));
+                double newDebt = Double.parseDouble(debt) - refillSumDouble;
+                if (newDebt > 0){
+                    bill.setUniqueProperty(Double.toString(newDebt));
+                } else {
+                    bill.setUniqueProperty("0");
+                }
+                bill.update();
                 break;
             case Helper.BILL_KIND_DEPOSIT:
                 bill = Helper.depositFactory.buildBill(billIdFromDB, personId, Double.toString(userBalanceDouble));
@@ -38,7 +45,10 @@ public class RefillOperation extends EasyMoneyOperation {
         String billKind = cursorBill.getString(Helper.billDbColumnNumber.get("bill_kind"));
         String balanceFromDB = cursorBill.getString(Helper.billDbColumnNumber.get("balance"));
         String personId = cursorBill.getString(Helper.billDbColumnNumber.get("person_id"));
-
+        String debt = "";
+        if (billKind.equals(Helper.BILL_KIND_CREDIT)){
+            debt = cursorBill.getString(Helper.billDbColumnNumber.get("debt"));
+        }
 
         Cursor cursorPerson = Helper.personDB.getPersonById(personId);
         cursorPerson.moveToFirst();
@@ -50,12 +60,12 @@ public class RefillOperation extends EasyMoneyOperation {
         if (refillSumDouble > 0) {
             if (flag) {
                 if (refillSumDouble < Helper.money_limit) {
-                    doRefil(userBalanceDouble, refillSumDouble, billIdFromDB, personId, billKind);
+                    doRefil(userBalanceDouble, refillSumDouble, billIdFromDB, personId, billKind, debt);
                 } else {
                     throw new Exception("Too big sum");
                 }
             } else {
-                doRefil(userBalanceDouble, refillSumDouble, billIdFromDB, personId, billKind);
+                doRefil(userBalanceDouble, refillSumDouble, billIdFromDB, personId, billKind, debt);
             }
         }
     }

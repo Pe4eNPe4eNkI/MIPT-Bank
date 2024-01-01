@@ -24,7 +24,6 @@ import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.databinding.FragmentDashboardBinding;
 import com.example.mipt_bank_app.operations.EasyMoneyOperation;
 import com.example.mipt_bank_app.operations.NotEasyMoneyOperation;
-import com.example.mipt_bank_app.operations.OperationDB;
 import com.example.mipt_bank_app.operations.RefillOperation;
 import com.example.mipt_bank_app.operations.WithdrawalOperation;
 import com.example.mipt_bank_app.operations.transfer_operation;
