@@ -158,9 +158,9 @@ public class account extends Fragment {
             public void onClick(View view) {
                 pinCodeDB.deletePinCode();
                 Helper.entered = 0;
-                Helper.have_credit = 0;
-                Helper.have_debit = 0;
-                Helper.have_deposit = 0;
+                Helper.haveCredit = 0;
+                Helper.haveDebit = 0;
+                Helper.haveDeposit = 0;
                 Navigation.findNavController(view).navigate(R.id.navigation_notifications);
             }
         });

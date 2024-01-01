@@ -4,6 +4,8 @@ import android.util.Pair;
 
 import com.example.mipt_bank_app.Helper;
 
+import kotlin.Triple;
+
 public class Debit extends Bill {
 
     public Debit(){
@@ -26,8 +28,8 @@ public class Debit extends Bill {
     }
     /**This property is spent money from debit card*/
     @Override
-    public Pair<String,String> getUniqueProperty() {
-        return new Pair<>(Helper.uniquePropertyDebitDBName,uniqueProperty);
+    public Triple<String,String,String> getUniqueProperty() {
+        return new Triple<>(Helper.uniquePropertyDebitDBName, uniqueProperty, cashBack);
     }
 
     @Override
@@ -54,10 +56,11 @@ public class Debit extends Bill {
         personID = person_id;
     }
 
-
+    @Override
     public void update() {
-        cashBack = new Double(Double.parseDouble(uniqueProperty) / 100).toString();
+        if (uniqueProperty != null) {
+            cashBack = new Double(Double.parseDouble(uniqueProperty) / 100).toString();
+        }
     }
-
     private String cashBack;
 }

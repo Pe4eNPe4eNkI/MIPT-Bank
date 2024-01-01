@@ -3,23 +3,13 @@ package com.example.mipt_bank_app.operations;
 
 import android.database.Cursor;
 
-import com.example.mipt_bank_app.BigInt.BigInt;
-import com.example.mipt_bank_app.bill.BillFactory;
-import com.example.mipt_bank_app.bill.BillDB;
-import com.example.mipt_bank_app.bill.i_bill;
 import com.example.mipt_bank_app.Helper;
-import com.example.mipt_bank_app.Person.PersonDB;
 
-public class transfer_operation extends i_ne_easy_money_operation {
-    public transfer_operation(BillDB trans, PersonDB pdb, operation_db odb) {
-        trans_ = trans;
-        pdb_ = pdb;
-        odb_ = odb;
-    }
+public class transfer_operation extends NotEasyMoneyOperation {
 
     @Override
     public void executeTransferOperation(String sender_id, String receiver_bill_id, String money_size, String type) {
-
+/*
         Cursor cursor_bill1 = trans_.getBill(sender_id, type);
         cursor_bill1.moveToFirst();
         String sender_bill_id = cursor_bill1.getString(1);
@@ -91,7 +81,7 @@ public class transfer_operation extends i_ne_easy_money_operation {
                 trans_.updateUserData(receiver);
                 trans_.updateUserData(sender);
             }
-        }
+        }*/
     }
 
 
@@ -100,7 +90,7 @@ public class transfer_operation extends i_ne_easy_money_operation {
                                         String receiver_bill_id,
                                         String money_size, String type) {
 
-        Cursor cursor_sender = trans_.getBill(sender_bill_id);
+        /*Cursor cursor_sender = trans_.getBill(sender_bill_id);
         cursor_sender.moveToFirst();
         String bill_kind_sender = cursor_sender.getString(0);
         String person_id_sender = cursor_sender.getString(2);
@@ -148,7 +138,7 @@ public class transfer_operation extends i_ne_easy_money_operation {
 
             trans_.updateUserData(sender);
             trans_.updateUserData(receiver);
-        }
+        }*/
     }
 
 }

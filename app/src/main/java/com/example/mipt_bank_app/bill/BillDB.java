@@ -6,12 +6,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.Person.Person;
 
 public class BillDB extends SQLiteOpenHelper {
 
+    private final SQLiteDatabase DB_;
+
     public BillDB(Context context) {
         super(context, "MyDB_bill.db", null, 1);
+        DB_ = getWritableDatabase();
     }
 
     public void onCreate(SQLiteDatabase db) {
@@ -31,23 +35,16 @@ public class BillDB extends SQLiteOpenHelper {
     }
 
     public Boolean updateUserData(Bill bill) {
-
-        SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        if (!bill.getBillKind().isEmpty()) {
-            contentValues.put("bill_kind", bill.getBillKind());
-        }
-        if (!bill.getPersonID().isEmpty()) {
-            contentValues.put("person_id", bill.getPersonID());
-        }
         if (!bill.getCashSize().isEmpty()) {
             contentValues.put("balance", bill.getCashSize());
         }
-        contentValues.put(bill.getUniqueProperty().first, bill.getUniqueProperty().second);
-
-        Cursor cursor = DB.rawQuery("Select * from bill_table where bill_id = ?", new String[]{bill.getBillID()});
+        if(bill.getUniqueProperty().getSecond() != null && !bill.getUniqueProperty().getSecond().isEmpty()) {
+            contentValues.put(bill.getUniqueProperty().getFirst(), bill.getUniqueProperty().getSecond());
+        }
+        Cursor cursor = DB_.rawQuery("Select * from bill_table where bill_id = ?", new String[]{bill.getBillID()});
         if (cursor.getCount() > 0) {
-            long result = DB.update("bill_table", contentValues, "bill_id=?", new String[]{bill.getBillID()});
+            long result = DB_.update("bill_table", contentValues, "bill_id=?", new String[]{bill.getBillID()});
             if (result == -1) {
                 return false;
             }
@@ -63,26 +60,24 @@ public class BillDB extends SQLiteOpenHelper {
         }
         String id = new String();
         while (res.moveToNext()) {
-            id = res.getString(1);
+            id = res.getString(Helper.billDbColumnNumber.get("bill_id"));
 
         }
         return id;
     }
 
     public String getMaxIdPP() {
-        long temp = new Long(getMaxId()) + 1;
-        return new Long(temp).toString();
+        long temp =  Long.parseLong(getMaxId()) + 1;
+        return Long.valueOf(temp).toString();
     }
 
     public Cursor getData() {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from bill_table", null);
+        Cursor cursor = DB_.rawQuery("Select * from bill_table", null);
         return cursor;
     }
 
     public boolean addBill(Bill bill) {
 
-        SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("bill_kind", bill.getBillKind());
@@ -90,27 +85,24 @@ public class BillDB extends SQLiteOpenHelper {
         contentValues.put("person_id", bill.getPersonID());
         contentValues.put("balance", bill.getCashSize());
 
-        contentValues.put(bill.getUniqueProperty().first, bill.getUniqueProperty().second);
+        contentValues.put(bill.getUniqueProperty().getFirst(), bill.getUniqueProperty().getSecond());
 
-        long result = DB.insert("bill_table", null, contentValues);
+        long result = DB_.insert("bill_table", null, contentValues);
         return result != -1;
     }
 
     public Cursor getBill(String person_id, String bill_kind) {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from bill_table where bill_kind = ? and person_id = ? ", new String[]{bill_kind, person_id});
+        Cursor cursor = DB_.rawQuery("Select * from bill_table where bill_kind = ? and person_id = ? ", new String[]{bill_kind, person_id});
         return (cursor.getCount() == 0 ? null : cursor);
     }
 
     public Cursor getBill(String bill_id) {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from bill_table where bill_id = ? ", new String[]{bill_id});
+        Cursor cursor = DB_.rawQuery("Select * from bill_table where bill_id = ? ", new String[]{bill_id});
         return (cursor.getCount() == 0 ? null : cursor);
     }
 
     public boolean tryFindBill(Person person, String bill_kind) {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from bill_table where bill_kind = ? and person_id = ?", new String[]{bill_kind, person.getID()});
+        Cursor cursor = DB_.rawQuery("Select * from bill_table where bill_kind = ? and person_id = ?", new String[]{bill_kind, person.getID()});
         return cursor.getCount() != 0;
     }
 }

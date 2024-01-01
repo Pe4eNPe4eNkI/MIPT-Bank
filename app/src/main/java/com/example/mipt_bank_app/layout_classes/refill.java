@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.Helper;
-import com.example.mipt_bank_app.operations.refill_operation;
+import com.example.mipt_bank_app.operations.RefillOperation;
 
 public class refill extends Fragment {
 
@@ -44,16 +44,20 @@ public class refill extends Fragment {
             @Override
             public void onClick(View view) {
 
-                refill_operation refill = new refill_operation(Helper.billsDB, Helper.personDB, Helper.operationDB);
+                RefillOperation refill = new RefillOperation();
                 EditText money = (EditText) getView().findViewById(R.id.sum);
                 money.setHintTextColor(Color.parseColor("#9D9FA2"));
                 if (money != null) {
-                    String temp = money.getText().toString();
-                    if (temp.isEmpty()) {
+                    String moneyString = money.getText().toString();
+                    if (moneyString.isEmpty()) {
                         money.setHintTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Invalid sum!", Toast.LENGTH_SHORT).show();
                     } else {
-                        refill.executeOperation(Helper.adult.getID(), temp, Helper.operation);
+                        try {
+                            refill.executeOperation(moneyString);
+                        } catch (Exception e) {
+                            Toast.makeText(getActivity(), "Invalid sum!", Toast.LENGTH_SHORT).show();
+                        }
                         Navigation.findNavController(view).navigate(R.id.navigation_home);
                     }
                 } else {

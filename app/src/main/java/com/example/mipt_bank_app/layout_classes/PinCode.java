@@ -23,7 +23,7 @@ import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.PinCodeDB;
 import com.example.mipt_bank_app.R;
 import com.example.mipt_bank_app.bill.BillDB;
-import com.example.mipt_bank_app.operations.operation_db;
+import com.example.mipt_bank_app.operations.OperationDB;
 import com.example.mipt_bank_app.Person.Adult;
 import com.example.mipt_bank_app.Person.AdultBuilder;
 import com.example.mipt_bank_app.Person.AdultParams;
@@ -60,7 +60,7 @@ public class PinCode extends Fragment {
             Helper.billsDB = new BillDB(getContext());
         }
         if(Helper.operationDB == null){
-            Helper.operationDB = new operation_db(getContext());
+            Helper.operationDB = new OperationDB(getContext());
         }
 
         PinCodeDB db = new PinCodeDB(getContext());

@@ -6,7 +6,7 @@ import com.example.mipt_bank_app.Helper;
 public class AdultBuilder extends PersonBuilder {
 
     public AdultBuilder(AdultParams params) {
-        type = Helper.AdultBuilderType;
+        type = Helper.adultBuilderType;
         name = params.name;
         surname = params.surname;
         address = params.address;
@@ -19,7 +19,7 @@ public class AdultBuilder extends PersonBuilder {
 
     public AdultBuilder(String name, String surname, String address, String passportId,
                  String login, String password) {
-        type = Helper.AdultBuilderType;
+        type = Helper.adultBuilderType;
         this.name = name;
         this.surname = surname;
         this.address = address;

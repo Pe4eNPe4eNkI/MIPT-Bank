@@ -2,6 +2,8 @@ package com.example.mipt_bank_app.bill;
 
 import android.util.Pair;
 
+import kotlin.Triple;
+
 /** Abstract class for bills */
 public abstract class Bill {
 
@@ -11,7 +13,7 @@ public abstract class Bill {
 
     public abstract String getBillID();
 
-    public abstract Pair<String,String> getUniqueProperty();
+    public abstract Triple<String,String,String> getUniqueProperty();
 
     public abstract String getCashSize();
 
@@ -23,6 +25,8 @@ public abstract class Bill {
     public abstract void setCashSize(String moneySize);
 
     public abstract void setUniqueProperty(String spentMoney);
+
+    public abstract void update();
 
 
 

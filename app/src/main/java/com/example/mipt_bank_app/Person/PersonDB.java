@@ -36,8 +36,8 @@ public class PersonDB extends SQLiteOpenHelper {
     }
 
     public String getMaxIdPP() {
-        long temp = new Long(getMaxId()) + 1;
-        return new Long(temp).toString();
+        long temp =  Long.parseLong(getMaxId()) + 1;
+        return Long.valueOf(temp).toString();
     }
 
     public String getMaxId() {
@@ -47,7 +47,7 @@ public class PersonDB extends SQLiteOpenHelper {
         }
         String id = new String();
         while (res.moveToNext()) {
-            id = res.getString(1);
+            id = res.getString(Helper.personDbColumnNumber.get("id"));
 
         }
         return id;
@@ -144,7 +144,7 @@ public class PersonDB extends SQLiteOpenHelper {
         return cursor.getCount() != 0;
     }
 
-    public Cursor get_person_by_id(String id) {
+    public Cursor getPersonById(String id) {
         Cursor cursor = DB_.rawQuery("Select * from PersonTable where id = ? ", new String[]{id});
         return (cursor.getCount() == 0 ? null : cursor);
     }

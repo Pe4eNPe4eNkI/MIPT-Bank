@@ -13,11 +13,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.bill.BillFactory;
 import com.example.mipt_bank_app.bill.Deposit;
 import com.example.mipt_bank_app.Helper;
 
-public class get_deposit extends Fragment {
+public class GetDeposit extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,10 +41,9 @@ public class get_deposit extends Fragment {
         replenish_b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BillFactory bf = new BillFactory();
-                Deposit debit = bf.buildDeposit("",Helper.adult.getID(),"");
-                if (Helper.have_deposit == 0) {
-                    Helper.have_deposit = 1;
+                Deposit debit = Helper.depositFactory.buildBill("",Helper.adult.getID(),"");
+                if (Helper.haveDeposit == 0) {
+                    Helper.haveDeposit = 1;
                     Navigation.findNavController(view).navigate(R.id.navigation_home);
                     Helper.billsDB.addBill(debit);
                 }

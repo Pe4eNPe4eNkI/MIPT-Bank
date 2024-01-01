@@ -43,7 +43,7 @@ public class transfer extends Fragment {
         transfer_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transfer_operation transfer = new transfer_operation(Helper.billsDB, Helper.personDB, Helper.operationDB);
+                /*transfer_operation transfer = new transfer_operation(Helper.billsDB, Helper.personDB, Helper.operationDB);
                 EditText money = (EditText) getView().findViewById(R.id.sum);
                 EditText receiver_bill_id = (EditText) getView().findViewById(R.id.receiver_bill_id);
                 EditText password = (EditText) getView().findViewById(R.id.password);
@@ -75,7 +75,7 @@ public class transfer extends Fragment {
                         transfer.executeTransferOperation(Helper.adult.getID(), receiver_bill, temp, Helper.operation);
                         Navigation.findNavController(view).navigate(R.id.navigation_home);
                     }
-                }
+                }*/
             }
         });
     }

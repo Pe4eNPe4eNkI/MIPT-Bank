@@ -2,9 +2,9 @@ package com.example.mipt_bank_app.bill;
 
 
 import android.util.Pair;
-
-import com.example.mipt_bank_app.BigInt.BigInt;
 import com.example.mipt_bank_app.Helper;
+
+import kotlin.Triple;
 
 public class Credit extends Bill {
 
@@ -30,8 +30,8 @@ public class Credit extends Bill {
     /**This property is debt
      * @return Pair 1st is db field, 2nd is value*/
     @Override
-    public Pair<String,String> getUniqueProperty() {
-        return new Pair<>(Helper.uniquePropertyCreditDBName, debt);
+    public Triple<String,String,String> getUniqueProperty() {
+        return new Triple<>(Helper.uniquePropertyCreditDBName, debt, "");
     }
 
     @Override
@@ -60,11 +60,12 @@ public class Credit extends Bill {
         debt = debt_;
     }
 
-
+    @Override
     public void update() {
-        debt = new Double(Double.parseDouble(maxBalance) - Double.parseDouble(cashSize)).toString();
+        if (uniqueProperty != null) {
+            debt = new Double(Double.parseDouble(maxBalance) - Double.parseDouble(cashSize)).toString();
+        }
     }
-
     private String debt;
     private final String maxBalance;
 }

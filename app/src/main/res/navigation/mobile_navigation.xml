@@ -91,7 +91,7 @@
     </fragment>
     <fragment
         android:id="@+id/get_debit"
-        android:name="com.example.mipt_bank_app.layout_classes.get_debit"
+        android:name="com.example.mipt_bank_app.layout_classes.GetDebit"
         android:label="fragment_get_debit"
         tools:layout="@layout/fragment_get_debit" >
         <action
@@ -100,7 +100,7 @@
     </fragment>
     <fragment
         android:id="@+id/getCredit"
-        android:name="com.example.mipt_bank_app.layout_classes.get_credit"
+        android:name="com.example.mipt_bank_app.layout_classes.GetCredit"
         android:label="fragment_get_credit"
         tools:layout="@layout/fragment_get_credit" >
         <action
@@ -109,7 +109,7 @@
     </fragment>
     <fragment
         android:id="@+id/getDeposit"
-        android:name="com.example.mipt_bank_app.layout_classes.get_deposit"
+        android:name="com.example.mipt_bank_app.layout_classes.GetDeposit"
         android:label="fragment_get_deposit"
         tools:layout="@layout/fragment_get_deposit" >
         <action

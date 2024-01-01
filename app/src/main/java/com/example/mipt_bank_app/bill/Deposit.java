@@ -5,6 +5,8 @@ import android.util.Pair;
 
 import com.example.mipt_bank_app.Helper;
 
+import kotlin.Triple;
+
 public class Deposit extends Bill {
 
     public Deposit() {
@@ -35,8 +37,8 @@ public class Deposit extends Bill {
      * This unique property is percent of your deposit
      */
     @Override
-    public Pair<String, String> getUniqueProperty() {
-        return new Pair<>(Helper.uniquePropertyDepositDBName, percent);
+    public Triple<String,String,String> getUniqueProperty() {
+        return new Triple<>(Helper.uniquePropertyDepositDBName, percent, "");
     }
 
     @Override
@@ -61,11 +63,12 @@ public class Deposit extends Bill {
     public void setUniqueProperty(String percent_) {
         percent = percent_;
     }
-
-    void update() {
-        percent = new Double(Double.parseDouble(cashSize) / 100 * 10).toString();
+    @Override
+    public void update() {
+        if (uniqueProperty != null) {
+            percent = new Double(Double.parseDouble(cashSize) / 100 * 10).toString();
+        }
     }
-
     private String percent;
 
 }

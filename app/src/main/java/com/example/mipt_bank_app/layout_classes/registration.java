@@ -115,7 +115,7 @@ public class registration extends Fragment {
 
                                 PinCodeDB pinCodeDB = new PinCodeDB(getContext());
                                 pinCodeDB.addPerson(login, password1, pinCode);
-                                adult.setID(Helper.personDB.getMaxIdPP());
+                                adult.setID(Helper.personDB.getMaxId());
                                 Helper.adult = adult;
                                 Helper.entered = 1;
                                 Navigation.findNavController(view).navigate(R.id.action_registration_to_account);
