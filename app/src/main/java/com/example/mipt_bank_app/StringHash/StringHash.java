@@ -1,11 +1,11 @@
 package com.example.mipt_bank_app.StringHash;
 
-import java.io.UnsupportedEncodingException;
+import androidx.annotation.Nullable;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
-import java.util.Arrays;
 import java.util.Base64;
 
 import javax.crypto.SecretKeyFactory;
@@ -15,6 +15,11 @@ public class StringHash {
 
     public StringHash(){}
     private byte[] salt_ = new byte[16];
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return super.equals(obj);
+    }
 
     public String getSalt(){
         return Base64.getEncoder().encodeToString(salt_);
@@ -51,7 +56,7 @@ public class StringHash {
      * @return True or false(equals or not)
      */
     public boolean comparePasswords(String passwordFromDb, String saltFromDb, String enteredPassword) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        salt_ = Base64.getDecoder().decode(saltFromDb);;
+        salt_ = Base64.getDecoder().decode(saltFromDb);
         String hashedEnteredPassword = generateHash(enteredPassword);
         return passwordFromDb.equals(hashedEnteredPassword);
     }

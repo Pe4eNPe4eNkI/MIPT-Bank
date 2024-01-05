@@ -4,6 +4,9 @@ import com.example.mipt_bank_app.Helper;
 
 
 public class AdultBuilder extends PersonBuilder {
+    public AdultBuilder() {
+        adult = new Adult();
+    }
 
     public AdultBuilder(AdultParams params) {
         type = Helper.adultBuilderType;

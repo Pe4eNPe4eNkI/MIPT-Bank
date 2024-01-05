@@ -2,6 +2,8 @@ package com.example.mipt_bank_app.Person;
 
 public class AdultParams {
 
+    public AdultParams() {}
+
     public AdultParams(String name, String surname, String address, String passportId, String login, String password) {
         this.name = name;
         this.surname = surname;

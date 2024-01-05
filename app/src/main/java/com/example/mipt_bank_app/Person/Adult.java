@@ -79,7 +79,7 @@ public class Adult extends Person {
     }
 
     public void updateStatus() {
-        if (!address.isEmpty() || !passportId.isEmpty()) {
+        if ((address != null &&!address.isEmpty()) || (passportId != null &&!passportId.isEmpty())) {
             isDoubtful = false;
             moneyLimit = 0.0;
         }
