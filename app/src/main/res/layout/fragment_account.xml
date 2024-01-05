@@ -7,8 +7,6 @@
     tools:context=".layout_classes.account">
 
     <EditText
-        android:theme="@style/Based_enter"
-        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/rewrite_surname"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -17,11 +15,13 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/no_angles_text_view"
         android:hint="Surname"
+        android:inputType="textPersonName"
+        android:maxLines="1"
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
+        android:textCursorDrawable="@drawable/cursor"
         android:textSize="20sp"
-        android:maxLines="1"
-        android:inputType="textPersonName"
+        android:theme="@style/Based_enter"
         app:layout_constraintBottom_toTopOf="@+id/rewrite_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -113,8 +113,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:theme="@style/Based_enter"
-        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/rewrite_password1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -123,17 +121,17 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/no_angles_text_view"
         android:hint="Password"
+        android:inputType="textPassword"
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
+        android:textCursorDrawable="@drawable/cursor"
         android:textSize="20sp"
-        android:inputType="textPassword"
+        android:theme="@style/Based_enter"
         app:layout_constraintBottom_toTopOf="@+id/rewrite_password2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:theme="@style/Based_enter"
-        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/rewrite_password2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -143,13 +141,37 @@
         android:background="@drawable/no_angles_text_view"
         android:hint="Password"
         android:inputType="textPassword"
+        android:maxLines="1"
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
+        android:textCursorDrawable="@drawable/cursor"
         android:textSize="20sp"
-        android:maxLines="1"
-        app:layout_constraintBottom_toTopOf="@+id/rewrite_button"
+        android:theme="@style/Based_enter"
+        app:layout_constraintBottom_toTopOf="@+id/rewrite_pinCode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/rewrite_pinCode"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/no_angles_text_view"
+        android:hint="PinCode"
+        android:inputType="number"
+        android:maxLines="1"
+        android:textColor="@color/light_gray"
+        android:textColorHint="@color/light_gray"
+        android:textCursorDrawable="@drawable/cursor"
+        android:textSize="20sp"
+        android:theme="@style/Based_enter"
+        app:layout_constraintBottom_toTopOf="@+id/rewrite_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"

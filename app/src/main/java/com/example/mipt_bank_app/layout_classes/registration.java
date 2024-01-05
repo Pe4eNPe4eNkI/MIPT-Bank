@@ -15,12 +15,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mipt_bank_app.PinCodeDB;
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.constants;
-import com.example.mipt_bank_app.person.person;
-import com.example.mipt_bank_app.person.person_builder;
-import com.example.mipt_bank_app.person.person_db;
-import com.example.mipt_bank_app.person.person_director;
+import com.example.mipt_bank_app.Helper;
+import com.example.mipt_bank_app.Person.Adult;
+import com.example.mipt_bank_app.Person.AdultBuilder;
+import com.example.mipt_bank_app.Person.AdultParams;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 public class registration extends Fragment {
 
@@ -32,7 +36,7 @@ public class registration extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        if (constants.entered == 0) {
+        if (Helper.entered == 0) {
             TextView reg = (TextView) getView().findViewById(R.id.want_sign_in);
 
             reg.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +50,6 @@ public class registration extends Fragment {
             btn_up.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    person_db pdb = new person_db(getContext());
 
                     EditText surname_text = (EditText) getView().findViewById(R.id.sign_up_surname);
                     EditText name_text = (EditText) getView().findViewById(R.id.sign_up_name);
@@ -55,6 +58,7 @@ public class registration extends Fragment {
                     EditText login_text = (EditText) getView().findViewById(R.id.sign_up_login);
                     EditText password1_text = (EditText) getView().findViewById(R.id.sign_up_password1);
                     EditText password2_text = (EditText) getView().findViewById(R.id.sign_up_password2);
+                    EditText pinCodeText = (EditText) getView().findViewById(R.id.sign_up_pincode);
 
                     String surname = surname_text == null ? "" : surname_text.getText().toString();
                     String name = name_text == null ? "" : name_text.getText().toString();
@@ -63,11 +67,15 @@ public class registration extends Fragment {
                     String login = login_text == null ? "" : login_text.getText().toString();
                     String password1 = password1_text == null ? "" : password1_text.getText().toString();
                     String password2 = password2_text == null ? "" : password2_text.getText().toString();
+                    String pinCode = pinCodeText == null ? "" : pinCodeText.getText().toString();
 
-                    person_builder pb = new person_builder();
-                    pb.set_first_name(name).set_second_name(surname).set_address(address).set_passport_id(passport_id).set_login(login).set_password(password1);
-                    person_director pd = new person_director();
-                    person person = pd.createPerson(pb);
+                    AdultParams adultParams = new AdultParams(name, surname, address, passport_id, login, password1);
+
+                    AdultBuilder adultBuilder = new AdultBuilder(adultParams);
+                    adultBuilder.build();
+                    Adult adult = adultBuilder.getPerson();
+
+
 
                     login_text.setHintTextColor(Color.parseColor("#9D9FA2"));
                     surname_text.setHintTextColor(Color.parseColor("#9D9FA2"));
@@ -88,7 +96,7 @@ public class registration extends Fragment {
                     } else if (login.isEmpty()) {
                         login_text.setHintTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Empty login", Toast.LENGTH_SHORT).show();
-                    } else if (pdb.personFind(login)) {
+                    } else if (Helper.personDB.personFind(login)) {
                         login_text.setTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "This login is already occupied", Toast.LENGTH_SHORT).show();
                     } else if (!password1.equals(password2)) {
@@ -99,12 +107,25 @@ public class registration extends Fragment {
                         password1_text.setHintTextColor(Color.parseColor("#FAA634"));
                         password2_text.setHintTextColor(Color.parseColor("#FAA634"));
                         Toast.makeText(getActivity(), "Empty password", Toast.LENGTH_SHORT).show();
+                    } else if (pinCode.length() < 4 || pinCode.length() > 5) {
+                        pinCodeText.setHintTextColor(Color.parseColor("#FAA634"));
                     } else {
-                        if (pdb.insertUserData(person)) {
-                            Navigation.findNavController(view).navigate(R.id.navigation_notifications);
-                            Toast.makeText(getActivity(), "Great!\t" + pdb.getMaxId(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getActivity(), " I can't registrate you!    " + pdb.getMaxId(), Toast.LENGTH_SHORT).show();
+                        try {
+                            if (Helper.personDB.insertUserData(adult)) {
+
+                                PinCodeDB pinCodeDB = new PinCodeDB(getContext());
+                                pinCodeDB.addPerson(login, password1, pinCode);
+                                adult.setID(Helper.personDB.getMaxId());
+                                Helper.adult = adult;
+                                Helper.entered = 1;
+                                Navigation.findNavController(view).navigate(R.id.action_registration_to_account);
+                                Toast.makeText(getActivity(), "Great!\t" + Helper.personDB.getMaxId(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), " I can't registrate you!    " + Helper.personDB.getMaxId(), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (NoSuchAlgorithmException | InvalidKeySpecException |
+                                 UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
                         }
                     }
                 }

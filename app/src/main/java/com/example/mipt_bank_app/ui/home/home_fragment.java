@@ -1,5 +1,6 @@
 package com.example.mipt_bank_app.ui.home;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,10 +16,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.example.mipt_bank_app.big_int.big_int;
-import com.example.mipt_bank_app.constants;
+import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.bill.bills_db;
+import com.example.mipt_bank_app.bill.Bill;
 import com.example.mipt_bank_app.databinding.FragmentHomeBinding;
 
 public class home_fragment extends Fragment {
@@ -27,14 +27,12 @@ public class home_fragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        home_view_model homeViewModel =
-                new ViewModelProvider(this).get(home_view_model.class);
+        HomeViewModel homeViewModel =
+                new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        /*final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);*/
         return root;
     }
 
@@ -48,201 +46,213 @@ public class home_fragment extends Fragment {
         refill.setEnabled(false);
         withdrawal.setEnabled(false);
 
-        TextView type_selected = (TextView) getView().findViewById(R.id.type_selected);
-        TextView selected_1 = (TextView) getView().findViewById(R.id.selected_1);
-        TextView selected_2 = (TextView) getView().findViewById(R.id.selected_2);
-        TextView selected_3 = (TextView) getView().findViewById(R.id.selected_3);
-        TextView selected_num_1 = (TextView) getView().findViewById(R.id.selected_num_1);
-        TextView selected_num_2 = (TextView) getView().findViewById(R.id.selected_num_2);
-        TextView selected_num_3 = (TextView) getView().findViewById(R.id.selected_num_3);
+        TextView typeSelected = (TextView) getView().findViewById(R.id.type_selected);
+        TextView available = (TextView) getView().findViewById(R.id.selected_1);
+        TextView debt = (TextView) getView().findViewById(R.id.selected_2);
+        TextView income = (TextView) getView().findViewById(R.id.selected_3);
+        TextView availableSum = (TextView) getView().findViewById(R.id.selected_num_1);
+        TextView debtSum = (TextView) getView().findViewById(R.id.selected_num_2);
+        TextView incomeSum = (TextView) getView().findViewById(R.id.selected_num_3);
 
-        TextView card_id_selected = (TextView) getView().findViewById(R.id.card_id_selected);
+        TextView cardIdSelected = (TextView) getView().findViewById(R.id.card_id_selected);
 
-        TextView selected_descriprion = (TextView) getView().findViewById(R.id.selected_descriprion);
-        TextView debit_description = (TextView) getView().findViewById(R.id.debit_description);
-        TextView credit_description = (TextView) getView().findViewById(R.id.credit_description);
-        TextView deposit_description = (TextView) getView().findViewById(R.id.deposit_description);
+        TextView selectedDescription = (TextView) getView().findViewById(R.id.selected_descriprion);
+        TextView debitDescription = (TextView) getView().findViewById(R.id.debit_description);
+        TextView creditDescription = (TextView) getView().findViewById(R.id.credit_description);
+        TextView depositDescription = (TextView) getView().findViewById(R.id.deposit_description);
 
         TextView textView9 = (TextView) getView().findViewById(R.id.textView9);
         TextView textView13 = (TextView) getView().findViewById(R.id.textView13);
-        TextView debit_available = (TextView) getView().findViewById(R.id.debit_available);
-        TextView debit_cashback = (TextView) getView().findViewById(R.id.debit_cashback);
+        TextView debitAvailable = (TextView) getView().findViewById(R.id.debit_available);
+        TextView debitCashback = (TextView) getView().findViewById(R.id.debit_cashback);
 
         TextView textView7 = (TextView) getView().findViewById(R.id.textView7);
         TextView textView12 = (TextView) getView().findViewById(R.id.textView12);
-        TextView credit_available = (TextView) getView().findViewById(R.id.credit_available);
-        TextView credit_debt = (TextView) getView().findViewById(R.id.credit_debt);
+        TextView creditAvailable = (TextView) getView().findViewById(R.id.credit_available);
+        TextView creditDebt = (TextView) getView().findViewById(R.id.credit_debt);
 
         TextView textView14 = (TextView) getView().findViewById(R.id.textView14);
         TextView textView10 = (TextView) getView().findViewById(R.id.textView10);
-        TextView deposit_available = (TextView) getView().findViewById(R.id.deposit_available);
-        TextView deposit_income = (TextView) getView().findViewById(R.id.deposit_income);
+        TextView depositAvailable = (TextView) getView().findViewById(R.id.deposit_available);
+        TextView depositIncome = (TextView) getView().findViewById(R.id.deposit_income);
 
         ConstraintLayout debit = (ConstraintLayout) getView().findViewById(R.id.debit);
         ConstraintLayout credit = (ConstraintLayout) getView().findViewById(R.id.credit);
         ConstraintLayout deposit = (ConstraintLayout) getView().findViewById(R.id.deposit);
 
-        ConstraintLayout selector_debit = (ConstraintLayout) getView().findViewById(R.id.selector_debit);
-        ConstraintLayout selector_credit = (ConstraintLayout) getView().findViewById(R.id.selector_credit);
-        ConstraintLayout selector_deposit = (ConstraintLayout) getView().findViewById(R.id.selector_deposit);
+        ConstraintLayout selectorDebit = (ConstraintLayout) getView().findViewById(R.id.selector_debit);
+        ConstraintLayout selectorCredit = (ConstraintLayout) getView().findViewById(R.id.selector_credit);
+        ConstraintLayout selectorDeposit = (ConstraintLayout) getView().findViewById(R.id.selector_deposit);
 
-        bills_db bdb = new bills_db(getContext());
-
-        if (constants.person != null && constants.entered != 0) {
+        if (Helper.adult != null && Helper.entered != 0) {
 
 
-            if (bdb.try_find_bill(constants.person, constants.BILL_KIND_DEBIT)) {
-                constants.have_debit = 1;
-                Cursor cursor = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEBIT);
+            if (Helper.billsDB.tryFindBill(Helper.adult, Helper.BILL_KIND_DEBIT)) {
+                Helper.haveDebit = 1;
+                Cursor cursor = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
                 cursor.moveToFirst();
-                String avalible = cursor.getString(3);
-                String cashback = cursor.getString(4);
-                debit_available.setText(avalible + " $");
-                debit_cashback.setText(cashback + " $");
+                String balanceFromDb = cursor.getString(Helper.billDbColumnNumber.get("balance"));
+                String spentMoney = cursor.getString(Helper.billDbColumnNumber.get("spent_money"));
+                Double cashback = Double.parseDouble(spentMoney) / 100;
+                debitAvailable.setText(balanceFromDb + " $");
+                debitCashback.setText(cashback + " $");
 
             }
-            if (bdb.try_find_bill(constants.person, constants.BILL_KIND_CREDIT)) {
-                constants.have_credit = 1;
-                Cursor cursor = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_CREDIT);
+            if (Helper.billsDB.tryFindBill(Helper.adult, Helper.BILL_KIND_CREDIT)) {
+                Helper.haveCredit = 1;
+                Cursor cursor = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
                 cursor.moveToFirst();
-                String avalible = cursor.getString(3);
-                String debt = cursor.getString(4);
-                credit_available.setText(avalible + " $");
-                credit_debt.setText(debt + " $");
+                String balanceFromDb = cursor.getString(Helper.billDbColumnNumber.get("balance"));
+                String debtFromDb = cursor.getString(Helper.billDbColumnNumber.get("debt"));
+                creditAvailable.setText(balanceFromDb + " $");
+                creditDebt.setText(debtFromDb + " $");
             }
-            if (bdb.try_find_bill(constants.person, constants.BILL_KIND_DEPOSIT)) {
-                constants.have_deposit = 1;
-                Cursor cursor = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEPOSIT);
+            if (Helper.billsDB.tryFindBill(Helper.adult, Helper.BILL_KIND_DEPOSIT)) {
+                Helper.haveDeposit = 1;
+                Cursor cursor = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
                 cursor.moveToFirst();
-                String avalible = cursor.getString(3);
-                String income = cursor.getString(4);
-                deposit_available.setText(avalible + " $");
-                deposit_income.setText(income + " $");
+                String balanceFromDb = cursor.getString(Helper.billDbColumnNumber.get("balance"));
+                String incomeFromDb = cursor.getString(Helper.billDbColumnNumber.get("percent"));
+                depositAvailable.setText(balanceFromDb + " $");
+                depositIncome.setText(incomeFromDb + " $");
             }
         }
 
 
-        if (constants.entered == 1) {
-            selected_descriprion.setVisibility(View.INVISIBLE);
+        if (Helper.entered == 1) {
+            selectedDescription.setVisibility(View.INVISIBLE);
 
-            credit_description.setVisibility(View.INVISIBLE);
-            deposit_description.setVisibility(View.INVISIBLE);
+            creditDescription.setVisibility(View.INVISIBLE);
+            depositDescription.setVisibility(View.INVISIBLE);
 
 
-            type_selected.setVisibility(View.VISIBLE);
-            selected_1.setVisibility(View.VISIBLE);
-            selected_2.setVisibility(View.VISIBLE);
-            selected_3.setVisibility(View.VISIBLE);
-            selected_num_1.setVisibility(View.VISIBLE);
-            selected_num_2.setVisibility(View.VISIBLE);
-            selected_num_3.setVisibility(View.VISIBLE);
+            typeSelected.setVisibility(View.VISIBLE);
+            available.setVisibility(View.VISIBLE);
+            debt.setVisibility(View.VISIBLE);
+            income.setVisibility(View.VISIBLE);
+            availableSum.setVisibility(View.VISIBLE);
+            debtSum.setVisibility(View.VISIBLE);
+            incomeSum.setVisibility(View.VISIBLE);
 
             debit.setClickable(true);
             credit.setClickable(true);
             deposit.setClickable(true);
 
-            big_int global_available = new big_int(0);
-            big_int global_debt = new big_int(0);
-            big_int global_income = new big_int(0);
+            double globalAvailable = 0.0;
+            double globalDebt = 0.0;
+            double globalIncome = 0.0;
 
-            if (constants.have_debit == 1) {
-                Cursor cursor_debit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEBIT);
-                cursor_debit.moveToFirst();
+            if (Helper.haveDebit == 1) {
+                Cursor cursorDebit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
+                cursorDebit.moveToFirst();
 
-                big_int avalible1 = new big_int(cursor_debit.getString(3));
-                big_int cashback = new big_int(cursor_debit.getString(4));
+                double debitBalance = new Double(cursorDebit.getString(Helper.billDbColumnNumber.get("balance")));
+                double spentMoney = new Double(cursorDebit.getString(Helper.billDbColumnNumber.get("spent_money")));
 
-                global_available.operator_plus_equal(avalible1);
-                global_income.operator_plus_equal(cashback);
+                Bill bill = Helper.debitFactory.buildBill("", "", Double.toString(debitBalance));
+                bill.setUniqueProperty(Double.toString(spentMoney));
+                bill.update();
+
+
+                globalAvailable += Double.parseDouble(bill.getCashSize());
+                globalIncome += Double.parseDouble(bill.getUniqueProperty().getThird());
             }
 
-            if (constants.have_credit == 1) {
-                Cursor cursor_credit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_CREDIT);
-                cursor_credit.moveToFirst();
+            if (Helper.haveCredit == 1) {
+                Cursor cursorCredit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
+                cursorCredit.moveToFirst();
 
-                big_int avalible2 = new big_int(cursor_credit.getString(3));
-                big_int debt = new big_int(cursor_credit.getString(4));
+                double creditBalance = new Double(cursorCredit.getString(Helper.billDbColumnNumber.get("balance")));
+                double debtFromDb = new Double(cursorCredit.getString(Helper.billDbColumnNumber.get("debt")));
 
-                global_available.operator_plus_equal(avalible2);
-                global_debt.operator_plus_equal(debt);
+                Bill bill = Helper.debitFactory.buildBill("", "", Double.toString(creditBalance));
+                bill.setUniqueProperty(Double.toString(debtFromDb));
+                bill.update();
+
+                globalAvailable += Double.parseDouble(bill.getCashSize());
+                globalDebt += Double.parseDouble(bill.getUniqueProperty().getSecond());
             }
 
-            if (constants.have_deposit == 1) {
-                Cursor cursor_deposit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEPOSIT);
-                cursor_deposit.moveToFirst();
+            if (Helper.haveDeposit == 1) {
+                Cursor cursorDeposit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
+                cursorDeposit.moveToFirst();
 
-                big_int avalible3 = new big_int(cursor_deposit.getString(3));
-                big_int income = new big_int(cursor_deposit.getString(4));
+                double depositBalance = new Double(cursorDeposit.getString(Helper.billDbColumnNumber.get("balance")));
+                double incomeFromDb = new Double(cursorDeposit.getString(Helper.billDbColumnNumber.get("percent")));
 
-                global_available.operator_plus_equal(avalible3);
-                global_income.operator_plus_equal(income);
+                Bill bill = Helper.debitFactory.buildBill("", "", Double.toString(depositBalance));
+                bill.setUniqueProperty(Double.toString(incomeFromDb));
+                bill.update();
+
+                globalAvailable += Double.parseDouble(bill.getCashSize());
+                globalIncome += Double.parseDouble(bill.getUniqueProperty().getSecond());
             }
 
-            selected_num_1.setText(global_available.toString() + "$");
-            selected_num_2.setText(global_debt.toString() + "$");
-            selected_num_3.setText(global_income.toString() + "$");
+            availableSum.setText(globalAvailable+ "$");
+            debtSum.setText(globalDebt + "$");
+            incomeSum.setText(globalIncome + "$");
         } else {
-            selected_descriprion.setVisibility(View.VISIBLE);
-            debit_description.setVisibility(View.VISIBLE);
-            credit_description.setVisibility(View.VISIBLE);
-            deposit_description.setVisibility(View.VISIBLE);
+            selectedDescription.setVisibility(View.VISIBLE);
+            debitDescription.setVisibility(View.VISIBLE);
+            creditDescription.setVisibility(View.VISIBLE);
+            depositDescription.setVisibility(View.VISIBLE);
 
             transfer.setVisibility(View.INVISIBLE);
             refill.setVisibility(View.INVISIBLE);
             withdrawal.setVisibility(View.INVISIBLE);
-            type_selected.setVisibility(View.INVISIBLE);
-            selected_1.setVisibility(View.INVISIBLE);
-            selected_2.setVisibility(View.INVISIBLE);
-            selected_3.setVisibility(View.INVISIBLE);
-            selected_num_1.setVisibility(View.INVISIBLE);
-            selected_num_2.setVisibility(View.INVISIBLE);
-            selected_num_3.setVisibility(View.INVISIBLE);
+            typeSelected.setVisibility(View.INVISIBLE);
+            available.setVisibility(View.INVISIBLE);
+            debt.setVisibility(View.INVISIBLE);
+            income.setVisibility(View.INVISIBLE);
+            availableSum.setVisibility(View.INVISIBLE);
+            debtSum.setVisibility(View.INVISIBLE);
+            incomeSum.setVisibility(View.INVISIBLE);
 
             debit.setClickable(false);
             credit.setClickable(false);
             deposit.setClickable(false);
         }
 
-        if (constants.have_debit == 1) {
-            debit_description.setVisibility(View.INVISIBLE);
+        if (Helper.haveDebit == 1) {
+            debitDescription.setVisibility(View.INVISIBLE);
             textView9.setVisibility(View.VISIBLE);
             textView13.setVisibility(View.VISIBLE);
-            debit_available.setVisibility(View.VISIBLE);
-            debit_cashback.setVisibility(View.VISIBLE);
+            debitAvailable.setVisibility(View.VISIBLE);
+            debitCashback.setVisibility(View.VISIBLE);
         } else {
-            debit_description.setVisibility(View.VISIBLE);
+            debitDescription.setVisibility(View.VISIBLE);
             textView9.setVisibility(View.INVISIBLE);
             textView13.setVisibility(View.INVISIBLE);
-            debit_available.setVisibility(View.INVISIBLE);
-            debit_cashback.setVisibility(View.INVISIBLE);
+            debitAvailable.setVisibility(View.INVISIBLE);
+            debitCashback.setVisibility(View.INVISIBLE);
         }
 
-        if (constants.have_credit == 1) {
-            credit_description.setVisibility(View.INVISIBLE);
+        if (Helper.haveCredit == 1) {
+            creditDescription.setVisibility(View.INVISIBLE);
             textView7.setVisibility(View.VISIBLE);
             textView12.setVisibility(View.VISIBLE);
-            credit_available.setVisibility(View.VISIBLE);
-            credit_debt.setVisibility(View.VISIBLE);
+            creditAvailable.setVisibility(View.VISIBLE);
+            creditDebt.setVisibility(View.VISIBLE);
         } else {
-            credit_description.setVisibility(View.VISIBLE);
+            creditDescription.setVisibility(View.VISIBLE);
             textView7.setVisibility(View.INVISIBLE);
             textView12.setVisibility(View.INVISIBLE);
-            credit_available.setVisibility(View.INVISIBLE);
-            credit_debt.setVisibility(View.INVISIBLE);
+            creditAvailable.setVisibility(View.INVISIBLE);
+            creditDebt.setVisibility(View.INVISIBLE);
         }
 
-        if (constants.have_deposit == 1) {
-            deposit_description.setVisibility(View.INVISIBLE);
+        if (Helper.haveDeposit == 1) {
+            depositDescription.setVisibility(View.INVISIBLE);
             textView14.setVisibility(View.VISIBLE);
             textView10.setVisibility(View.VISIBLE);
-            deposit_available.setVisibility(View.VISIBLE);
-            deposit_income.setVisibility(View.VISIBLE);
+            depositAvailable.setVisibility(View.VISIBLE);
+            depositIncome.setVisibility(View.VISIBLE);
         } else {
-            deposit_description.setVisibility(View.VISIBLE);
+            depositDescription.setVisibility(View.VISIBLE);
             textView14.setVisibility(View.INVISIBLE);
             textView10.setVisibility(View.INVISIBLE);
-            deposit_available.setVisibility(View.INVISIBLE);
-            deposit_income.setVisibility(View.INVISIBLE);
+            depositAvailable.setVisibility(View.INVISIBLE);
+            depositIncome.setVisibility(View.INVISIBLE);
         }
 
         transfer.setOnClickListener(new View.OnClickListener() {
@@ -268,21 +278,22 @@ public class home_fragment extends Fragment {
 
 
         debit.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                if (constants.entered == 1 && constants.have_debit == 0) {
+                if (Helper.entered == 1 && Helper.haveDebit == 0) {
                     Navigation.findNavController(view).navigate(R.id.get_debit);
-                } else if (constants.entered == 1 && constants.have_debit == 1 && constants.selected_key != 1) {
-                    constants.selected_key = 1;
-                    selector_debit.setVisibility(View.VISIBLE);
-                    selector_credit.setVisibility(View.INVISIBLE);
-                    selector_deposit.setVisibility(View.INVISIBLE);
-                    type_selected.setText("DEBIT CARD");
-                    selected_1.setText("Available");
-                    selected_2.setText("Cashback");
-                    selected_3.setVisibility(View.INVISIBLE);
-                    selected_num_3.setVisibility((View.INVISIBLE));
-                    card_id_selected.setVisibility(View.VISIBLE);
+                } else if (Helper.entered == 1 && Helper.haveDebit == 1 && Helper.selected_key != 1) {
+                    Helper.selected_key = 1;
+                    selectorDebit.setVisibility(View.VISIBLE);
+                    selectorCredit.setVisibility(View.INVISIBLE);
+                    selectorDeposit.setVisibility(View.INVISIBLE);
+                    typeSelected.setText("DEBIT CARD");
+                    available.setText("Available");
+                    debt.setText("Cashback");
+                    income.setVisibility(View.INVISIBLE);
+                    incomeSum.setVisibility((View.INVISIBLE));
+                    cardIdSelected.setVisibility(View.VISIBLE);
                     transfer.setVisibility(View.VISIBLE);
                     refill.setVisibility(View.VISIBLE);
                     withdrawal.setVisibility(View.VISIBLE);
@@ -290,28 +301,28 @@ public class home_fragment extends Fragment {
                     refill.setEnabled(true);
                     withdrawal.setEnabled(true);
 
-                    Cursor cursor = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEBIT);
+                    Cursor cursor = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
                     cursor.moveToFirst();
-                    String card_id = cursor.getString(1);
-                    String avalible = cursor.getString(3);
-                    String cashback = cursor.getString(4);
+                    String cardId = cursor.getString(Helper.billDbColumnNumber.get("bill_id"));
+                    String available = cursor.getString(Helper.billDbColumnNumber.get("balance"));
+                    String spentMoney = cursor.getString(Helper.billDbColumnNumber.get("spent_money"));
 
-                    selected_num_1.setText(avalible + "$");
-                    selected_num_2.setText(cashback + "$");
-                    card_id_selected.setText("Card id:" + card_id);
+                    availableSum.setText(available + "$");
+                    debtSum.setText(Double.parseDouble(spentMoney)/100 + "$");
+                    cardIdSelected.setText("Card id:" + cardId);
 
-                    constants.operation = "debit";
+                    Helper.selectedCardId = cardId;
 
-                } else if (constants.entered == 1 && constants.have_debit == 1 && constants.selected_key == 1) {
-                    constants.selected_key = 0;
-                    selector_debit.setVisibility(View.INVISIBLE);
-                    type_selected.setText("CURRENT ACCOUNT");
-                    selected_1.setText("Available");
-                    selected_2.setText("Debt");
-                    selected_3.setText("Income");
-                    selected_3.setVisibility(View.VISIBLE);
-                    selected_num_3.setVisibility((View.VISIBLE));
-                    card_id_selected.setVisibility(View.INVISIBLE);
+                } else if (Helper.entered == 1 && Helper.haveDebit == 1 && Helper.selected_key == 1) {
+                    Helper.selected_key = 0;
+                    selectorDebit.setVisibility(View.INVISIBLE);
+                    typeSelected.setText("CURRENT ACCOUNT");
+                    available.setText("Available");
+                    debt.setText("Debt");
+                    income.setText("Income");
+                    income.setVisibility(View.VISIBLE);
+                    incomeSum.setVisibility((View.VISIBLE));
+                    cardIdSelected.setVisibility(View.INVISIBLE);
                     transfer.setVisibility(View.INVISIBLE);
                     refill.setVisibility(View.INVISIBLE);
                     withdrawal.setVisibility(View.INVISIBLE);
@@ -319,46 +330,59 @@ public class home_fragment extends Fragment {
                     refill.setEnabled(false);
                     withdrawal.setEnabled(false);
 
-                    big_int global_available = new big_int(0);
-                    big_int global_debt = new big_int(0);
-                    big_int global_income = new big_int(0);
+                    double globalAvailable = 0.0;
+                    double globalDebt = 0.0;
+                    double globalIncome = 0.0;
 
-                    if (constants.have_debit == 1) {
-                        Cursor cursor_debit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEBIT);
-                        cursor_debit.moveToFirst();
+                    if (Helper.haveDebit == 1) {
+                        Cursor cursorDebit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
+                        cursorDebit.moveToFirst();
 
-                        big_int avalible1 = new big_int(cursor_debit.getString(3));
-                        big_int cashback = new big_int(cursor_debit.getString(4));
+                        double debitBalance = new Double(cursorDebit.getString(Helper.billDbColumnNumber.get("balance")));
+                        double spentMoney = new Double(cursorDebit.getString(Helper.billDbColumnNumber.get("spent_money")));
 
-                        global_available.operator_plus_equal(avalible1);
-                        global_income.operator_plus_equal(cashback);
+                        Bill bill = Helper.debitFactory.buildBill("", "", Double.toString(debitBalance));
+                        bill.setUniqueProperty(Double.toString(spentMoney));
+                        bill.update();
+
+
+                        globalAvailable += Double.parseDouble(bill.getCashSize());
+                        globalIncome += Double.parseDouble(bill.getUniqueProperty().getThird());
                     }
 
-                    if (constants.have_credit == 1) {
-                        Cursor cursor_credit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_CREDIT);
-                        cursor_credit.moveToFirst();
+                    if (Helper.haveCredit == 1) {
+                        Cursor cursorCredit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
+                        cursorCredit.moveToFirst();
 
-                        big_int avalible2 = new big_int(cursor_credit.getString(3));
-                        big_int debt = new big_int(cursor_credit.getString(4));
+                        double creditBalance = new Double(cursorCredit.getString(Helper.billDbColumnNumber.get("balance")));
+                        double debtFromDb = new Double(cursorCredit.getString(Helper.billDbColumnNumber.get("debt")));
 
-                        global_available.operator_plus_equal(avalible2);
-                        global_debt.operator_plus_equal(debt);
+                        Bill bill = Helper.debitFactory.buildBill("", "", Double.toString(creditBalance));
+                        bill.setUniqueProperty(Double.toString(debtFromDb));
+                        bill.update();
+
+                        globalAvailable += Double.parseDouble(bill.getCashSize());
+                        globalDebt += Double.parseDouble(bill.getUniqueProperty().getSecond());
                     }
 
-                    if (constants.have_deposit == 1) {
-                        Cursor cursor_deposit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEPOSIT);
-                        cursor_deposit.moveToFirst();
+                    if (Helper.haveDeposit == 1) {
+                        Cursor cursorDeposit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
+                        cursorDeposit.moveToFirst();
 
-                        big_int avalible3 = new big_int(cursor_deposit.getString(3));
-                        big_int income = new big_int(cursor_deposit.getString(4));
+                        double depositBalance = new Double(cursorDeposit.getString(Helper.billDbColumnNumber.get("balance")));
+                        double incomeFromDb = new Double(cursorDeposit.getString(Helper.billDbColumnNumber.get("percent")));
 
-                        global_available.operator_plus_equal(avalible3);
-                        global_income.operator_plus_equal(income);
+                        Bill bill = Helper.debitFactory.buildBill("", "", Double.toString(depositBalance));
+                        bill.setUniqueProperty(Double.toString(incomeFromDb));
+                        bill.update();
+
+                        globalAvailable += Double.parseDouble(bill.getCashSize());
+                        globalIncome += Double.parseDouble(bill.getUniqueProperty().getSecond());
                     }
 
-                    selected_num_1.setText(global_available.toString() + "$");
-                    selected_num_2.setText(global_debt.toString() + "$");
-                    selected_num_3.setText(global_income.toString() + "$");
+                    availableSum.setText(globalAvailable + "$");
+                    debtSum.setText(globalDebt + "$");
+                    incomeSum.setText(globalIncome + "$");
                 }
             }
         });
@@ -366,19 +390,19 @@ public class home_fragment extends Fragment {
         credit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (constants.entered == 1 && constants.have_credit == 0) {
+                if (Helper.entered == 1 && Helper.haveCredit == 0) {
                     Navigation.findNavController(view).navigate(R.id.getCredit);
-                } else if (constants.entered == 1 && constants.have_credit == 1 && constants.selected_key != 2) {
-                    constants.selected_key = 2;
-                    selector_debit.setVisibility(View.INVISIBLE);
-                    selector_credit.setVisibility(View.VISIBLE);
-                    selector_deposit.setVisibility(View.INVISIBLE);
-                    type_selected.setText("CREDIT CARD");
-                    selected_1.setText("Available");
-                    selected_2.setText("Debt");
-                    selected_3.setVisibility(View.INVISIBLE);
-                    selected_num_3.setVisibility((View.INVISIBLE));
-                    card_id_selected.setVisibility(View.VISIBLE);
+                } else if (Helper.entered == 1 && Helper.haveCredit == 1 && Helper.selected_key != 2) {
+                    Helper.selected_key = 2;
+                    selectorDebit.setVisibility(View.INVISIBLE);
+                    selectorCredit.setVisibility(View.VISIBLE);
+                    selectorDeposit.setVisibility(View.INVISIBLE);
+                    typeSelected.setText("CREDIT CARD");
+                    available.setText("Available");
+                    debt.setText("Debt");
+                    income.setVisibility(View.INVISIBLE);
+                    incomeSum.setVisibility((View.INVISIBLE));
+                    cardIdSelected.setVisibility(View.VISIBLE);
                     transfer.setVisibility(View.VISIBLE);
                     refill.setVisibility(View.VISIBLE);
                     withdrawal.setVisibility(View.VISIBLE);
@@ -386,74 +410,87 @@ public class home_fragment extends Fragment {
                     refill.setEnabled(true);
                     withdrawal.setEnabled(true);
 
-                    Cursor cursor = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_CREDIT);
+                    Cursor cursor = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
                     cursor.moveToFirst();
                     String card_id = cursor.getString(1);
                     String avalible = cursor.getString(3);
                     String debt = cursor.getString(4);
 
-                    selected_num_1.setText(avalible + "$");
-                    selected_num_2.setText(debt + "$");
-                    card_id_selected.setText("Card id: " + card_id);
+                    availableSum.setText(avalible + "$");
+                    debtSum.setText(debt + "$");
+                    cardIdSelected.setText("Card id: " + card_id);
 
-                    constants.operation = "credit";
+                    Helper.selectedCardId = card_id;
 
-                } else if (constants.entered == 1 && constants.have_credit == 1 && constants.selected_key == 2) {
-                    constants.selected_key = 0;
-                    selector_credit.setVisibility(View.INVISIBLE);
-                    type_selected.setText("CURRENT ACCOUNT");
-                    selected_1.setText("Available");
-                    selected_2.setText("Debt");
-                    selected_3.setText("Income");
-                    selected_3.setVisibility(View.VISIBLE);
-                    selected_num_3.setVisibility((View.VISIBLE));
-                    card_id_selected.setVisibility(View.INVISIBLE);
+                } else if (Helper.entered == 1 && Helper.haveCredit == 1 && Helper.selected_key == 2) {
+                    Helper.selected_key = 0;
+                    selectorCredit.setVisibility(View.INVISIBLE);
+                    typeSelected.setText("CURRENT ACCOUNT");
+                    available.setText("Available");
+                    debt.setText("Debt");
+                    income.setText("Income");
+                    income.setVisibility(View.VISIBLE);
+                    incomeSum.setVisibility((View.VISIBLE));
+                    cardIdSelected.setVisibility(View.INVISIBLE);
                     transfer.setVisibility(View.INVISIBLE);
                     refill.setVisibility(View.INVISIBLE);
                     withdrawal.setVisibility(View.INVISIBLE);
                     transfer.setEnabled(false);
                     refill.setEnabled(false);
                     withdrawal.setEnabled(false);
-                    big_int global_available = new big_int(0);
-                    big_int global_debt = new big_int(0);
-                    big_int global_income = new big_int(0);
+                    double globalAvailable = 0.0;
+                    double globalDebt = 0.0;
+                    double globalIncome = 0.0;
 
-                    if (constants.have_debit == 1) {
-                        Cursor cursor_debit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEBIT);
-                        cursor_debit.moveToFirst();
+                    if (Helper.haveDebit == 1) {
+                        Cursor cursorDebit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
+                        cursorDebit.moveToFirst();
 
-                        big_int avalible1 = new big_int(cursor_debit.getString(3));
-                        big_int cashback = new big_int(cursor_debit.getString(4));
+                        double debitBalance = new Double(cursorDebit.getString(Helper.billDbColumnNumber.get("balance")));
+                        double spentMoney = new Double(cursorDebit.getString(Helper.billDbColumnNumber.get("spent_money")));
 
-                        global_available.operator_plus_equal(avalible1);
-                        global_income.operator_plus_equal(cashback);
+                        Bill bill = Helper.debitFactory.buildBill("", "", Double.toString(debitBalance));
+                        bill.setUniqueProperty(Double.toString(spentMoney));
+                        bill.update();
+
+
+                        globalAvailable += Double.parseDouble(bill.getCashSize());
+                        globalIncome += Double.parseDouble(bill.getUniqueProperty().getThird());
                     }
 
-                    if (constants.have_credit == 1) {
-                        Cursor cursor_credit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_CREDIT);
-                        cursor_credit.moveToFirst();
+                    if (Helper.haveCredit == 1) {
+                        Cursor cursorCredit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
+                        cursorCredit.moveToFirst();
 
-                        big_int avalible2 = new big_int(cursor_credit.getString(3));
-                        big_int debt = new big_int(cursor_credit.getString(4));
+                        double creditBalance = new Double(cursorCredit.getString(Helper.billDbColumnNumber.get("balance")));
+                        double debtFromDb = new Double(cursorCredit.getString(Helper.billDbColumnNumber.get("debt")));
 
-                        global_available.operator_plus_equal(avalible2);
-                        global_debt.operator_plus_equal(debt);
+                        Bill bill = Helper.debitFactory.buildBill("", "", Double.toString(creditBalance));
+                        bill.setUniqueProperty(Double.toString(debtFromDb));
+                        bill.update();
+
+                        globalAvailable += Double.parseDouble(bill.getCashSize());
+                        globalDebt += Double.parseDouble(bill.getUniqueProperty().getSecond());
                     }
 
-                    if (constants.have_deposit == 1) {
-                        Cursor cursor_deposit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEPOSIT);
-                        cursor_deposit.moveToFirst();
+                    if (Helper.haveDeposit == 1) {
+                        Cursor cursorDeposit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
+                        cursorDeposit.moveToFirst();
 
-                        big_int avalible3 = new big_int(cursor_deposit.getString(3));
-                        big_int income = new big_int(cursor_deposit.getString(4));
+                        double depositBalance = new Double(cursorDeposit.getString(Helper.billDbColumnNumber.get("balance")));
+                        double incomeFromDb = new Double(cursorDeposit.getString(Helper.billDbColumnNumber.get("percent")));
 
-                        global_available.operator_plus_equal(avalible3);
-                        global_income.operator_plus_equal(income);
+                        Bill bill = Helper.debitFactory.buildBill("", "", Double.toString(depositBalance));
+                        bill.setUniqueProperty(Double.toString(incomeFromDb));
+                        bill.update();
+
+                        globalAvailable += Double.parseDouble(bill.getCashSize());
+                        globalIncome += Double.parseDouble(bill.getUniqueProperty().getSecond());
                     }
 
-                    selected_num_1.setText(global_available.toString() + "$");
-                    selected_num_2.setText(global_debt.toString() + "$");
-                    selected_num_3.setText(global_income.toString() + "$");
+                    availableSum.setText(globalAvailable + "$");
+                    debtSum.setText(globalDebt + "$");
+                    incomeSum.setText(globalIncome + "$");
                 }
             }
         });
@@ -461,19 +498,19 @@ public class home_fragment extends Fragment {
         deposit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (constants.entered == 1 && constants.have_deposit == 0) {
+                if (Helper.entered == 1 && Helper.haveDeposit == 0) {
                     Navigation.findNavController(view).navigate(R.id.getDeposit);
-                } else if (constants.entered == 1 && constants.have_deposit == 1 && constants.selected_key != 3) {
-                    constants.selected_key = 3;
-                    selector_debit.setVisibility(View.INVISIBLE);
-                    selector_credit.setVisibility(View.INVISIBLE);
-                    selector_deposit.setVisibility(View.VISIBLE);
-                    type_selected.setText("DEPOSIT CARD");
-                    selected_1.setText("Available");
-                    selected_2.setText("Income");
-                    selected_3.setVisibility(View.INVISIBLE);
-                    selected_num_3.setVisibility((View.INVISIBLE));
-                    card_id_selected.setVisibility(View.VISIBLE);
+                } else if (Helper.entered == 1 && Helper.haveDeposit == 1 && Helper.selected_key != 3) {
+                    Helper.selected_key = 3;
+                    selectorDebit.setVisibility(View.INVISIBLE);
+                    selectorCredit.setVisibility(View.INVISIBLE);
+                    selectorDeposit.setVisibility(View.VISIBLE);
+                    typeSelected.setText("DEPOSIT CARD");
+                    available.setText("Available");
+                    debt.setText("Income");
+                    income.setVisibility(View.INVISIBLE);
+                    incomeSum.setVisibility((View.INVISIBLE));
+                    cardIdSelected.setVisibility(View.VISIBLE);
                     transfer.setVisibility(View.VISIBLE);
                     refill.setVisibility(View.VISIBLE);
                     withdrawal.setVisibility(View.VISIBLE);
@@ -482,73 +519,86 @@ public class home_fragment extends Fragment {
                     withdrawal.setEnabled(true);
 
 
-                    Cursor cursor = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEPOSIT);
+                    Cursor cursor = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
                     cursor.moveToFirst();
-                    String card_id = cursor.getString(1);
-                    String avalible = cursor.getString(3);
-                    String income = cursor.getString(4);
+                    String cardId = cursor.getString(Helper.billDbColumnNumber.get("bill_id"));
+                    String available = cursor.getString(Helper.billDbColumnNumber.get("balance"));
+                    String income = cursor.getString(Helper.billDbColumnNumber.get("percent"));
 
-                    selected_num_1.setText(avalible + "$");
-                    selected_num_2.setText(income + "$");
-                    card_id_selected.setText("Card id: " + card_id);
+                    availableSum.setText(available + "$");
+                    debtSum.setText(income + "$");
+                    cardIdSelected.setText("Card id: " + cardId);
 
-                    constants.operation = "deposit";
-                } else if (constants.entered == 1 && constants.have_deposit == 1 && constants.selected_key == 3) {
-                    constants.selected_key = 0;
-                    selector_deposit.setVisibility(View.INVISIBLE);
-                    type_selected.setText("CURRENT ACCOUNT");
-                    selected_1.setText("Available");
-                    selected_2.setText("Debt");
-                    selected_3.setText("Income");
-                    selected_3.setVisibility(View.VISIBLE);
-                    selected_num_3.setVisibility((View.VISIBLE));
-                    card_id_selected.setVisibility(View.INVISIBLE);
+                    Helper.selectedCardId = cardId;
+                } else if (Helper.entered == 1 && Helper.haveDeposit == 1 && Helper.selected_key == 3) {
+                    Helper.selected_key = 0;
+                    selectorDeposit.setVisibility(View.INVISIBLE);
+                    typeSelected.setText("CURRENT ACCOUNT");
+                    available.setText("Available");
+                    debt.setText("Debt");
+                    income.setText("Income");
+                    income.setVisibility(View.VISIBLE);
+                    incomeSum.setVisibility((View.VISIBLE));
+                    cardIdSelected.setVisibility(View.INVISIBLE);
                     transfer.setVisibility(View.INVISIBLE);
                     refill.setVisibility(View.INVISIBLE);
                     withdrawal.setVisibility(View.INVISIBLE);
                     transfer.setEnabled(false);
                     refill.setEnabled(false);
                     withdrawal.setEnabled(false);
-                    big_int global_available = new big_int(0);
-                    big_int global_debt = new big_int(0);
-                    big_int global_income = new big_int(0);
+                    double globalAvailable = 0.0;
+                    double globalDebt = 0.0;
+                    double globalIncome = 0.0;
 
-                    if (constants.have_debit == 1) {
-                        Cursor cursor_debit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEBIT);
-                        cursor_debit.moveToFirst();
+                    if (Helper.haveDebit == 1) {
+                        Cursor cursorDebit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEBIT);
+                        cursorDebit.moveToFirst();
 
-                        big_int avalible1 = new big_int(cursor_debit.getString(3));
-                        big_int cashback = new big_int(cursor_debit.getString(4));
+                        double debitBalance = new Double(cursorDebit.getString(Helper.billDbColumnNumber.get("balance")));
+                        double spentMoney = new Double(cursorDebit.getString(Helper.billDbColumnNumber.get("spent_money")));
 
-                        global_available.operator_plus_equal(avalible1);
-                        global_income.operator_plus_equal(cashback);
+                        Bill bill = Helper.debitFactory.buildBill("", "", Double.toString(debitBalance));
+                        bill.setUniqueProperty(Double.toString(spentMoney));
+                        bill.update();
+
+
+                        globalAvailable += Double.parseDouble(bill.getCashSize());
+                        globalIncome += Double.parseDouble(bill.getUniqueProperty().getThird());
                     }
 
-                    if (constants.have_credit == 1) {
-                        Cursor cursor_credit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_CREDIT);
-                        cursor_credit.moveToFirst();
+                    if (Helper.haveCredit == 1) {
+                        Cursor cursorCredit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_CREDIT);
+                        cursorCredit.moveToFirst();
 
-                        big_int avalible2 = new big_int(cursor_credit.getString(3));
-                        big_int debt = new big_int(cursor_credit.getString(4));
+                        double creditBalance = new Double(cursorCredit.getString(Helper.billDbColumnNumber.get("balance")));
+                        double debtFromDb = new Double(cursorCredit.getString(Helper.billDbColumnNumber.get("debt")));
 
-                        global_available.operator_plus_equal(avalible2);
-                        global_debt.operator_plus_equal(debt);
+                        Bill bill = Helper.debitFactory.buildBill("", "", Double.toString(creditBalance));
+                        bill.setUniqueProperty(Double.toString(debtFromDb));
+                        bill.update();
+
+                        globalAvailable += Double.parseDouble(bill.getCashSize());
+                        globalDebt += Double.parseDouble(bill.getUniqueProperty().getSecond());
                     }
 
-                    if (constants.have_deposit == 1) {
-                        Cursor cursor_deposit = bdb.get_bill(constants.person.get_id(), constants.BILL_KIND_DEPOSIT);
-                        cursor_deposit.moveToFirst();
+                    if (Helper.haveDeposit == 1) {
+                        Cursor cursorDeposit = Helper.billsDB.getBill(Helper.adult.getID(), Helper.BILL_KIND_DEPOSIT);
+                        cursorDeposit.moveToFirst();
 
-                        big_int avalible3 = new big_int(cursor_deposit.getString(3));
-                        big_int income = new big_int(cursor_deposit.getString(4));
+                        double depositBalance = new Double(cursorDeposit.getString(Helper.billDbColumnNumber.get("balance")));
+                        double incomeFromDb = new Double(cursorDeposit.getString(Helper.billDbColumnNumber.get("percent")));
 
-                        global_available.operator_plus_equal(avalible3);
-                        global_income.operator_plus_equal(income);
+                        Bill bill = Helper.debitFactory.buildBill("", "", Double.toString(depositBalance));
+                        bill.setUniqueProperty(Double.toString(incomeFromDb));
+                        bill.update();
+
+                        globalAvailable += Double.parseDouble(bill.getCashSize());
+                        globalIncome += Double.parseDouble(bill.getUniqueProperty().getSecond());
                     }
 
-                    selected_num_1.setText(global_available.toString() + "$");
-                    selected_num_2.setText(global_debt.toString() + "$");
-                    selected_num_3.setText(global_income.toString() + "$");
+                    availableSum.setText(globalAvailable + "$");
+                    debtSum.setText(globalDebt + "$");
+                    incomeSum.setText(globalIncome + "$");
                 }
             }
         });

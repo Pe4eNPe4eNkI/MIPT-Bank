@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/pinCode2">
+
+
 
     <fragment
         android:id="@+id/navigation_home"
@@ -54,11 +56,11 @@
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" >
         <action
-            android:id="@+id/action_registration_to_navigation_notifications"
-            app:destination="@id/navigation_notifications" />
-        <action
             android:id="@+id/action_registration_to_account"
             app:destination="@id/account" />
+        <action
+            android:id="@+id/action_registration_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
     <fragment
         android:id="@+id/account"
@@ -71,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/refill2"
-        android:name="com.example.mipt_bank_app.layout_classes.refill"
+        android:name="com.example.mipt_bank_app.layout_classes.Refill"
         android:label="fragment_replenishment"
         tools:layout="@layout/fragment_refill" >
         <action
@@ -89,7 +91,7 @@
     </fragment>
     <fragment
         android:id="@+id/get_debit"
-        android:name="com.example.mipt_bank_app.layout_classes.get_debit"
+        android:name="com.example.mipt_bank_app.layout_classes.GetDebit"
         android:label="fragment_get_debit"
         tools:layout="@layout/fragment_get_debit" >
         <action
@@ -98,7 +100,7 @@
     </fragment>
     <fragment
         android:id="@+id/getCredit"
-        android:name="com.example.mipt_bank_app.layout_classes.get_credit"
+        android:name="com.example.mipt_bank_app.layout_classes.GetCredit"
         android:label="fragment_get_credit"
         tools:layout="@layout/fragment_get_credit" >
         <action
@@ -107,7 +109,7 @@
     </fragment>
     <fragment
         android:id="@+id/getDeposit"
-        android:name="com.example.mipt_bank_app.layout_classes.get_deposit"
+        android:name="com.example.mipt_bank_app.layout_classes.GetDeposit"
         android:label="fragment_get_deposit"
         tools:layout="@layout/fragment_get_deposit" >
         <action
@@ -116,11 +118,20 @@
     </fragment>
     <fragment
         android:id="@+id/withdrawal2"
-        android:name="com.example.mipt_bank_app.layout_classes.withdrawal"
+        android:name="com.example.mipt_bank_app.layout_classes.Withdrawal"
         android:label="fragment_withdrawal"
         tools:layout="@layout/fragment_withdrawal" >
         <action
             android:id="@+id/action_throwAway_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/pinCode2"
+        android:name="com.example.mipt_bank_app.layout_classes.PinCode"
+        android:label="fragment_pin_code"
+        tools:layout="@layout/fragment_pin_code" >
+        <action
+            android:id="@+id/action_pinCode2_to_navigation_home"
             app:destination="@id/navigation_home" />
     </fragment>
 </navigation>

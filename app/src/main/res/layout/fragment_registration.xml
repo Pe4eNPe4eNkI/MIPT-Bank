@@ -8,8 +8,6 @@
 
 
     <EditText
-        android:theme="@style/Based_enter"
-        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/sign_up_surname"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -18,11 +16,13 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/no_angles_text_view"
         android:hint="Surname"
-        android:maxLines="1"
         android:inputType="textPersonName"
+        android:maxLines="1"
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
+        android:textCursorDrawable="@drawable/cursor"
         android:textSize="20sp"
+        android:theme="@style/Based_enter"
         app:layout_constraintBottom_toTopOf="@+id/sign_up_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -132,8 +132,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:theme="@style/Based_enter"
-        android:textCursorDrawable="@drawable/cursor"
         android:id="@+id/sign_up_password2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -142,13 +140,36 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/no_angles_text_view"
         android:hint="Password"
-        android:maxLines="1"
         android:inputType="textPassword"
+        android:maxLines="1"
         android:textColor="@color/light_gray"
         android:textColorHint="@color/light_gray"
+        android:textCursorDrawable="@drawable/cursor"
         android:textSize="20sp"
+        android:theme="@style/Based_enter"
+        app:layout_constraintBottom_toTopOf="@+id/sign_up_pincode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/sign_up_pincode"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/no_angles_text_view"
+        android:hint="Pincode"
+        android:inputType="number"
+        android:maxLines="1"
+        android:textColor="@color/light_gray"
+        android:textColorHint="@color/light_gray"
+        android:textCursorDrawable="@drawable/cursor"
+        android:textSize="20sp"
+        android:theme="@style/Based_enter"
         app:layout_constraintBottom_toTopOf="@+id/sign_up_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -172,7 +193,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"
-        android:layout_marginBottom="130dp"
+        android:layout_marginBottom="100dp"
         android:background="@drawable/no_angles_button"
         android:fontFamily="@font/jost_medium"
         android:text="Confirm"
