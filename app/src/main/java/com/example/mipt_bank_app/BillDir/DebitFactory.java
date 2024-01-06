@@ -1,4 +1,4 @@
-package com.example.mipt_bank_app.bill;
+package com.example.mipt_bank_app.BillDir;
 
 public class DebitFactory extends BillFactory{
     @Override

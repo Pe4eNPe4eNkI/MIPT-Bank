@@ -5,10 +5,10 @@ import androidx.fragment.app.Fragment;
 import com.example.mipt_bank_app.Person.Adult;
 import com.example.mipt_bank_app.Person.PersonDB;
 import com.example.mipt_bank_app.StringHash.StringHash;
-import com.example.mipt_bank_app.bill.BillDB;
-import com.example.mipt_bank_app.bill.CreditFactory;
-import com.example.mipt_bank_app.bill.DebitFactory;
-import com.example.mipt_bank_app.bill.DepositFactory;
+import com.example.mipt_bank_app.BillDir.BillDB;
+import com.example.mipt_bank_app.BillDir.CreditFactory;
+import com.example.mipt_bank_app.BillDir.DebitFactory;
+import com.example.mipt_bank_app.BillDir.DepositFactory;
 import com.example.mipt_bank_app.operations.OperationDB;
 
 import java.util.HashMap;

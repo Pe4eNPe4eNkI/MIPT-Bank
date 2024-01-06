@@ -1,12 +1,12 @@
-package com.example.mipt_bank_app.bill;
+package com.example.mipt_bank_app.BillDir;
 
 
-import android.util.Pair;
 import com.example.mipt_bank_app.Helper;
 
 import kotlin.Triple;
 
 public class Credit extends Bill {
+
 
     public Credit(String maxBalance_) {
         billKind = Helper.BILL_KIND_CREDIT;
@@ -62,7 +62,7 @@ public class Credit extends Bill {
 
     @Override
     public void update() {
-        if (Double.parseDouble(maxBalance) - Double.parseDouble(cashSize) >= 0) {
+        if (cashSize != null && Double.parseDouble(maxBalance) - Double.parseDouble(cashSize) >= 0) {
             debt = new Double(Double.parseDouble(maxBalance) - Double.parseDouble(cashSize)).toString();
         }
     }

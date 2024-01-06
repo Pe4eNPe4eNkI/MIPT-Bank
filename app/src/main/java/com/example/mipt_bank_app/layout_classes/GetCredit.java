@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.bill.Credit;
+import com.example.mipt_bank_app.BillDir.Credit;
 import com.example.mipt_bank_app.Helper;
 
 public class GetCredit extends Fragment {

@@ -2,9 +2,8 @@ package com.example.mipt_bank_app.operations;
 
 
 import android.database.Cursor;
-import android.widget.Toast;
 
-import com.example.mipt_bank_app.bill.Bill;
+import com.example.mipt_bank_app.BillDir.Bill;
 import com.example.mipt_bank_app.Helper;
 
 public class RefillOperation extends EasyMoneyOperation {

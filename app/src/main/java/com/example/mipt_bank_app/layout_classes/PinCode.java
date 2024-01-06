@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.PinCodeDB;
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.bill.BillDB;
+import com.example.mipt_bank_app.BillDir.BillDB;
 import com.example.mipt_bank_app.operations.OperationDB;
 import com.example.mipt_bank_app.Person.Adult;
 import com.example.mipt_bank_app.Person.AdultBuilder;

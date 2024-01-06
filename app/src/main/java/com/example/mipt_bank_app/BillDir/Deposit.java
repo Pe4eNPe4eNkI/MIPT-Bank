@@ -1,7 +1,5 @@
-package com.example.mipt_bank_app.bill;
+package com.example.mipt_bank_app.BillDir;
 
-
-import android.util.Pair;
 
 import com.example.mipt_bank_app.Helper;
 

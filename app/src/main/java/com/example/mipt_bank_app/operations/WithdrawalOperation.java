@@ -4,7 +4,7 @@ package com.example.mipt_bank_app.operations;
 import android.database.Cursor;
 
 import com.example.mipt_bank_app.Helper;
-import com.example.mipt_bank_app.bill.Bill;
+import com.example.mipt_bank_app.BillDir.Bill;
 
 public class WithdrawalOperation extends EasyMoneyOperation {
 
@@ -55,7 +55,7 @@ public class WithdrawalOperation extends EasyMoneyOperation {
 
         double withdrawalSumDouble = Double.parseDouble(widthSum);
         double userBalanceDouble = Double.parseDouble(balanceFromDB);
-        if (withdrawalSumDouble > 0 && userBalanceDouble - withdrawalSumDouble > 0) {
+        if (withdrawalSumDouble > 0 && userBalanceDouble - withdrawalSumDouble >= 0) {
             if (flag) {
                 if (withdrawalSumDouble < Helper.money_limit) {
                     doWithdrawal(userBalanceDouble, withdrawalSumDouble, billIdFromDB, personId, billKind, debt);

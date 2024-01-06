@@ -1,7 +1,6 @@
-package com.example.mipt_bank_app.bill;
+package com.example.mipt_bank_app.BillDir;
 
 
-import com.example.mipt_bank_app.Helper;
 /**Abstract class Bill factory*/
 abstract class BillFactory {
 

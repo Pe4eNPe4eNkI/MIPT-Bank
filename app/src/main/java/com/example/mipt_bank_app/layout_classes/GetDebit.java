@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.bill.Debit;
+import com.example.mipt_bank_app.BillDir.Debit;
 import com.example.mipt_bank_app.Helper;
 
 public class GetDebit extends Fragment {

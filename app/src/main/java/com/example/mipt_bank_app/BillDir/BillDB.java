@@ -1,4 +1,4 @@
-package com.example.mipt_bank_app.bill;
+package com.example.mipt_bank_app.BillDir;
 
 import android.content.ContentValues;
 import android.content.Context;

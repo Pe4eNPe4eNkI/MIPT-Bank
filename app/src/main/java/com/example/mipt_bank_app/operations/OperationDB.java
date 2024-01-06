@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.mipt_bank_app.Helper;
-import com.example.mipt_bank_app.bill.Bill;
+import com.example.mipt_bank_app.BillDir.Bill;
 
 import kotlin.Triple;
 

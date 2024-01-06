@@ -18,7 +18,7 @@ import androidx.navigation.Navigation;
 
 import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.bill.Bill;
+import com.example.mipt_bank_app.BillDir.Bill;
 import com.example.mipt_bank_app.databinding.FragmentHomeBinding;
 
 public class home_fragment extends Fragment {
