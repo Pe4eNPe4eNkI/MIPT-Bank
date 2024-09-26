@@ -12,25 +12,25 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.mipt_bank_app.Helper;
 import com.example.mipt_bank_app.R;
-import com.example.mipt_bank_app.bill.bills_db;
 import com.example.mipt_bank_app.databinding.FragmentDashboardBinding;
-import com.example.mipt_bank_app.constants;
-import com.example.mipt_bank_app.operations.i_easy_money_operation;
-import com.example.mipt_bank_app.operations.i_ne_easy_money_operation;
-import com.example.mipt_bank_app.operations.operation_db;
-import com.example.mipt_bank_app.person.person_db;
-import com.example.mipt_bank_app.operations.refill_operation;
+import com.example.mipt_bank_app.operations.EasyMoneyOperation;
+import com.example.mipt_bank_app.operations.NotEasyMoneyOperation;
+import com.example.mipt_bank_app.operations.RefillOperation;
+import com.example.mipt_bank_app.operations.WithdrawalOperation;
 import com.example.mipt_bank_app.operations.transfer_operation;
-import com.example.mipt_bank_app.operations.withdrawal_operation;
 
 import java.util.ArrayList;
+
+import kotlin.Triple;
 
 public class dashboard_fragment extends Fragment {
 
@@ -53,13 +53,13 @@ public class dashboard_fragment extends Fragment {
         ListView history_list = (ListView) getView().findViewById(R.id.history);
         TextView text_hist = (TextView) getView().findViewById(R.id.textView_his);
 
-        if (constants.entered == 1) {
+        if (Helper.entered == 1) {
             history_list.setVisibility(View.VISIBLE);
             text_hist.setText("History of your operations");
             ArrayList<history_item> historyItems = new ArrayList<history_item>();
 
-            if (find_operations(constants.person.get_id()) != null) {
-                historyItems = find_operations(constants.person.get_id());
+            if (find_operations(Helper.adult.getID()) != null) {
+                historyItems = find_operations(Helper.adult.getID());
             }
 
 
@@ -84,23 +84,20 @@ public class dashboard_fragment extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int j) {
                             String type = finalHistoryItems.get(i).getType();
-                            String oper_id = finalHistoryItems.get(i).getOperationId();
-                            operation_db odb = new operation_db(getContext());
-                            bills_db bdb = new bills_db(getContext());
-                            person_db pdb = new person_db(getContext());
-                            i_easy_money_operation easy_oper = null;
-                            i_ne_easy_money_operation ne_easy_oper = null;
+                            String operationId = finalHistoryItems.get(i).getOperationId();
+                            EasyMoneyOperation easy_oper = null;
+                            NotEasyMoneyOperation ne_easy_oper = null;
 
                             String sub_type = type.substring(0, type.length() - 1);
 
-                            if (sub_type.equals(constants.REFIL)) {
-                                easy_oper = new refill_operation(bdb, pdb, odb);
-                            } else if (sub_type.equals(constants.WITHDRAWAL)) {
-                                easy_oper = new withdrawal_operation(bdb, pdb, odb);
-                            } else if (sub_type.equals(constants.TRANSFER)) {
-                                ne_easy_oper = new transfer_operation(bdb, pdb, odb);
+                            if (sub_type.equals(Helper.REFIL)) {
+                                easy_oper = new RefillOperation();
+                            } else if (sub_type.equals(Helper.WITHDRAWAL)) {
+                                easy_oper = new WithdrawalOperation();
+                            } else if (sub_type.equals(Helper.TRANSFER)) {
+                                ne_easy_oper = new transfer_operation();
                             }
-                            Cursor cursor = odb.find_bill(oper_id);
+                            Cursor cursor = Helper.operationDB.find_bill(operationId);
                             cursor.moveToFirst();
                             String sender_card_id = cursor.getString(0);
                             String reciver_card_id = cursor.getString(1);
@@ -110,22 +107,15 @@ public class dashboard_fragment extends Fragment {
                             String operation_type = cursor.getString(5);
 
                             if (!sender_card_id.equals("")) {
-                                Cursor cursor1 = bdb.get_bill(sender_card_id);
+                                Cursor cursor1 = Helper.billsDB.getBill(sender_card_id);
                                 cursor1.moveToFirst();
                                 String card_type2 = cursor1.getString(0);
                                 if (ne_easy_oper != null) {
                                     ne_easy_oper.cancelTransferOperation(sender_card_id, reciver_card_id, sum, card_type2);
                                 }
-                            } else {
-                                Cursor cursor1 = bdb.get_bill(reciver_id);
-                                cursor1.moveToFirst();
-                                String card_type = cursor1.getString(0);
-                                if (easy_oper != null) {
-                                    easy_oper.cancelOperation(reciver_id, sum, card_type);
-                                }
                             }
 
-                            odb.deleteData(oper_id);
+                            Helper.operationDB.deleteData(operationId);
                             finalHistoryItems.remove(i);
                             adapter_h.notifyDataSetChanged();
                         }
@@ -145,23 +135,33 @@ public class dashboard_fragment extends Fragment {
     }
 
     public ArrayList<history_item> find_operations(String id) {
-        operation_db odb = new operation_db(getContext());
         ArrayList<history_item> temp = new ArrayList<history_item>();
-        Cursor cursor = odb.getOperations(constants.person.get_id());
+        Triple<Cursor, Cursor, Cursor> cursors = null;
+        try {
+            cursors = Helper.operationDB.getOperations(id);
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Ничего не найдено", Toast.LENGTH_SHORT).show();
+        }
+        getFromCursorData(temp, cursors.getFirst());
+        getFromCursorData(temp, cursors.getSecond());
+        getFromCursorData(temp, cursors.getThird());
+
+        return temp;
+    }
+
+    private void getFromCursorData(ArrayList<history_item> temp, Cursor cursor) {
         if (cursor != null) {
             cursor.moveToFirst();
             do {
-                String card_id = cursor.getString(0);
-                String sum = cursor.getString(2);
-                String operation_type = cursor.getString(5);
-                String operation_id = cursor.getString(6);
+                String card_id = cursor.getString(Helper.operationDbColumnNumber.get("card_id_sender"));
+                String sum = cursor.getString(Helper.operationDbColumnNumber.get("sum"));
+                String operation_type = cursor.getString(Helper.operationDbColumnNumber.get("operation_type"));
+                String operation_id = cursor.getString(Helper.operationDbColumnNumber.get("operation_id"));
 
                 temp.add(new history_item(operation_type + "\n", sum, "id: " + operation_id, operation_id));
-                constants.oper_counter += 1;
+                Helper.operationsCounter += 1;
             } while (cursor.moveToNext());
-            return temp;
         }
-        return null;
     }
 
     @Override
